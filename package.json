@@ -3,7 +3,7 @@
   "title": "Dark GitHub",
   "version": "1.0.0-rc.5",
   "license": "MIT",
-  "repository": "vednoc/Dark-GitHub",
+  "repository": "style-it-themes/dark-github",
   "private": true,
   "engines": {
     "node": ">=12"
@@ -14,10 +14,10 @@
     "eclint": "^2.8.1"
   },
   "scripts": {
-    "patch": "versions -p -C patch github.user.styl",
-    "minor": "versions -p -C minor github.user.styl",
-    "major": "versions -p -C major github.user.styl",
-    "lintfix": "eclint fix github.user.styl",
+    "patch": "versions -p -C patch dark-github.user.styl",
+    "minor": "versions -p -C minor dark-github.user.styl",
+    "major": "versions -p -C major dark-github.user.styl",
+    "lintfix": "eclint fix dark-github.user.styl",
     "update": "updates -cuU && npm install"
   }
 }
