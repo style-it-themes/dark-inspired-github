@@ -3593,25 +3593,26 @@ bs() { box-shadow: arguments }
 
         img, img.asset { c: 0 bg1 }
 
-        /// Rich diff -> Border/text colors.
+        // Rich diff -> Border/text colors.
         .deleted-frame { c: 0 v15; &::before { c: v16 }}
         .added-frame { c: 0 v45; &::before { c: v46 }}
         .shell p { c: v96 }
 
         if (dark(BG)) {
-            /// Rich diff -> Invert controls.
+            // Rich diff -> Invert controls.
             .swipe .swipe-bar,
             .onion-skin .controls > * {
                 filter: invert(0.95) brightness(150%)
             }
 
-            /// OpenStreetMap.
+            // OpenStreetMap.
             .leaflet {
                 &-bar, &-control-layers { c: 0 fg1 }
                 &-bar > a:last-child { border-bottom: none }
                 &-container { filter: invert(0.95) hue-rotate(180deg) brightness(120%) }
                 &-popup-content { overflow-y: auto }
                 &-marker-icon { filter: invert(1) grayscale(1) brightness(130%) }
+                &-control.mapbox-logo { filter: invert(.5) }
             }
         }
 
@@ -3626,7 +3627,7 @@ bs() { box-shadow: arguments }
         }
     }
 
-    /// ipynb e.g. https://github.com/lekhovitsky/CS364A/blob/notebooks/exercises/e1.ipynb
+    // ipynb e.g. https://github.com/lekhovitsky/CS364A/blob/notebooks/exercises/e1.ipynb
     div {
         .text_cell_render { color: var(--color-text-secondary) }
 
@@ -3774,6 +3775,7 @@ bs() { box-shadow: arguments }
         background: linear-gradient(-70deg, v65, v75)
         background-clip: text
     }
+
     /img {
         &[src*='sponsors-hero'], &[src*='invest-dependency-bg'] {
             filter: invert(.95) hue-rotate(180deg) brightness(1.5)
@@ -3783,6 +3785,7 @@ bs() { box-shadow: arguments }
             filter: invert(.90) hue-rotate(180deg) brightness(1.5)
             mix-blend-mode: lighten }
     }
+
     [style*='sponsors-invest-glow'] {
         opacity: .5 i
         mix-blend-mode: exclusion
@@ -3846,11 +3849,14 @@ bs() { box-shadow: arguments }
         &Background-buffer { background: bg1 }
         &Body {
             background-color: bg1
+
             .bg-white[style*="background-image"] { c: 0 0 bg2 }
+
             /img[src*="icon-marketplace"] {
                 filter: grayscale(1) invert(0.95) brightness(1.5)
            }
         }
+
         &Background-recommendations {
             /img[src*="marketplace-illustration"] {
                 filter: invert(0.95) hue-rotate(180deg) brightness(1.5) grayscale(1)
