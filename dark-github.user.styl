@@ -989,6 +989,12 @@ bs() { box-shadow: arguments }
             // e.g https://github.com/login/oauth/authorize?client_id=c602a8bd54b1e774f864&scope=repo
             &.bg-gray-light {--color-bg-secondary: bg1 }
 
+            // Unicorn page -> taking too long to load (no css vars)
+            background-color: bg1
+            color: v98
+
+            p, #suggestions a { color: v98 }
+
             // Feat -> UI font.
             if custom_font {
                 &, /.markdown-body {
@@ -3584,6 +3590,7 @@ bs() { box-shadow: arguments }
             background-image: none
             c: 0 0 bg1
         }
+
         img, img.asset { c: 0 bg1 }
 
         /// Rich diff -> Border/text colors.
