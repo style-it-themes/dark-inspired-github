@@ -3883,17 +3883,16 @@ bs() { box-shadow: arguments }
 }
 @-moz-document regexp('https?://github.com/(explore|topics|trending|collections|events|sponsors|team)(/.*)?') {
     // https://github.com/(various)
-    .btn {
-        &-mktg {
-            background-color: v08
-            border: 1px solid v08
+    .btn-mktg {
+        background-color: v08
+        border: 1px solid v08
+        color: v99
+        transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)
+
+        &:hover {
+            background-color: v09
+            border: 1px solid v09
             color: v99
-            transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)
-            &:hover {
-                background-color: v09
-                border: 1px solid v09
-                color: v99
-            }
         }
     }
 
