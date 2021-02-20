@@ -10,7 +10,8 @@
 @license      MIT
 @preprocessor stylus
 
-@var select   cg_theme      'Base color-scheme toggle' {
+@var checkbox show_gh_tab   'Show GitHub appearance tab  ' 0
+@var select   cg_theme      'Base color-scheme toggle    ' {
     'Custom colors   *' :   'custom-style',
     'Cobalt           ' :   'cobalt',
     'Material         ' :   'material',
@@ -1022,6 +1023,13 @@ bs() { box-shadow: arguments }
                 &-track { background: bg2 }
                 &-thumb { background: v04 }
             }
+        }
+
+        // Feat -> allow disabling appearance tab
+        if (!(show_gh_tab)) {
+          .menu-item[data-selected-links=" /settings/appearance"] {
+            display: none i
+          }
         }
 
         // Skeleton.
