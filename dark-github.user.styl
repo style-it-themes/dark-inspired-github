@@ -1330,14 +1330,9 @@ bs() { box-shadow: arguments }
         a {
             &:hover { color: var(--color-text-white) i }
         }
-        &[open] {
-            .CheckStep-header {
-                color: var(--color-text-white)
-                background-color: var(--color-hidden-text-expander-bg)
-                box-shadow: none
-                &-label { color: var(--color-text-white) }
-            }
-        }
+
+        .CheckStep-error-text { --color-auto-red-3: v15 }
+
         &-line {
             color: var(--color-diff-blob-num-text)
 
@@ -1356,30 +1351,55 @@ bs() { box-shadow: arguments }
                 .CheckStep-line-number { color: var(--color-diff-blob-num-text) }
             }
         }
-        & .log-line-command {
+
+        .log-line-command {
             color: var(--color-auto-blue-7)
 
             .CheckStep-line-number { color: var(--color-auto-blue-7) }
         }
+
+        .log-line-error {
+            background-color: v11
+
+            .CheckStep-line-number { --color-auto-red-3: v15 }
+            .CheckStep-line-content { --color-auto-gray-2: v95 }
+        }
+
         &-header {
-            background-color: var(--color-hidden-text-expander-bg)
+            background-color: bg2
             box-shadow: none
 
             &:hover {
-                background-color: var(--color-hidden-text-expander-bg-hover) i
+                background-color: bg3
                 box-shadow: none
             }
 
             &-label { color: v97 }
 
-            &-dropdown:hover {
-                color: var(--color-text-tertiary)
-                background-color: var(--color-bg-secondary) i
+            &-dropdown {
+                background-color: bg2 i
+                color: v99
 
-                .octicon { color: var(--color-text-primary) i }
+                &:hover {
+                    color: var(--color-text-tertiary)
+                    background-color: bg3 i
+
+                    .octicon { color: var(--color-text-primary) i }
+                }
+            }
+        }
+
+        &[open] {
+            .CheckStep-header {
+                color: var(--color-text-white)
+                background-color: bg3
+                box-shadow: none
+
+                &-label { color: var(--color-text-primary) }
             }
         }
     }
+
     .CheckRun {
         background-color: var(--color-bg-primary)
 
@@ -1392,26 +1412,32 @@ bs() { box-shadow: arguments }
                     &:focus { color: var(--color-text-primary) }
                 }
             }
+
             &-counter {
                 color: var(--color-text-secondary)
                 background-color: var(--color-counter-bg)
             }
         }
+
         &-log-title { color: v96 }
+
         &-header {
-            background-color: var(--color-bg-primary) i
+            background-color: var(--color-bg-primary)
             border-top: 1px solid var(--color-border-primary)
 
             .btn-link {
                 &:not([disabled]) {
                     color: var(--color-text-secondary)
+
                     &:hover {
                         background-color: v01
                         color: v98
                     }
+
                     .octicon { color: var(--color-text-primary) }
                 }
             }
+
             .btn .btn-link {
                 &:not([disabled]) {
                     color: var(--color-text-tertiary)
@@ -1420,8 +1446,14 @@ bs() { box-shadow: arguments }
                 }
             }
         }
-        &-search details[open] .octicon { c: v95 0 0 }
+        &-search details[open] .CheckStep-header-dropdown {
+            background-color: bg3 i
+            color: v99
+
+            .octicon { c: v98 0 0 }
+        }
     }
+
     .checks-list-item.bg-white { c: 0 0 var(--color-bg-secondary) }
 
     .actions-fullwidth-module.color-bg-tertiary { --color-bg-tertiary: bg0 }
