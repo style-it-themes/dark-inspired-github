@@ -1,4 +1,4 @@
-p align="center">
+<p align="center">
   <img alt="style-it-themes-logo" src="https://raw.githack.com/style-it-themes/style-it-themes-logos/master/style-it-themes-logo-full.svg" width="580">
 </p>
 <br>
