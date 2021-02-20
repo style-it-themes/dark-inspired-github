@@ -2008,6 +2008,22 @@ bs() { box-shadow: arguments }
         }
     }
 
+    // Feat tab/indent size
+    if (tab_size) {
+        body pre, .highlight, .diff-table, .tab-size {
+           tab-size: tab_size i
+           -moz-tab-size: tab_size i
+        }
+        .cm-tab {
+            width: tab_size ch
+            overflow: hidden i
+        }
+        // hide GH indent size when editing files via browser
+        select[id="indent-size"] {
+            display: none i
+        }
+    }
+
     // make optional truncate at higher or set width.
     // e.g. https://github.com/Gitoffthelawn?tab=overview&from=2020-10-01&to=2020-10-31
     .TimelineItem {
