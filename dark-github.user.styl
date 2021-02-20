@@ -2346,52 +2346,64 @@ bs() { box-shadow: arguments }
             .branch-name { border: 1px solid bg5 }
         }
 
-        // Syntax highlighting.
+        // Syntax highlighting keep it; some subdomains use it
         .pl- {
-            &c { color: v95 } //#6a737d
-            &corl { color: var(--color-prettylights-syntax-string)}
-            &c1, &s &v { color: var(--color-prettylights-syntax-constant)} //#005cc5
-            &e, &en, &mdr { color: var(--color-prettylights-syntax-entity)} //#6f42c1
-            &ent { color: var(--color-prettylights-syntax-entity-tag)} //#22863a
-            &s &s1, &smi, &mb { color: var(--color-prettylights-syntax-storage-modifier-import)} //#24292e
-            &mi { color: v99 }
-            &mh, &mh &en, &ms { color: var(--color-prettylights-syntax-constant)}
-            &k { color: var(--color-prettylights-syntax-keyword)} //#d73a49
+            &c { color: var(--color-prettylights-syntax-comment) }
+            &corl { color: var(--color-prettylights-syntax-string) }
+            &c1 { color: var(--color-prettylights-syntax-constant) }
+            &s &v { color: var(--color-prettylights-syntax-variable) }
+            &e, &en { color: var(--color-prettylights-syntax-entity) }
+            &mdr { color: var(--color-prettylights-syntax-meta-diff-range) }
+            &ent { color: var(--color-prettylights-syntax-entity-tag) }
+            &s &s1, &smi { color: var(--color-prettylights-syntax-storage-modifier-import) }
+            &mb { color: var(--color-prettylights-syntax-markup-bold) }
+            &mi { color: var(--color-prettylights-syntax-markup-italic) }
+            &mh, &mh &en, &ms { color: var(--color-prettylights-syntax-constant) }
+            &k { color: var(--color-prettylights-syntax-keyword) }
+            // &c1 .pl-k - hack around to make this look better
+            &c1 .pl-k { color: var(--color-prettylights-syntax-constant) }
             &pds, &s, &s &pse &s1, &sr,
-            &sr &cce, &sr &sra, &sr &sre { color: var(--color-prettylights-syntax-string) } //#032f62
-            &smw, &v { color: var(--color-prettylights-syntax-variable) } //#e36209
-            &bu { color: var(--color-prettylights-syntax-carriage-return-bg) } //#b31d28
+            &sr &cce, &sr &sra, &sr &sre { color: var(--color-prettylights-syntax-string) }
+            &smw, &v { color: var(--color-prettylights-syntax-variable) }
+            &bu { color: var(--color-prettylights-syntax-carriage-return-bg) }
             &ii {
-                color: var(--color-prettylights-syntax-invalid-illegal-text) //#fafbfc
-                background-color: var(--color-prettylights-syntax-invalid-illegal-bg) //#b31d28
+                color: var(--color-prettylights-syntax-invalid-illegal-text)
+                background-color: var(--color-prettylights-syntax-invalid-illegal-bg)
+                //pading removes empty space between
+                padding: 3px 2px 3px 2px
             }
             &c2 {
-                color: var(--color-prettylights-syntax-carriage-return-text) //#fafbfc
-                background-color: var(--color-prettylights-syntax-carriage-return-bg) //#d73a49
+                color: var(--color-prettylights-syntax-carriage-return-text)
+                background-color: var(--color-prettylights-syntax-carriage-return-bg)
+                padding: 3px 2px 3px 2px
             }
             &sr &cce { color: var(--color-prettylights-syntax-variable) }
-            &ml { color: var(--color-prettylights-syntax-markup-list) } //#735c0f
+            &ml { color: var(--color-prettylights-syntax-markup-list) }
             &md {
-                color: var(--color-prettylights-syntax-markup-deleted-text) //#b31d28
-                background-color: var(--color-prettylights-syntax-markup-deleted-bg) //#ffeef0
+                color: var(--color-prettylights-syntax-markup-deleted-text)
+                background-color: var(--color-prettylights-syntax-markup-deleted-bg)
+                padding: 3px 2px 3px 2px
             }
             &mi1 {
-                color: var(--color-prettylights-syntax-markup-inserted-text) //#22863a
-                background-color: var(--color-prettylights-syntax-markup-inserted-bg) //#f0fff4
+                color: var(--color-prettylights-syntax-markup-inserted-text)
+                background-color: var(--color-prettylights-syntax-markup-inserted-bg)
+                padding: 3px 2px 3px 2px
             }
             &mc {
-                color: var(--color-prettylights-syntax-markup-changed-text) //#e36209
-                background-color: var(--color-prettylights-syntax-markup-changed-bg) //#ffebda
+                color: var(--color-prettylights-syntax-markup-changed-text)
+                background-color: var(--color-prettylights-syntax-markup-changed-bg)
+                padding: 3px 2px 3px 2px
             }
             &mi2 {
-                color: var(--color-prettylights-syntax-markup-ignored-text) //#f6f8fa;
-                background-color: var(--color-prettylights-syntax-markup-ignored-bg) //#005cc5
+                color: var(--color-prettylights-syntax-markup-ignored-text)
+                background-color: var(--color-prettylights-syntax-markup-ignored-bg)
+                padding: 3px 2px 3px 2px
             }
-            &ba { color: var(--color-prettylights-syntax-brackethighlighter-angle)} //#586069
-            &sg { color: var(--color-prettylights-syntax-sublimelinter-gutter-mark)} //#959da5
-            /// https://github.com/VChet/StyleBase/blob/master/server.js
+            &ba { color: var(--color-prettylights-syntax-brackethighlighter-angle)}
+            &sg { color: var(--color-prettylights-syntax-sublimelinter-gutter-mark)}
+            // https://github.com/VChet/StyleBase/blob/master/server.js
             &token {
-                &.active, &:hover { background: var(--color-prettylights-syntax-markup-italic)}
+                &.active, &:hover { background: var(--color-prettylights-syntax-markup-changed-bg)}
             }
             &kos { color: var(--color-prettylights-syntax-markup-italic)}
         }
