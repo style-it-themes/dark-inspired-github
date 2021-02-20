@@ -2052,6 +2052,10 @@ bs() { box-shadow: arguments }
         }
         // remove margin above codemirror
         .file-header.mb-2 { margin-bottom: 0 i }
+        // remove top margin when in edit mode
+        .commit-create .CodeMirror-scroll {
+            margin-top: -8px
+        }
 
         img[src*="actions"] {
             filter: grayscale(1) invert(0.95) brightness(1.5)
