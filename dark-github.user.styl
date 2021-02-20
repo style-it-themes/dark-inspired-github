@@ -1239,6 +1239,9 @@ bs() { box-shadow: arguments }
         }
     }
 
+    // fix li margin e.g. https://github.com/the-j0k3r/stylus/pull/172/commits/a6748748614f2d5a09b22cfdc9fae0d97d2e1f45
+    .js-branches-list li.branch { margin-left: 12px }
+
     // Fix border-color (not using css vars upstream) https://github.com/settings/keys
     .user-key {
         &-email, &-badge { border-color: bg5 }
