@@ -1526,6 +1526,15 @@ bs() { box-shadow: arguments }
             box-shadow: 0 0 10px v06
         }
 
+        // restyle progress bg
+        .Progress, .progress-bar { --color-auto-gray-2: bg4 }
+
+        // Check list progress tweaks
+        .task-progress .progress-bar {
+            --color-auto-gray-3: bg5
+            .progress { --color-auto-gray-4: v09 }
+        }
+
         // Flash only blue to accent color
         .flash:not([class*="-warn"]):not([class*="-error"]):not([class*="-info"]) {
             background-image: linear-gradient(v01 , v01)
