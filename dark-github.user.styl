@@ -660,11 +660,11 @@ bs() { box-shadow: arguments }
         --color-input-tooltip-error-bg: v10 //#ffeef0;
         --color-input-tooltip-error-border: v13 //#f97583;
 
-        --color-avatar-bg: v99 //#fff;
+        --color-avatar-bg: v95 //#fff;
         --color-avatar-border: #1b1f231a;
         --color-avatar-stack-fade: #d1d5da;
         --color-avatar-stack-fade-more: #e1e4e8;
-        --color-avatar-child-shadow: -2px -2px 0 rgba(FG, .8)
+        --color-avatar-child-shadow: -2px -2px 0 rgba(BG, .8)
 
         --color-toast-text: v98 //#24292e;
         --color-toast-bg: bg2 //#fff;
@@ -744,7 +744,7 @@ bs() { box-shadow: arguments }
 
         --color-popover-border: bg5 //#1b1f2326;
 
-        --color-branch-name-text: v67 //#1b1f2399;
+        --color-branch-name-text: v09 //#1b1f2399;
         --color-branch-name-icon: v96 //#a8bbd0;
         --color-branch-name-bg: bg3 //#eaf5ff;
         --color-branch-name-link-text: v09 //#0366d6;
@@ -759,7 +759,7 @@ bs() { box-shadow: arguments }
 
         --color-menu-heading-text: v98 //#24292e;
         --color-menu-border-active: v09 //#f9826c;
-        --color-menu-bg-active: t;
+        --color-menu-bg-active: bg3
         --color-sidenav-selected-bg: bg1 //#fff;
         --color-sidenav-border-active: v09 //#f9826c;
         --color-tabnav-selected-bg: bg1 //#fff;
@@ -768,7 +768,7 @@ bs() { box-shadow: arguments }
         --color-header-logo: v98 //#fff;
         --color-filter-item-bar-bg: bg2 //#eff3f6;
         --color-hidden-text-expander-bg: rgba(BG, .126) //#dfe2e5;
-        --color-hidden-text-expander-bg-hover: bg5 //#c6cbd1;
+        --color-hidden-text-expander-bg-hover: rgba(convert($bg5), .6) //#c6cbd1;
         --color-drag-and-drop-border: rgba(convert($v68), .4) //#c3c8cf;
         --color-upload-enabled-border: bg5 //#dfe2e5;
         --color-upload-enabled-border-focused: v04 //#4a9eff;
@@ -880,13 +880,13 @@ bs() { box-shadow: arguments }
         --color-diff-blob-addition-num-bg: v41 //#cdffd8;
         --color-diff-blob-addition-num-text: v96 //rgba(27,31,35,0.3);
         --color-diff-blob-addition-num-hover-text: v98 //rgba(27,31,35,0.6);
-        --color-diff-blob-addition-line-bg: v40 //#e6ffed;
+        --color-diff-blob-addition-line-bg: rgba(convert($v41), .6) //#e6ffed;
         --color-diff-blob-addition-word-bg: v42 //#acf2bd;
 
-        --color-diff-blob-deletion-num-bg: v11 //#ffdce0;
+        --color-diff-blob-deletion-num-bg: v12 //#ffdce0;
         --color-diff-blob-deletion-num-text: v96 //rgba(27,31,35,0.3);
         --color-diff-blob-deletion-num-hover-text: v98 //rgba(27,31,35,0.6);
-        --color-diff-blob-deletion-line-bg: v10 //#ffeef0;
+        --color-diff-blob-deletion-line-bg: rgba(convert($v11), .8) //#ffeef0;
         --color-diff-blob-deletion-word-bg: v12 //#fdb8c0;
 
         --color-diff-blob-hunk-text: v96 //rgba(27,31,35,0.7);
@@ -906,12 +906,12 @@ bs() { box-shadow: arguments }
         // Syntax themes
         // Prettylights
         --color-prettylights-syntax-comment: v93 //#6a737d;
-        --color-prettylights-syntax-constant: v67 //#005cc5;
-        --color-prettylights-syntax-entity: v87 //#6f42c1;
-        --color-prettylights-syntax-storage-modifier-import: v89 //#24292e;
-        --color-prettylights-syntax-entity-tag: v49 //#22863a;
-        --color-prettylights-syntax-keyword: v17 //#d73a49;
-        --color-prettylights-syntax-string: v46 //#032f62;
+        --color-prettylights-syntax-constant: v97 //#005cc5;
+        --color-prettylights-syntax-entity: v67 //#6f42c1;
+        --color-prettylights-syntax-storage-modifier-import: v67 //#24292e;
+        --color-prettylights-syntax-entity-tag: v67 //#22863a;
+        --color-prettylights-syntax-keyword: v37 //#d73a49;
+        --color-prettylights-syntax-string: v45 //#032f62;
         --color-prettylights-syntax-variable: v25 //#e36209;
         --color-prettylights-syntax-brackethighlighter-unmatched: v11 //#b31d28;
         --color-prettylights-syntax-invalid-illegal-text: v97 //#fafbfc;
@@ -923,27 +923,28 @@ bs() { box-shadow: arguments }
         --color-prettylights-syntax-markup-heading: v67 //#005cc5;
         --color-prettylights-syntax-markup-italic: v99 //#24292e;
         --color-prettylights-syntax-markup-bold: v99 //#24292e;
-        --color-prettylights-syntax-markup-deleted-text: v98 //#b31d28;
+        --color-prettylights-syntax-markup-deleted-text: v97 //#b31d28;
         --color-prettylights-syntax-markup-deleted-bg: v11 //#ffeef0;
-        --color-prettylights-syntax-markup-inserted-text: v98 //#22863a;
-        --color-prettylights-syntax-markup-inserted-bg: v40 //#f0fff4;
-        --color-prettylights-syntax-markup-changed-text: v25 //#e36209;
-        --color-prettylights-syntax-markup-changed-bg: v20 //#ffebda;
-        --color-prettylights-syntax-markup-ignored-text: v98 //#f6f8fa;
+        --color-prettylights-syntax-markup-inserted-text: v97 //#22863a;
+        --color-prettylights-syntax-markup-inserted-bg: v41 //#f0fff4;
+        --color-prettylights-syntax-markup-changed-text: v97 //#e36209;
+        --color-prettylights-syntax-markup-changed-bg: v21 //#ffebda;
+        --color-prettylights-syntax-markup-ignored-text: v97 //#f6f8fa;
         --color-prettylights-syntax-markup-ignored-bg: v63 //#005cc5;
-        --color-prettylights-syntax-meta-diff-range: v87 //#6f42c1;
+        --color-prettylights-syntax-meta-diff-range: v29 //#6f42c1;
         --color-prettylights-syntax-brackethighlighter-angle: v94
         --color-prettylights-syntax-sublimelinter-gutter-mark: v95
         --color-prettylights-syntax-constant-other-reference-link: v46 //#032f62;
         // CodeMirror
         --color-codemirror-text: v97 //#24292e;
         --color-codemirror-bg: bg1 //#fff;
+        --color-codemirror-bg-contrast: bg2
         --color-codemirror-gutters-bg: bg2 //#fff;
         --color-codemirror-guttermarker-text: v97 //#fff;
         --color-codemirror-guttermarker-subtle-text: v95 //#d1d5da;
         --color-codemirror-linenumber-text: v98 //#959da5;
         --color-codemirror-cursor: v09 //#24292e;
-        --color-codemirror-selection-bg: v61 //#d7d4f0;
+        --color-codemirror-selection-bg: bg3 //#d7d4f0;
         --color-codemirror-activeline-bg: bg2 //#fafbfc;
         --color-codemirror-matchingbracket-text: v09 //#24292e;
         --color-codemirror-lines-bg: bg1 //#fff;
@@ -956,23 +957,23 @@ bs() { box-shadow: arguments }
         --color-codemirror-syntax-support: v67 //#005cc5;
         --color-codemirror-syntax-variable: v25 //#e36209;
         // Ansi
-        --color-ansi-black: #24292e;
-        --color-ansi-black-bright: #2f363d;
-        --color-ansi-white: #e1e4e8;
-        --color-ansi-white-bright: #e1e4e8;
-        --color-ansi-gray: #959da5;
-        --color-ansi-red: #f97583;
-        --color-ansi-red-bright: #fdaeb7;
-        --color-ansi-green: #85e89d;
-        --color-ansi-green-bright: #bef5cb;
-        --color-ansi-yellow: #ffea7f;
-        --color-ansi-yellow-bright: #fff5b1;
-        --color-ansi-blue: #79b8ff;
-        --color-ansi-blue-bright: #c8e1ff;
-        --color-ansi-magenta: #b392f0;
-        --color-ansi-magenta-bright: #d1bcf9;
-        --color-ansi-cyan: #76e3ea;
-        --color-ansi-cyan-bright: #b3f0ff;
+        --color-ansi-black: v92
+        --color-ansi-black-bright: v94 //#2f363d;
+        --color-ansi-white: v97 //#e1e4e8;
+        --color-ansi-white-bright: v99 //#e1e4e8;
+        --color-ansi-gray: v96 //#959da5;
+        --color-ansi-red: v35 //#f97583;
+        --color-ansi-red-bright: /v39 //#fdaeb7;
+        --color-ansi-green: v47 //#85e89d;
+        --color-ansi-green-bright: v49 //#bef5cb;
+        --color-ansi-yellow: v37 //#ffea7f;
+        --color-ansi-yellow-bright: v39 //#fff5b1;
+        --color-ansi-blue: v67 //#79b8ff;
+        --color-ansi-blue-bright: v69 //#c8e1ff;
+        --color-ansi-magenta: v77 //#b392f0;
+        --color-ansi-magenta-bright: v79 //#d1bcf9;
+        --color-ansi-cyan: v57
+        --color-ansi-cyan-bright: v59
 
         --color-code-selection-bg: var(--color-codemirror-selection-bg) //#c8e1ff;
     }
@@ -3634,8 +3635,8 @@ bs() { box-shadow: arguments }
         .input {
             &_prompt { color: v69 }
             &_area {
-                background-color: bg2
-                border: 1px solid bg5
+                background-color: var(--color-codemirror-bg-contrast)
+                border: 1px solid var(--color-diffstat-neutral-border)
             }
         }
 
