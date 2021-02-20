@@ -20,26 +20,28 @@
     'Solarized Dark   ' :   'solarized-dark',
     'Ubuntu           ' :   'ubuntu',
 }
-@var color    cg_bg         'Base background color'          #111a22
-@var color    cg_fg         'Base foreground color'          #f2f4ff
-@var color    cg_ac         'Base accent color    '          #4f74e3
+@var color    cg_bg         'Custom background color     ' #111a22
+@var color    cg_fg         'Custom foreground color     ' #f2f4ff
+@var color    cg_ac         'Custom accent color         ' #4f74e3
 
-@var range    cg_sat        'Saturation of syntax colors'    [0, -50, 40, 0.01]
-@var range    cg_lig        'Lightness of syntax colors'     [0, -30, 30, 0.01]
-
-@var text     f_ui          'UI font'                        ''font_name''
-@var text     f_mono        'Monospace font'                 ''font_name''
-@var text     b_hgwd        'Checkbox width/height'          '1rem'
-
-@var checkbox custom_font   'Use custom font overrides'      0
-@var checkbox c_scrollbars  'Custom scrollbar overrides'     1
-@var checkbox navbar_sticky 'Navbar sticky position'         0
-@var checkbox latest_commit 'Latest commit neutral colors'   1
-@var checkbox readme_header 'Old readme header design'       0
-@var checkbox short_headers 'Shorter headers'                0
-@var checkbox chbx_a_header 'Fix checkbox on headers alignment' 1
-@var checkbox code_borders  'Add borders to code/other blocks'  1
+@var range    cg_sat        'Saturation of RGB colors    ' [0, -50, 40, 0.01]
+@var range    cg_lig        'Lightness of RGB colors     ' [0, -30, 30, 0.01]
 @var range    cg_fg_sat     'Foreground color saturation ' [0, 0, 100, 0.1, '%']
+
+@var number   tab_size      'Tab size                    ' [8, 2, 8, 2]
+
+@var text     f_ui          'UI font                     ' ''font_name''
+@var text     f_mono        'Monospace font              ' ''font_name''
+@var text     b_hgwd        'Checkbox width/height       ' '.88rem'
+
+@var checkbox custom_font   'Use custom font overrides   ' 0
+@var checkbox c_scrollbars  'Custom scrollbar overrides  ' 1
+@var checkbox navbar_sticky 'Navbar sticky position      ' 0
+@var checkbox latest_commit 'Latest commit neutral colors' 1
+@var checkbox readme_header 'Legacy readme header design ' 0
+@var checkbox short_headers 'Use shorter headers         ' 0
+@var checkbox chbx_a_header 'Fix checkbox alignments     ' 1
+@var checkbox code_borders  'Add code/pre/oethr borders  ' 1
 
 ==/UserStyle== */
 // Remove old browser prefixes.
@@ -213,7 +215,7 @@ bs() { box-shadow: arguments }
         --f-ui: f_ui, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, \
                 Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji
 
-        /// Generate CSS color variables.
+        // Generate CSS color variables.
         colors = (bg fg v0 v1 v2 v3 v4 v5 v6 v7 v8 v9)
         for color in colors[0..1] {
             for tone in 0..5 {
@@ -854,7 +856,7 @@ bs() { box-shadow: arguments }
 
         --color-blob-line-highlight-bg: v30 //#fffbdd;
         --color-blob-line-highlight-border: t // transparent;
-        /// Diffs
+        // Diffs
         --color-diffstat-neutral-bg: bg5 //#d1d5da;
         --color-diffstat-neutral-border: bg5 //#d1d5da;
         --color-diffstat-deletion-bg: v16 //#d73a49;
@@ -987,7 +989,7 @@ bs() { box-shadow: arguments }
             // Application background.
             .application-main > .bg-gray { --color-bg-canvas: bg1 }
             &.page-profile .application-main { bs: 0 -24px bg2 }
-            // e.g https://github.com/login/oauth/authorize?client_id=c602a8bd54b1e774f864&scope=repo
+            // e.g. https://github.com/login/oauth/authorize?client_id=c602a8bd54b1e774f864&scope=repo
             &.bg-gray-light {--color-bg-secondary: bg1 }
 
             // Unicorn page -> taking too long to load (no css vars)
@@ -1159,9 +1161,7 @@ bs() { box-shadow: arguments }
             label {
                 span.js {
                     &-select-all-text, &-count-selected-text,
-                    &-all-count-selected-text {
-                        vertical-align: super
-                    }
+                    &-all-count-selected-text { vertical-align: super }
                 }
                 input[type='checkbox'] {
                     margin-top: .25rem
@@ -1178,12 +1178,10 @@ bs() { box-shadow: arguments }
 
         // Fix checkbox on org people header alignment
         // https://github.com/orgs/:org/people/pending_invitations
-        #select-all-checkbox {
-            vertical-align: super
-        }
-        label[for="select-all-checkbox"] {
-            margin-top: -.05rem
-        }
+        #select-all-checkbox { vertical-align: super }
+
+        label[for="select-all-checkbox"] { margin-top: -.05rem }
+
         [data-bulk-actions-parameter="pending_collaborator_invitation_ids"] {
             label[for="select-all-checkbox"] {
                 margin-top: -.11rem
@@ -1225,7 +1223,7 @@ bs() { box-shadow: arguments }
     }
 
     // Fix ellipsis expander bg (not usinc css vars)
-    // e.g https://github.com/EFForg/privacybadger/commit/2c93318fc068e2d3a04b7468c7afce10f2bc48ef
+    // e.g. https://github.com/EFForg/privacybadger/commit/2c93318fc068e2d3a04b7468c7afce10f2bc48ef
     .branches-tag-list li {
         .ellipsis-expander {
             background-color: var(--color-hidden-text-expander-bg) //#d3e2f4;
@@ -1417,17 +1415,20 @@ bs() { box-shadow: arguments }
 
     .actions-fullwidth-module.color-bg-tertiary { --color-bg-tertiary: bg0 }
 
-    /// fix dropdown menu disabled entries bg on hover GH upstream bug
+    // fix dropdown menu disabled entries bg on hover GH upstream bug
     .dropdown {
         &-item.btn-link:disabled {
             &:hover { background: none }
         }
+
         &-menu-dark {
             color: var(--color-text-white);
             background: var(--color-bg-primary)
             border-color: var(--color-border-primary)
 
             .dropdown-divider { border-color: bg4 }
+
+            &::after { --color-auto-gray-8: var(--color-bg-primary) }
             &::before { border-bottom-color: bg4 }
         }
     }
@@ -1730,7 +1731,7 @@ bs() { box-shadow: arguments }
             padding-top: 3px i
             padding-bottom: 3px i
 
-            /// Default one uses white color.
+            // Default one uses white color.
             --color-text-white: v98
         }
     }
@@ -1782,7 +1783,7 @@ bs() { box-shadow: arguments }
 
 
     // Override Sidenav BG too bright
-    // e.g https://github.com/vednoc/dark-github/security/code-scanning
+    // e.g. https://github.com/vednoc/dark-github/security/code-scanning
     .SideNav { --color-bg-secondary: var(--color-bg-primary) }
 
     // Reset colors for tabs.
@@ -1792,7 +1793,7 @@ bs() { box-shadow: arguments }
         &[aria-current]:not([aria-current="false"]) {
             c: 0 0 bg0
         }
-        &[aria-current="true"], /// Explore: topics/tag
+        &[aria-current="true"], // Explore: topics/tag
         &[aria-current="true"].code,
         &[aria-current="true"].preview,
         &[aria-selected="true"].write-tab:not(#z),
@@ -1846,7 +1847,7 @@ bs() { box-shadow: arguments }
         &-body .bg-gray { --color-bg-tertiary: bg1 }
         // Avoid coloring box danger border
         &.p-3 {
-            // Fix sponsors card e.g https://github.com/sponsors/elrumo/card
+            // Fix sponsors card e.g. https://github.com/sponsors/elrumo/card
             background-color: bg1 // must be bg1
             border: 1px solid bg4
         }
@@ -1867,8 +1868,6 @@ bs() { box-shadow: arguments }
             &:first-of-type { c: 0 t }
         }
 
-        // Remove background from avatar groups.
-        /.AvatarStack-body { c: 0 0 t }
 
         // Feat -> Old readme header design.
         if (readme_header) {
@@ -1921,7 +1920,7 @@ bs() { box-shadow: arguments }
     }
 
     // make optional truncate at higher or set width.
-    // e.g https://github.com/Gitoffthelawn?tab=overview&from=2020-10-01&to=2020-10-31
+    // e.g. https://github.com/Gitoffthelawn?tab=overview&from=2020-10-01&to=2020-10-31
     .TimelineItem {
         .css-truncate.css-truncate-target, .css-truncate .css-truncate-target { max-width: 350px }
     }
@@ -2435,61 +2434,7 @@ bs() { box-shadow: arguments }
         }
     }
 
-    // fix broken design for gist searches e.g https://gist.github.com/search?q=test
-    /*
-    @media only screen and (max-width: 3840px) {
-        .gistsearch-head {
-            padding-right: calc(50% - 10%)
-            padding-left: 12%
-            h1 label {
-                margin-right: -30px
-                margin-left: calc(50% - 55%)
-                white-space: nowrap
-                position: relative
-            }
-            form input {
-                  background-color: var(--color-input-contrast-bg)
-                  max-width: 805px
-                  min-width: 805px
-                  margin-left: auto
-                  margin-right: auto
-                  &:focus {
-                      background-color: var(--color-input-bg)
-                  }
-            }
-            button {
-                  right: 0
-                  left: 5px
-            }
-        }
-    }
-    @media only screen and (min-width: 1280px) {
-        .gistsearch-head {
-            padding-right: calc(50% - 41%)
-            padding-left: calc(49% - 38.5%)
-            h1 label {
-                margin-left: calc(50% - 29.6%)
-                white-space: nowrap
-                position: fixed
-            }
-            form input {
-                  background-color: var(--color-input-contrast-bg)
-                  max-width: 805px
-                  min-width: 805px
-                  margin-left: auto
-                  margin-right: auto
-                  &:focus {
-                      background-color: var(--color-input-bg)
-                  }
-            }
-            button {
-                  right: 0
-                  left: -27.7%
-            }
-        }
-    }
-    */
-    /* alternative fix to consider */
+    // fix broken design for gist searches e.g. https://gist.github.com/search?q=test
     .gistsearch-head {
         max-width: 980px
         margin: 0 auto
@@ -2528,7 +2473,7 @@ bs() { box-shadow: arguments }
 
     // paginations more (zig-zag line)
     .pagination-loader-container {
-        // e.g https://github.com/platformio/platformio-atom-ide-terminal/issues/668
+        // e.g. https://github.com/platformio/platformio-atom-ide-terminal/issues/668
         r       = unquote
         prefix  = 'data:image/svg+xml;utf8,'
         prefix += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">'
@@ -2537,6 +2482,8 @@ bs() { box-shadow: arguments }
         background: s("url('%s%s</svg>') %s", r(prefix), r(path), r(xy))
     }
 
+    // align search icon e.g. https://github.com/orgs/:orgname/people/:username
+    // e.g. https://github.com/:orgname/:reponame/people
     // Extension -> GitHub Original Streak.
     // Link: https://github.com/Naramsim/GithubOriginalStreak
     .original-streak {
@@ -3521,7 +3468,7 @@ bs() { box-shadow: arguments }
         background: s("url('%s%s</svg>') %s", r(prefix), r(path), r(xy) i)
     }
 
-    // style toolbar-item color previewable form e.g https://support.github.com/contact
+    // style toolbar-item color previewable form e.g. https://support.github.com/contact
     .toolbar-item {
         color: var(--color-text-secondary)
         &:hover { color: v09 }
