@@ -2292,11 +2292,20 @@ bs() { box-shadow: arguments }
             &-axis, &-point { g: 0 v04 }
         }
 
+        // fix overlap between calendar bottom and activity overview top
+        // e.g. https://github.com/:username
+        .activity-overview-box {
+            border-top-color: t i
+            border-top-left-radius: 0
+            border-top-right-radius: 0
+        }
+
         // add opinionated outline + offset on day.active for actual contrast
-        .calendar-graph.days-selected rect.day.active {
-            outline: 1px solid v09 i
+        .days-selected rect.ContributionCalendar-day.active {
+            outline: 1px solid v09
             outline-offset: 1px
         }
+
     }
 
     // Diff -> Changes. @upstream
