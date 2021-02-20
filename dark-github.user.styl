@@ -1754,6 +1754,46 @@ bs() { box-shadow: arguments }
             }
         }
 
+        // Fix alignment and colors of sticky navbars.
+        /.gh-header {
+            // Issues.
+            &-sticky.is-stuck {
+                + .gh-header-shadow {
+                    c: 0 0 bg2
+                }
+            }
+
+            // Impossible to read small text
+            &-sticky .meta {
+                margin-top: -3px
+                font-size: 14px i
+            }
+            // Pull Requests.
+            ~ .pr-toolbar.is-stuck {
+                &::before {
+                    content: ''
+                    z-index: -1
+                    position: fixed
+                    left: 0
+                    top: 0
+                    right: 0
+                    height: 62px
+                    c: 0 0 bg2
+                }
+                .diffbar {
+                    c: 0 0 bg2
+                    &-item {
+                        margin-top: -3px
+                        font-size: 14px i
+                    }
+                }
+                + .toolbar-shadow {
+                    margin-top: 2px
+                    border-top: 1px solid bg5
+                }
+            }
+        }
+
         // Search. @upstream
         .header-search-wrapper {
             input { color: v98 }
