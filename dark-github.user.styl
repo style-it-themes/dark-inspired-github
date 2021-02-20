@@ -1184,23 +1184,31 @@ bs() { box-shadow: arguments }
 
         [data-bulk-actions-parameter="pending_collaborator_invitation_ids"] {
             label[for="select-all-checkbox"] {
-                margin-top: -.11rem
+                margin-left: .11rem
+                margin-top: -.13rem
             }
         }
+
         [data-bulk-actions-parameter="outside_collaborator_ids"] {
             label[for="select-all-checkbox"] {
                 margin-top: -.1rem
                 margin-left: .11rem
             }
         }
+
         [data-bulk-actions-parameter="invitation_ids"] {
-            input[id="select-all-pending"] {
-                vertical-align: middle
-                margin-top: -.11rem
+            input[id="select-all-pending"],
+            input[id="select-all-failed"] {
+                vertical-align: top
+                margin-left: -.17rem
+                margin-top: .2rem
             }
-            label[for="select-all-pending"] {
+
+            label[for="select-all-pending"],
+            label[for="select-all-failed"] {
+                vertical-align: top
+                margin-top: -.22rem
                 margin-left: -.4rem
-                margin-top: -.05rem
             }
         }
         #org-members-table {
