@@ -30,10 +30,8 @@
 @var text     f_ui          'UI font'                        ''font_name''
 @var text     f_mono        'Monospace font'                 ''font_name''
 @var text     b_hgwd        'Checkbox width/height'          '1rem'
-@var text     desatpercent  'Foreground color desaturation'  '10%'
 
 @var checkbox custom_font   'Use custom font overrides'      0
-@var checkbox desaturatefg  'Desaturate foreground colors'   0
 @var checkbox c_scrollbars  'Custom scrollbar overrides'     1
 @var checkbox navbar_sticky 'Navbar sticky position'         0
 @var checkbox latest_commit 'Latest commit neutral colors'   1
@@ -41,6 +39,7 @@
 @var checkbox short_headers 'Shorter headers'                0
 @var checkbox chbx_a_header 'Fix checkbox on headers alignment' 1
 @var checkbox code_borders  'Add borders to code/other blocks'  1
+@var range    cg_fg_sat     'Foreground color saturation ' [0, 0, 100, 0.1, '%']
 
 ==/UserStyle== */
 // Remove old browser prefixes.
@@ -150,7 +149,7 @@ bs() { box-shadow: arguments }
         else if num == 0 { $color = lighten($color, 10%) }
         else { $color = darken($color, (num + num / 1.25) * 5%) }
 
-        if desaturatefg { $color = desaturate($color, desatpercent) }
+        $color = desaturate($color, cg_fg_sat)
         $color = to_hsla($color)
 
         $key = s('%s%s', $fg.key, num)
