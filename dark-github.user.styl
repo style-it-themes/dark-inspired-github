@@ -1957,6 +1957,9 @@ bs() { box-shadow: arguments }
             &:first-of-type { c: 0 t }
         }
 
+        // Remove background from avatar groups + from gistshead avatar
+        /.AvatarStack-body,
+        /.gisthead .avatar[data-hovercard-type="user"] { c: 0 0 t }
 
         // Feat -> Old readme header design.
         if (readme_header) {
@@ -1969,7 +1972,7 @@ bs() { box-shadow: arguments }
             }
         }
 
-        /// Feat -> Neutral colors in latest commit.
+        // Feat -> Neutral colors in latest commit.
         if (latest_commit) {
             &-header--blue { c: 0 bg5 bg2 }
             // Commit details.
@@ -1988,7 +1991,7 @@ bs() { box-shadow: arguments }
             }
         }
 
-        /// Feat -> Shorter headers.
+        // Feat -> Shorter headers.
         if (short_headers) {
             condition = (readme_header == 1) ? '' : '--blue'
             /.repository-content &-header{ condition } {
@@ -2118,12 +2121,7 @@ bs() { box-shadow: arguments }
 
     // Project -> Insights.
     .menu-item {
-        c: 0 bg5
-        &.selected::before,
-        &[aria-selected="true"]::before,
-        &[aria-current]:not([aria-current="false"])::before {
-            c: 0 0 v09
-        }
+        --color-border-secondary: bg5
 
         // Graphs -> Contributors.
         /.graphs {
@@ -2158,11 +2156,19 @@ bs() { box-shadow: arguments }
                 ul > li {
                     padding: 1rem
                     text-align: center
-                    c: v97 0 bg1
+                    c: v97 0 0
                     &:first-of-type {
                         border-right: 1px solid bg5
+                        margin-top: -8px
                     }
+                    &:last-of-type { margin-top: -8px }
                 }
+            }
+        }
+        /table.capped-list td {
+            border-bottom: 1px solid bg5
+            /img.top-domains-icon[src="https://favicons.githubusercontent.com/github.com"] {
+                filter: invert(.75)
             }
         }
 
@@ -2227,7 +2233,7 @@ bs() { box-shadow: arguments }
     .branch-action-body::after { border-right-color: bg1 i }
 
     .timeline-comment {
-        &[class*='--caret'] {
+        &--caret {
             &::before { border-right-color: bg5 }
             &::after { border-right-color: bg3 }
             &.current-user {
@@ -2246,7 +2252,7 @@ bs() { box-shadow: arguments }
             c: 0 0 bg1
         }
 
-        /// Remove borders from input box.
+        // Remove borders from input box.
         &-wrapper { c: 0 t }
 
         // Remove header/input backgrounds.
@@ -2562,6 +2568,15 @@ bs() { box-shadow: arguments }
                 background-color: v04
             }
         }
+
+        &-banner {
+            background-image: none
+            border-bottom-color: bg4
+        }
+        .gist-banner.gist-detail-intro {
+            background-image: none
+        }
+
         // fix gist quicksearch (not using css vars upstream)
         &-quicksearch {
             &-results {
@@ -2629,6 +2644,13 @@ bs() { box-shadow: arguments }
 
     // align search icon e.g. https://github.com/orgs/:orgname/people/:username
     // e.g. https://github.com/:orgname/:reponame/people
+    [itemtype="http://schema.org/Organization" i],
+    [data-autosearch-results-container="repo-access-list" i] {
+        .auto-search-group > .octicon {
+            top: 8px
+        }
+    }
+
     // Extension -> GitHub Original Streak.
     // Link: https://github.com/Naramsim/GithubOriginalStreak
     .original-streak {
@@ -2967,10 +2989,10 @@ bs() { box-shadow: arguments }
                 color: v98
             }
             &-mktg {
-                background-color: bg0
+                background-color: bg1
                 border-color: v06
                 color: v06
-                &:hover { background-color: bg0; border-color: v09; color: v09 }
+                &:hover { background-color: bg1; border-color: v09; color: v09 }
                 &:focus { box-shadow: 0 0 0 3px v02 }
             }
             &:focus { box-shadow: 0 0 0 3px v02 }
@@ -3684,14 +3706,25 @@ bs() { box-shadow: arguments }
 @-moz-document regexp('https?://render\.githubusercontent?.com(/.*)?') {
     // https://render.githubusercontent.com
     // Diff -> Image background.
+
+    dark  = url('data:image/gif;base64,R0lGODlhCgAKAIAAABoaGgAAACwAAAAACgAKAAACEYQdmYcaDNxjEspKndVZbc8UADs=') i
+    light = url('data:image/gif;base64,R0lGODlhCgAKAIAAABkZGTg4OCH5BAAAAAAALAAAAAAKAAoAAAIRjA2Zhwoc3GMSykqd1VltzxQAOw==') i
+
     .render-shell {
-        img[src*='svg']:hover { filter: invert(.95) hue-rotate(180deg) }
         &, /body {
             background-image: none
             c: 0 0 bg1
         }
 
-        img, img.asset { c: 0 bg1 }
+        img, img.asset {
+            c: 0 bg1 0
+        }
+
+        // apply dark/light
+        &:not([data-document-path]) img, canvas {
+            background-image: dark
+            &:hover { background-image: light }
+        }
 
         // Rich diff -> Border/text colors.
         .deleted-frame { c: 0 v15; &::before { c: v16 }}
@@ -3746,6 +3779,7 @@ bs() { box-shadow: arguments }
             &_prompt { color: v17 }
             &_stderr { background-color: v13 }
         }
+
         // https://gist.github.com/shailesh-gif/7d2ce9cc9b72be0b8dec46e458cd1108
         // Style all alerts to avoid breaking when occurrences happen
         .alert {
