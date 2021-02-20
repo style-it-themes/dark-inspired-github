@@ -2091,13 +2091,28 @@ bs() { box-shadow: arguments }
     // Fix dark emoji on dark backgrounds
     if (dark(BG)) {
         .emoji {
-            &[alt="tm"], &[alt="copyright"],
-            &[alt="registered"] { filter: invert(.95) brightness(1.2) }
-            &[alt*="phone"], &[alt="clubs"],
-            &[alt="spades"], &[alt="eight_pointed_black_star"] { filter: invert(.95) }
-            &[alt="wrench"], &[alt="paperclip"],
-            &[alt="8ball"], &[alt="black_circle"] { filter: brightness(1.2) }
-            &[alt="bomb"], &[alt="musical_score"] { filter: invert(.7) hue-rotate(180deg) brightness(1.1) }
+            &[alt="tm" i], &[alt="copyright" i], v
+            &[alt="registered" i] { filter: invert(.95) brightness(1.2) }
+            &[alt*="phone" i], &[alt="clubs" i],
+            &[alt="spades" i], &[alt="eight_pointed_black_star" i] { filter: invert(.95) }
+            &[alt="wrench" i], &[alt="paperclip" i],
+            &[alt="8ball" i], &[alt="black_circle" i],
+            &[alt="vertical_traffic_light" i] { filter: brightness(1.2) }
+            &[src*="1f577" i], &[src*="1f99f" i], &[src*="1fa7a" i], &[src*="1f573" i],
+            &[src*="1f41c" i], &[src*="265f" i], &[src*="1f50c" i], &[src*="1f3a5" i],
+            &[src*="1f5a4" i], &[src*="1f982" i] { filter: brightness(2) }
+            &[alt="bomb" i], &[alt="musical_score" i] { filter: invert(.7) hue-rotate(180deg) brightness(1.1) }
+        }
+    }
+
+    // Tweak user status emoji picker
+    .btn-outline[class*='emoji-picker-'] {
+        // add transition
+        transition: all .15s
+        &:hover {
+            // Add scale and transition
+            scale: 1.3
+
         }
     }
 
