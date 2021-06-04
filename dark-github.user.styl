@@ -1218,25 +1218,26 @@ bs() { box-shadow: arguments }
             // align with checked state
             padding: 7px
             &:checked {
-                z = '<circle cx="256" cy="256" r="128" fill="' + to_svg($v99) + '"/>'
-                background-image: s("url('%s%s</svg>') %s", r(prefix), r(z), i)
-                c: 0 v05 v02
+                path = '<circle cx="256" cy="256" r="128" fill="' + to_svg($v99) + '"/>'
+                background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
+                c: 0 v08 v09
             }
-            &:focus, &:hover { c: 0 v08 bg2 }
+            &:focus, &:hover { c: 0 v09 bg2 }
         }
 
         &[type='checkbox'] {
             border-radius: 2px
             &:checked {
-                z ='<path fill="' + to_svg($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
-                background-image: s("url('%s%s</svg>') %s", r(prefix), r(z), i)
-                c: 0 v04 v02
+                path ='<path fill="' + to_svg($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
+                background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
+                c: 0 v08 v09
             }
-            &:focus, &:hover { c: 0 v08 bg2 }
+            &:focus, &:hover { c: 0 v09 bg2 }
             &:indeterminate {
-                z = '<rect x="128" y="128" width="256" height="256" fill="' + to_svg($v99) + '"/>'
-                background-image: s("url('%s%s</svg>') %s", r(prefix), r(z), i)
-                c: 0 v16 v14
+                path = '<rect x="128" y="128" width="256" height="256" fill="' + to_svg($v99) + '"/>'
+                background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
+                c: 0 v08 v09
+                &:hover { c: 0 v09 bg2 }
             }
         }
 
@@ -1305,18 +1306,26 @@ bs() { box-shadow: arguments }
                     &-select-all-text, &-count-selected-text,
                     &-all-count-selected-text { vertical-align: super }
                 }
-                input[type='checkbox'] {
-                    margin-top: .25rem
-                }
+                input[type='checkbox' i] { margin-top: .25rem }
             }
+        }
+
+        // issue / pr checkbox multi selection
+        // e.g. https://github.com/vednoc/dark-github/pulls?q=is%3Apr+is%3Aopen
+        .Box--responsive {
+            input[type='checkbox' i][aria-label*="all issues"] {
+                vertical-align: middle
+                margin-right: -.12rem
+            }
+        }
+        input[type='checkbox' i][data-check-all-item] {
+            vertical-align: middle
         }
 
         #dependency-graph-enable-new-private-repos,
         #security-alerts-enable-new-private-repos,
         #vulnerability-updates-enable-new-repos,
-        #user_profile_hireable {
-            vertical-align: sub
-        }
+        #user_profile_hireable { vertical-align: sub }
 
         // Fix checkbox on org people header alignment
         // https://github.com/orgs/:org/people/pending_invitations
@@ -1357,6 +1366,18 @@ bs() { box-shadow: arguments }
             input#select-all-checkbox { margin-top: .6rem }
             label[for="select-all-checkbox"] span { margin-left: -.5rem }
         }
+
+        // fix checkbox alignment when opening a PR on 3rd party repos [ ] Allow edits by maintainers (?)
+        input[type="checkbox"][name="collab_privs"] {
+            margin-left: -1.3rem
+        }
+
+        // Fix https://github.com/:org/:project/settings/access select all checkbox alignment
+        .repository-content [itemtype="http://schema.org/Repository"] #select-all-checkbox {
+            vertical-align: middle
+            margin-top: -.1rem
+        }
+    }
     }
 
     // Btn overrides/fixes
