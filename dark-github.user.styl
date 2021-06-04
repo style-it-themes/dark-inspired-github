@@ -35,19 +35,21 @@
 @var text     b_hgwd        'Checkbox width/height       ' '.88rem'
 
 @var checkbox custom_font   'Use custom font overrides   ' 0
-@var checkbox c_scrollbars  'Custom scrollbar overrides  ' 1
+@var checkbox c_scrollbars  'Use scrollbar overrides     ' 1
 @var checkbox navbar_sticky 'Navbar sticky position      ' 0
-@var checkbox latest_commit 'Latest commit neutral colors' 1
+@var checkbox latest_commit 'Neutral latest commit colors' 0
 @var checkbox readme_header 'Legacy readme header design ' 0
-@var checkbox short_headers 'Use shorter headers         ' 0
+@var checkbox short_headers 'Enable shorter headers      ' 0
 @var checkbox chbx_a_header 'Fix checkbox alignments     ' 1
-@var checkbox code_borders  'Add code/pre/oethr borders  ' 1
+@var checkbox code_borders  'Add code/pre/other borders  ' 1
 
 ==/UserStyle== */
 // Remove old browser prefixes.
 vendors = official
+version = 'Dark GitHub - v2.1.0'
 t       = transparent
 i       = !important
+r       = unquote
 
 // Convert colors to HSLA format.
 // NOTE: This is done just for consistency of generated colors.
