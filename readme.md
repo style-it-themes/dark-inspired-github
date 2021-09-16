@@ -17,7 +17,7 @@
 
 ## About
 
-Dark inspired customizable themes for GitHub and subdomains.
+Dark inspired customizable themes for GitHub and subdomains.<br>
 Includes many options to further customize your GitHub experience.
 
 This style leverages the awesome procedural color generator designed by [vednoc](https://github.com/vednoc/)
@@ -27,10 +27,10 @@ my most used subdomains for GitHub.
 
 ## What this project is not.
 
-If you use GitHub extensions, like Gitako, ZenHub, etc. you will find NO internal support for any.
+If you use GitHub extensions, like Gitako, ZenHub, etc. you will find NO internal support for any.<br>
 This will never be added to this style, so don't ask.
 
-Extensions support belongs to yet another repo, to make it simpler to maintain.
+Extensions support belongs to yet another repo, to make it simpler to maintain and develop.
 
 ## Installing
 
@@ -42,3 +42,12 @@ Then install this style clicking:
 
 [![INSTALL DIRECTLY WITH - STYLUS Stylus](https://img.shields.io/badge/Install_directly_with-Stylus-21d1d0.svg?longCache=true&style=for-the-badge)](https://github.com/style-it-themes/dark-inspired-github/raw/main/dark-inspired-github.user.styl)
   > Only available using Stylus (see the [documentation](https://github.com/openstyles/stylus/wiki/Usercss)). 🎉
+
+ ## Recommended Extensions
+
+I recommend you install [Stylus Wardrobe](https://github.com/style-it-themes/stylus-wardrobe)
+
+This is another Style-it Themes project developed/maintained by myself which aims to provide<br>
+consistent color themes for the OpenStyles Stylus extension
+
+Further project information on link above.
