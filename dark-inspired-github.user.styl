@@ -11,7 +11,7 @@
 @preprocessor stylus
 
 @var checkbox show_gh_tab   'Show GitHub appearance tab  ' 0
-@var select   cg_theme      'Base color-scheme toggle    ' {
+@var select   cg_theme      'Select a color scheme       ' {
     'Custom colors   *' :   'custom-style',
     'Cobalt           ' :   'cobalt',
     'Material         ' :   'material',
@@ -40,7 +40,9 @@
 @var checkbox latest_commit 'Neutral latest commit colors' 0
 @var checkbox readme_header 'Legacy readme header design ' 0
 @var checkbox short_headers 'Enable shorter headers      ' 0
+@var checkbox render_img-tb 'Enable render img dark bg   ' 1
 @var checkbox chbx_a_header 'Fix checkbox alignments     ' 1
+@var checkbox rm_ghdskt-op  'Show get repo w/ GH Desktop ' 0
 @var checkbox code_borders  'Add code/pre/other borders  ' 1
 
 ==/UserStyle== */
@@ -183,7 +185,7 @@ bs() { box-shadow: arguments }
             // Case for RGB colors.
             else {
                 $hue   = $sel.hue
-                $color = hsl($hue, 60% + cg_sat, 60% + cg_lig)
+                $color = hsl($hue, 65% + cg_sat, 65% + cg_lig)
                 $color = darken($color, (100% - (num + 2) * 7.5))
                 $color = lightness($color, lightness($color) + num)
             }
@@ -198,25 +200,17 @@ bs() { box-shadow: arguments }
         }
     }
 }
-
 @-moz-document regexp('https?://((cli|gist|docs|support|graphql)\.)?github?.com(/.*)?'),
-/*-----------*/regexp('https?://render\.githubusercontent?.com(/.*)?'),
+/*-----------*/regexp('https?://(render|media|viewscreen)\.githubusercontent?.com(/.*)?'),
 /*-----------*/regexp('https?://vscode-auth\.github?.com(/.*)?'),
-/*-----------*/regexp('https?://metrics.lecoq.io.*(/.*)?') {
+/*-----------*/regexp('https?://metrics.lecoq.io.*(/.*)?'),
+/*-----------*/regexp('https?://www\.githubstatus\.com(/.*)?') {
     // Userstyle variables.
     // main userstyle section variables.
-    :root:not(#crazy) {
-        background-color: t
+    :root:not(#crazy) * {
+
         // Userstyle info.
         --style-name: version
-
-        // Feat -> Custom monospace font.
-        --f-mono: f_mono, SFMono-Regular, Consolas, Liberation Mono, Menlo, \
-                Fira Code, monospace
-
-        // Feat -> Custom user interface font.
-        --f-ui: f_ui, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, \
-                Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji
 
         // Generate CSS color variables.
         colors = (bg fg v0 v1 v2 v3 v4 v5 v6 v7 v8 v9)
@@ -230,7 +224,6 @@ bs() { box-shadow: arguments }
                 { '--%s-%s' % ((color) (tone)) }: $ + color + tone
             }
         }
-
         shade = (dark(BG)) ? darken : lighten
 
         --v0-0: mix(shade(BG,  0%), AC, 90%)
@@ -327,6 +320,18 @@ bs() { box-shadow: arguments }
         --color-scale-pink-7: v87 //#b93a86;
         --color-scale-pink-8: v88 //#99306f;
         --color-scale-pink-9: v89 //#6d224f;
+
+        --color-scale-coral-0: #fff0eb;
+        --color-scale-coral-1: #ffd6cc;
+        --color-scale-coral-2: #ffb4a1;
+        --color-scale-coral-3: #fd8c73;
+        --color-scale-coral-4: #ec6547;
+        --color-scale-coral-5: #c4432b;
+        --color-scale-coral-6: #9e2f1c;
+        --color-scale-coral-7: #801f0f;
+        --color-scale-coral-8: #691105;
+        --color-scale-coral-9: #510901;
+
         --color-auto-black: v99 //#1b1f23;
         --color-auto-white: bg0 //#fff;
         --color-auto-gray-0: v90 //bg5 //#fafbfc;
@@ -429,6 +434,7 @@ bs() { box-shadow: arguments }
         --color-icon-danger: v16 //#d73a49;
         --color-icon-success: v45 //#22863a;
         --color-icon-warning: v35 //#b08800;
+        --color-icon-directory: v07
 
         --color-state-hover-primary-bg: v02 //#0366d6;
         --color-state-hover-primary-border: v06 //#0366d6; appearance theme selection active border
@@ -459,6 +465,9 @@ bs() { box-shadow: arguments }
         --color-border-danger: v13 //#d73a49;
         --color-border-success: v43 //#34d058;
         --color-border-warning: v33 //#f9c513;
+        --color-border-default: bg4
+        --color-border-muted: bg4
+        --color-border-subtle: rgba(convert($bg2), .15)
 
         --color-bg-canvas: bg0 //#fff;            Main elements -> body
         --color-bg-canvas-mobile: bg0 //#fff;
@@ -479,26 +488,26 @@ bs() { box-shadow: arguments }
         --color-bg-warning-inverse: v35 //#ffd33d;
         --color-bg-discussions-row-emoji-box: bg4 // Discussions
 
-        --color-shadow-small: 0 1px 0 #0002 //rgba(27,31,35,0.04);
-        --color-shadow-medium: 0 3px 6px #0003 //rgba(149,157,165,0.15);
-        --color-shadow-large: 0 8px 15px #0004 //rgba(149,157,165,0.2);
-        --color-shadow-extra-large: 0 10px 20px #0003;
-        --color-shadow-highlight: inset 0 1px 0 #0002 //hsla(0,0%,100%,0.25);
-        --color-shadow-inset: inset 0 1px 0 #0002 //rgba(225,228,232,0.2);
+        --color-shadow-small: 0 1px 0 rgba(BG, .133) //rgba(27,31,35,0.04);
+        --color-shadow-medium: 0 3px 6px rgba(BG, .2) //rgba(149,157,165,0.15);
+        --color-shadow-large: 0 8px 15px rgba(BG, .267) //rgba(149,157,165,0.2);
+        --color-shadow-extra-large: 0 10px 20px rgba(BG, .2);
+        --color-shadow-highlight: inset 0 1px 0 rgba(BG, .133) //hsla(0,0%,100%,0.25);
+        --color-shadow-inset: inset 0 1px 0 rgba(BG, .133) //rgba(225,228,232,0.2);
         --color-shadow-focus: 0 0 0 3px v01;
 
-        --color-fade-black-10: rgba(convert($bg2), .10) //#1b1f231a;
-        --color-fade-black-15: rgba(convert($bg2), .20) //#1b1f2326;
-        --color-fade-black-30: rgba(convert($bg2), .30) //#1b1f234d;
-        --color-fade-black-50: rgba(convert($bg2), .50) //#1b1f2380;
-        --color-fade-black-70: rgba(convert($bg2), .70) //#1b1f23b3;
-        --color-fade-black-85: rgba(convert($bg2), .85) //#1b1f23d9;
-        --color-fade-white-10: #ffffff1a;
-        --color-fade-white-15: #ffffff26;
-        --color-fade-white-30: #ffffff4d;
-        --color-fade-white-50: #ffffff80;
-        --color-fade-white-70: #ffffffb3;
-        --color-fade-white-85: #ffffffd9;
+        --color-fade-black-10: rgba(convert($bg2), .10)
+        --color-fade-black-15: rgba(convert($bg2), .20)
+        --color-fade-black-30: rgba(convert($bg2), .30)
+        --color-fade-black-50: rgba(convert($bg2), .50)
+        --color-fade-black-70: rgba(convert($bg2), .70)
+        --color-fade-black-85: rgba(convert($bg2), .85)
+        --color-fade-white-10: rgba(convert($v99), .102)
+        --color-fade-white-15: rgba(convert($v99), .149)
+        --color-fade-white-30: rgba(convert($v99), .302)
+        --color-fade-white-50: rgba(convert($v99), .502)
+        --color-fade-white-70: rgba(convert($v99), .702)
+        --color-fade-white-85: rgba(convert($v99), .851)
 
         --color-alert-info-text: v98 //#24292e;
         --color-alert-info-icon: v65 //rgba(4,66,137,0.6);
@@ -595,7 +604,7 @@ bs() { box-shadow: arguments }
         --color-btn-danger-icon: v16 //#d73a49;
         --color-btn-danger-hover-icon: v99 //#fff;
 
-        --color-mktg-success: #2ebc4f;
+        --color-mktg-success: v45
         --color-mktg-info: v09
         --color-mktg-bg-shade-gradient-top: rgba(convert($v08), .065)
         --color-mktg-bg-shade-gradient-bottom: rgba(convert($v08), 0)
@@ -625,6 +634,8 @@ bs() { box-shadow: arguments }
         --color-mktg-btn-outline-border: rgba(convert($v08), .5)
         --color-mktg-btn-outline-text: v08
         --color-mktg-btn-outline-icon: v08
+        --color-mktg-btn-outline-focus-border: v08
+        --color-mktg-btn-outline-focus-border-inset: rgba(convert($v08), .5)
         --color-mktg-btn-outline-focus-shadow: 0 0 0 3px rgba(convert($v08), .3)
         --color-mktg-btn-outline-hover-bg: t
         --color-mktg-btn-outline-hover-border: v09
@@ -638,6 +649,8 @@ bs() { box-shadow: arguments }
         --color-mktg-btn-dark-border: rgba(convert($bg4), .5)
         --color-mktg-btn-dark-text: v98
         --color-mktg-btn-dark-icon: v98
+        --color-mktg-btn-dark-focus-border: bg5
+        --color-mktg-btn-dark-focus-border-inset: rgba(convert($bg4), .5)
         --color-mktg-btn-dark-focus-shadow: 0 0 0 3px rgba(convert($bg4), .3)
         --color-mktg-btn-dark-hover-bg: bg4
         --color-mktg-btn-dark-hover-border: bg4
@@ -648,6 +661,20 @@ bs() { box-shadow: arguments }
         --color-mktg-btn-dark-disabled-text: rgba(convert($v93), .5)
         --color-mktg-btn-dark-disabled-icon: rgba(convert($v93), .5)
 
+        --color-mktg-btn-bg-top: v65
+        --color-mktg-btn-bg-bottom: v65
+        --color-mktg-btn-bg-overlay-top: v65
+        --color-mktg-btn-bg-overlay-bottom: v65
+        --color-mktg-btn-primary-bg-top: v43;
+        --color-mktg-btn-primary-bg-bottom: v43
+        --color-mktg-btn-primary-bg-overlay-top: v43
+        --color-mktg-btn-primary-bg-overlay-bottom: v43
+        --color-mktg-btn-enterprise-bg-top: v75
+        --color-mktg-btn-enterprise-bg-bottom: v75
+        --color-mktg-btn-enterprise-bg-overlay-top: v75
+        --color-mktg-btn-enterprise-bg-overlay-bottom: v75
+        --color-mktg-btn-enterprise-text: v99
+
         --color-btn-counter-bg: rgba(BG, .078)
         --color-counter-text: v98 //#24292e;
         --color-counter-bg: bg5 //#d1d5da80;
@@ -656,6 +683,7 @@ bs() { box-shadow: arguments }
         --color-topic-tag-bg: v01 //#f1f8ff;
         --color-topic-tag-hover-bg: v02 //#def;
         --color-topic-tag-active-bg: v02 //#e7f3ff;
+        --color-topic-tag-border: t
 
         --color-merge-box-success-icon-bg: v43
         --color-merge-box-success-icon-text: v99 //#fff;
@@ -688,49 +716,51 @@ bs() { box-shadow: arguments }
         --color-checks-run-border-width: 0px
         --color-checks-container-border-width: 0px
         --color-checks-text-primary: v99
-        --color-checks-text-secondary: v98
+        --color-checks-text-secondary: var(--color-text-secondary)
         --color-checks-text-link: v09
         --color-checks-btn-icon: v97
         --color-checks-btn-hover-icon: v99
         --color-checks-btn-hover-bg: rgba(convert($bg5), 1)
+
         --color-checks-input-text: v98
         --color-checks-input-placeholder-text: v94
         --color-checks-input-focus-text: v94
-        --color-checks-input-bg: bg1;
+        --color-checks-input-bg: var(--color-counter-bg)
         --color-checks-input-shadow: none;
         --color-checks-dropdown-text: v98
         --color-checks-dropdown-bg: bg1;
-        --color-checks-dropdown-border: bg4;
+        --color-checks-dropdown-border: bg4
+        --color-checks-dropdown-shadow: rgba(BG, .3)
         --color-checks-dropdown-hover-text: v98
         --color-checks-dropdown-hover-bg: v02
         --color-checks-dropdown-btn-hover-text: v98;
         --color-checks-dropdown-btn-hover-bg: bg3
-        --color-checks-scrollbar-thumb-bg: #586069;
+        --color-checks-scrollbar-thumb-bg: bg4
         --color-checks-header-label-text: v98
         --color-checks-header-label-open-text: v99
         --color-checks-header-border: bg4
         --color-checks-header-icon: v94
-        --color-checks-line-text: v08
+        --color-checks-line-text: v98
         --color-checks-line-num-text: v96
         --color-checks-line-timestamp-text: v96
         --color-checks-line-hover-bg: bg3
-        --color-checks-line-selected-bg: rgba(33,136,255,0.15);
+        --color-checks-line-selected-bg: rgba(convert($bg5), .5)
         --color-checks-line-selected-num-text: v69
-        --color-checks-line-dt-fm-text: #24292e;
+        --color-checks-line-dt-fm-text: v98
         --color-checks-line-dt-fm-bg: v39
         --color-checks-gate-bg: rgba(convert($v32), .4)
-        --color-checks-gate-text: #e1e4e8;
-        --color-checks-gate-waiting-text: #d1d5da;
+        --color-checks-gate-text: v98
+        --color-checks-gate-waiting-text: v97
         --color-checks-step-header-open-bg: bg3
         --color-checks-step-error-text: v19
         --color-checks-step-warning-text: v39
-        --color-checks-logline-text: #f3f
+        --color-checks-logline-text: v95
         --color-checks-logline-num-text: v67
-        --color-checks-logline-debug-text: #b392f0;
+        --color-checks-logline-debug-text: v78
         --color-checks-logline-error-text: v98
         --color-checks-logline-error-num-text: v19
         --color-checks-logline-error-bg: v11
-        --color-checks-logline-warning-text: #e1e4e8;
+        --color-checks-logline-warning-text: v98;
         --color-checks-logline-warning-num-text: v38
         --color-checks-logline-warning-bg: rgba(convert($v32), .4)
         --color-checks-logline-command-text: v67
@@ -770,10 +800,10 @@ bs() { box-shadow: arguments }
         --color-input-tooltip-error-bg: v10 //#ffeef0;
         --color-input-tooltip-error-border: v13 //#f97583;
 
-        --color-avatar-bg: v98 //#fff;
-        --color-avatar-border: #1b1f231a;
-        --color-avatar-stack-fade: #d1d5da;
-        --color-avatar-stack-fade-more: #e1e4e8;
+        --color-avatar-bg: bg3 //#fff;
+        --color-avatar-border: rgba(convert($bg4), .102)
+        --color-avatar-stack-fade: bg2
+        --color-avatar-stack-fade-more: bg1
         --color-avatar-child-shadow: -2px -2px 0 rgba(BG, .8)
 
         --color-toast-text: v98 //#24292e;
@@ -836,6 +866,7 @@ bs() { box-shadow: arguments }
         --color-dropdown-bg: bg1 //#fff;
         --color-dropdown-border: bg5 //#e1e4e8;
         --color-dropdown-shadow: 0 8px 24px rgba(convert($bg2), .30) //rgba(149,157,165,0.2);
+        --color-overlay-shadow: 0 1px 3px rgba(convert($bg2), .12), 0 8px 24px rgba(convert($bg2), .12);
 
         --color-label-border: bg4 //#e1e4e8;
         --color-label-primary-text: v98 //#24292e;
@@ -887,7 +918,7 @@ bs() { box-shadow: arguments }
         --color-filter-item-bar-bg: bg2 //#eff3f6;
         --color-hidden-text-expander-bg: rgba(BG, .126) //#dfe2e5;
         --color-hidden-text-expander-bg-hover: rgba(convert($bg5), .6) //#c6cbd1;
-        --color-drag-and-drop-border: rgba(convert($v68), .4) //#c3c8cf;
+        --color-drag-and-drop-border: rgba(convert($v08), .4) //#c3c8cf;
         --color-upload-enabled-border: bg5 //#dfe2e5;
         --color-upload-enabled-border-focused: v04 //#4a9eff;
         --color-previewable-comment-form-border: rgba(convert($v68), .4) //#c3c8cf;
@@ -943,11 +974,11 @@ bs() { box-shadow: arguments }
         --color-workflow-card-connector-bg: var(--color-scale-gray-3)
         --color-workflow-card-connector-inactive-bg: var(--color-border-primary);
         --color-workflow-card-inactive-bg: var(--color-bg-canvas-inset);
-        --color-workflow-card-header-shadow: transparent;
+        --color-workflow-card-header-shadow: t
         --color-workflow-card-progress-complete-bg: var(--color-scale-blue-4);
         --color-workflow-card-progress-incomplete-bg: var(--color-scale-gray-2);
 
-        --color-repo-language-color-border: rgba(27,31,35,0.1);
+        --color-repo-language-color-border: bg4
         --color-gist-editor-bg: var(--color-scale-white);
         --color-profile-color-modes-ga-moon: var(--color-scale-gray-9);
 
@@ -964,7 +995,9 @@ bs() { box-shadow: arguments }
         --color-notifications-button-hover-text: var(--color-text-primary);
         --color-notifications-button-hover-bg: var(--color-auto-gray-2);
         --color-notifications-row-read-bg: var(--color-bg-tertiary);
-        --color-notifications-row-bg: #f3f i
+        --color-notifications-row-bg: bg2
+
+        --color-page-header-bg: var(--color-bg-secondary);
 
         --color-calendar-graph-day-bg: bg1 //#ebedf0;
         --color-calendar-graph-day-border: rgba(BG, .145) //#1b1f230f;
@@ -981,8 +1014,75 @@ bs() { box-shadow: arguments }
         --color-calendar-halloween-graph-day-L3-bg: v23 //#fe9600;
         --color-calendar-halloween-graph-day-L4-bg: v20 //#03001c;
 
+        --color-calendar-graph-day-l-1-bg: v02
+        --color-calendar-graph-day-l-2-bg: v04
+        --color-calendar-graph-day-l-3-bg: v06
+        --color-calendar-graph-day-l-4-bg: v08
+        --color-calendar-graph-day-l-4-border: rgba(BG, .145)
+        --color-calendar-graph-day-l-3-border: rgba(BG, .145)
+        --color-calendar-graph-day-l-2-border: rgba(BG, .145)
+        --color-calendar-graph-day-l-1-border: rgba(BG, .145)
+
         --color-footer-invertocat-octicon: v94 //#d1d5da;
         --color-footer-invertocat-octicon-hover: v97 //#6a737d;
+
+        --color-fg-default: v98
+        --color-fg-muted: v96
+        --color-fg-subtle: v97
+        --color-fg-on-emphasis: v98
+
+        --color-canvas-default: bg0
+        --color-canvas-overlay: bg1
+        --color-canvas-inset: bg1
+        --color-canvas-subtle: bg2
+
+        --color-neutral-emphasis-plus: bg0
+        --color-neutral-emphasis: bg5
+        --color-neutral-muted: rgba(convert($bg5), .7)
+        --color-neutral-subtle: rgba(convert($bg2), .5)
+
+        --color-accent-fg: v09
+        --color-accent-emphasis: v02
+        --color-accent-muted: rgba(convert($v09), .4)
+        --color-accent-subtle: v01
+
+        --color-success-fg: v45
+        --color-success-emphasis: v44
+        --color-success-muted: v43
+        --color-success-subtle: v41
+
+        --color-attention-fg: v35
+        --color-attention-emphasis: v34
+        --color-attention-muted: v32
+        --color-attention-subtle: v30
+
+        --color-severe-fg: v25
+        --color-severe-emphasis: v24
+        --color-severe-muted: v24
+        --color-severe-subtle: v21
+
+        --color-danger-fg: v15
+        --color-danger-emphasis: v14
+        --color-danger-muted: v14
+        --color-danger-subtle: v11
+
+        --color-done-fg: v75
+        --color-done-emphasis: v74
+        --color-done-muted: rgba(convert($v75), .4)
+        --color-done-subtle: v72
+
+        --color-sponsors-fg: v85
+        --color-sponsors-emphasis: v84
+        --color-sponsors-muted: v84
+        --color-sponsors-subtle: v82
+
+        --color-primer-canvas-backdrop: rgba(convert($bg0), .5)
+        --color-primer-canvas-sticky: rgba(convert($bg1), .95)
+        --color-primer-border-active: v04
+        --color-primer-border-contrast: rgba(convert($v04), .1)
+        --color-primer-shadow-highlight: inset 0 1px 0 rgba(convert($bg1), .25)
+        --color-primer-shadow-inset: inset 0 1px 0 rgba(convert($bg1), .2)
+        --color-primer-shadow-focus: 0 0 0 3px rgba(convert($v09), .3)
 
         --color-pr-state-draft-text: v99
         --color-pr-state-draft-bg: bg5 //#6a737d;
@@ -1022,12 +1122,14 @@ bs() { box-shadow: arguments }
         --color-diff-blob-num-hover-text: v98 //rgba(27,31,35,0.6);
 
         --color-diff-blob-addition-num-bg: v41 //#cdffd8;
+        --color-diff-blob-addition-fg: v98
         --color-diff-blob-addition-num-text: v96 //rgba(27,31,35,0.3);
         --color-diff-blob-addition-num-hover-text: v98 //rgba(27,31,35,0.6);
         --color-diff-blob-addition-line-bg: rgba(convert($v41), .6) //#e6ffed;
         --color-diff-blob-addition-word-bg: v42 //#acf2bd;
 
         --color-diff-blob-deletion-num-bg: v12 //#ffdce0;
+        --color-diff-blob-deletion-fg: v98
         --color-diff-blob-deletion-num-text: v96 //rgba(27,31,35,0.3);
         --color-diff-blob-deletion-num-hover-text: v98 //rgba(27,31,35,0.6);
         --color-diff-blob-deletion-line-bg: rgba(convert($v11), .8) //#ffeef0;
@@ -1038,7 +1140,7 @@ bs() { box-shadow: arguments }
         --color-diff-blob-hunk-line-bg: bg3 //#f1f8ff;
 
         --color-diff-blob-empty-block-bg: bg2 //#fafbfc;
-        --color-diff-blob-selected-line-highlight-bg: rgba(BG, 0.5) //rgba(255,223,93,0.2);
+        --color-diff-blob-selected-line-highlight-bg: rgba(BG, .5) //rgba(255,223,93,0.2);
         --color-diff-blob-selected-line-highlight-border: v35 //#ffd33d;
         --color-diff-blob-selected-line-highlight-mix-blend-mode: screen;
         --color-diff-blob-expander-icon: v96 //#586069;
@@ -1088,7 +1190,7 @@ bs() { box-shadow: arguments }
         --color-codemirror-guttermarker-subtle-text: v95 //#d1d5da;
         --color-codemirror-linenumber-text: v98 //#959da5;
         --color-codemirror-cursor: v09 //#24292e;
-        --color-codemirror-selection-bg: bg3 //#d7d4f0;
+        --color-codemirror-selection-bg: bg4 //#d7d4f0;
         --color-codemirror-activeline-bg: bg2 //#fafbfc;
         --color-codemirror-matchingbracket-text: v09 //#24292e;
         --color-codemirror-lines-bg: bg1 //#fff;
@@ -1107,7 +1209,7 @@ bs() { box-shadow: arguments }
         --color-ansi-white-bright: v99 //#e1e4e8;
         --color-ansi-gray: v96 //#959da5;
         --color-ansi-red: v35 //#f97583;
-        --color-ansi-red-bright: /v39 //#fdaeb7;
+        --color-ansi-red-bright: v39 //#fdaeb7;
         --color-ansi-green: v47 //#85e89d;
         --color-ansi-green-bright: v49 //#bef5cb;
         --color-ansi-yellow: v37 //#ffea7f;
@@ -1119,8 +1221,41 @@ bs() { box-shadow: arguments }
         --color-ansi-cyan: v57
         --color-ansi-cyan-bright: v59
 
+        --color-checks-ansi-black: v92
+        --color-checks-ansi-black-bright: v94
+        --color-checks-ansi-white: v97
+        --color-checks-ansi-white-bright: v99
+        --color-checks-ansi-gray: v96
+        --color-checks-ansi-red: v35
+        --color-checks-ansi-red-bright: v39
+        --color-checks-ansi-green: v47
+        --color-checks-ansi-green-bright: v49
+        --color-checks-ansi-yellow: v37
+        --color-checks-ansi-yellow-bright: v39
+        --color-checks-ansi-blue: v67
+        --color-checks-ansi-blue-bright: v69
+        --color-checks-ansi-magenta: v77
+        --color-checks-ansi-magenta-bright: v79
+        --color-checks-ansi-cyan: v57
+        --color-checks-ansi-cyan-bright: v59
+
+        --color-checks-step-error-icon: v15
+
         --color-code-selection-bg: var(--color-codemirror-selection-bg) //#c8e1ff;
+
+        --color-social-reaction-border: v04
+        --color-social-reaction-bg: v02
+        --color-social-reaction-bg-hover: v03
+        --color-social-reaction-bg-reacted-hover: v03
     }
+
+    [data-color-mode] {
+        background-color: bg1
+        color: var(--color-text-primary);
+    }
+
+    // https://github.com/login/device
+    html.color-bg-secondary[data-color-mode][data-light-theme] { background-color: inherit i }
 
     // Base styles.
     html {
@@ -1131,7 +1266,7 @@ bs() { box-shadow: arguments }
             // Application background.
             .application-main > .bg-gray { --color-bg-canvas: bg1 }
             &.page-profile .application-main { bs: 0 -24px bg2 }
-            // e.g. https://github.com/login/oauth/authorize?client_id=c602a8bd54b1e774f864&scope=repo
+            // e.g.https://git.io/JuFe6
             &.bg-gray-light {--color-bg-secondary: bg1 }
 
             // Unicorn page -> taking too long to load (no css vars)
@@ -1141,7 +1276,7 @@ bs() { box-shadow: arguments }
             p, #suggestions a { color: v98 }
 
             // Feat -> UI font.
-            if custom_font {
+            if (custom_font) {
                 &, /.markdown-body {
                     font-family: var(--f-ui) i
                 }
@@ -1155,24 +1290,30 @@ bs() { box-shadow: arguments }
                 /.text-mono {
                     font-family: var(--f-mono) i
                 }
+                :root:not(#crazy) * {
+                    // Feat -> Custom monospace font.
+                    --f-mono: f_mono, SFMono-Regular, Consolas, Liberation Mono, Menlo, \
+                            Fira Code, monospace
+
+                     // Feat -> Custom user interface font.
+                     --f-ui: f_ui, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, \
+                            Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji
+                }
             }
+        }
+        .dropdown .signed-commit-badge-large.verified {
+            vertical-align: baseline
+            padding: 4px 10px
+            line-height: 21px
+            font-size: 13px
         }
 
-        // Feat -> Theme scrollbars.
-        if (c_scrollbars) {
-            scrollbar-color: v04 bg2 i
-            /::-webkit-scrollbar {
-                width: 5px
-                &-track { background: bg2 }
-                &-thumb { background: v04 }
-            }
-        }
 
         // Feat -> allow disabling appearance tab
         if (!(show_gh_tab)) {
-          .menu-item[data-selected-links=" /settings/appearance"] {
-            display: none i
-          }
+            .menu-item[data-selected-links=*"settings/appearance"] {
+              display: none i
+            }
         }
 
         // Skeleton.
@@ -1182,8 +1323,21 @@ bs() { box-shadow: arguments }
         }
 
         // Diff -> 'Display the rich diff' loader. @upstream
-        .render-container { c: 0 0 bg1 }
-        img.octospinner[src], .is-loading, .loading, svg.octospinner, .anim-rotate { filter: opacity(0.6) }
+        .render-container {
+            c: 0 0 bg1
+        }
+        img.octospinner[src], .is-loading, .loading,
+        svg.octospinner, .anim-rotate, img[src*="spinners"] { filter: opacity(0.6) }
+    }
+
+    // Feat -> Theme scrollbars
+    if (c_scrollbars) {
+        * { scrollbar-color: v04 bg2 i }
+        /::-webkit-scrollbar {
+            width: 5px
+            &-track { background: bg2 }
+            &-thumb { background: v04 }
+        }
     }
 
     // Better checkbox/radio inputs.
@@ -1231,6 +1385,7 @@ bs() { box-shadow: arguments }
                 path ='<path fill="' + to_svg($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
                 background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
                 c: 0 v08 v09
+                rad: 2px
             }
             &:focus, &:hover { c: 0 v09 bg2 }
             &:indeterminate {
@@ -1271,6 +1426,19 @@ bs() { box-shadow: arguments }
                 }
             }
         }
+        // audit log export inut fields
+        &[id="start-time"], &[id="end-time" i] {
+            -webkit-appearance: none
+            -moz-appearance: none
+            appearance: none
+            background: bg0
+            border: 1px solid bg5
+            color: v99
+            &:active, &:focus-visible {
+                border-color: v08
+                outline: none
+            }
+        }
     }
 
     // Better select element styles.
@@ -1295,6 +1463,16 @@ bs() { box-shadow: arguments }
                 &:hover { c: 0 0 bg3 }
                 &:active { c: 0 0 bg4 }
             }
+            option {
+                &[selected] {
+                    background: v05
+                }
+                &:hover { background-color: v02 i }
+                &:checked {
+                    background-color: v05 i
+                    box-shadow: 0 0 10px 100px v06 inset
+                }
+            }
         }
     }
 
@@ -1311,7 +1489,7 @@ bs() { box-shadow: arguments }
         }
 
         // issue / pr checkbox multi selection
-        // e.g. https://github.com/vednoc/dark-github/pulls?q=is%3Apr+is%3Aopen
+        // e.g. https://git.io/JuFU5
         .Box--responsive {
             input[type='checkbox' i][aria-label*="all issues"] {
                 vertical-align: middle
@@ -1362,23 +1540,46 @@ bs() { box-shadow: arguments }
                 margin-left: -.4rem
             }
         }
+
         #org-members-table {
             input#select-all-checkbox { margin-top: .6rem }
             label[for="select-all-checkbox"] span { margin-left: -.5rem }
         }
 
-        // fix checkbox alignment when opening a PR on 3rd party repos [ ] Allow edits by maintainers (?)
-        input[type="checkbox"][name="collab_privs"] {
-            margin-left: -1.3rem
+        // fix label alignment when opening a PR on 3rd party repos [ ] Allow edits by maintainers (?)
+        [action*='set_collab'] label {
+            padding-top: 3px
         }
+        .js-slash-command-surface [name="collab_privs"] { margin: -10px }
+        .js-slash-command-surface label.mr-1 { margin: -14px; padding-bottom: 20px }
+        .js-slash-command-surface summary path { vertical-align: middle; padding-top: 10px }
 
         // Fix https://github.com/:org/:project/settings/access select all checkbox alignment
-        .repository-content [itemtype="http://schema.org/Repository"] #select-all-checkbox {
+        .repository-content [itemtype*="Repository"] #select-all-checkbox {
             vertical-align: middle
             margin-top: -.1rem
         }
+
+        // filter on PR dropdown
+        .js-file-filter-form label {
+            input[type='checkbox' i] {
+                vertical-align: sub
+            }
+        }
+        // Edit status checkbox
+        #limited-availability-truncate-true-compact-true {
+            margin-top: 1px
+        }
     }
+
+    .Label {
+        // override .Label.Label--purple colors e.g. PRO badge
+        &.Label--purple[title="Label: Pro"] {
+            --color-auto-purple-4: v78
+            --color-auto-purple-5: v78
+        }
     }
+    .label, .Label { line-height: 1.8em }
 
     // Btn overrides/fixes
     .btn {
@@ -1393,39 +1594,25 @@ bs() { box-shadow: arguments }
         }
     }
 
-    // Fix ellipsis expander bg (not usinc css vars)
-    // e.g. https://github.com/EFForg/privacybadger/commit/2c93318fc068e2d3a04b7468c7afce10f2bc48ef
-    .branches-tag-list li {
-        .ellipsis-expander {
-            background-color: var(--color-hidden-text-expander-bg) //#d3e2f4;
-            &:hover { background-color: var(--color-hidden-text-expander-bg-hover) }
-        }
+    // own reply reaction btn-link color tweaks (same bg as other reaction buttons)
+    // e.g. https://github.com/atom/atom/pull/21927#issuecomment-796378411 vs
+    // https://github.com/atom/atom/pull/21927#issuecomment-791897350
+    .reaction-summary-item {
+        background-color: var(--color-bg-info)
+        &:hover { background-color: v02 }
     }
 
-    // fix li margin e.g. https://github.com/the-j0k3r/stylus/pull/172/commits/a6748748614f2d5a09b22cfdc9fae0d97d2e1f45
+    .IssueLabel:not(.color-bg-tertiary),
+    .new-label-color-dimensions, .ColorSwatch {
+        mix-blend-mode: difference
+    }
+    .IssueLabel.color-bg-tertiary { c: v97 0 bg5 }
+
+    // fix li margin e.g. https://git.io/JuFTe
     .js-branches-list li.branch { margin-left: 12px }
 
-    // Fix border-color (not using css vars upstream) https://github.com/settings/keys
-    .user-key {
-        &-email, &-badge { border-color: bg5 }
-    }
-
-    // Fix logout border color (not using css vars upstream) + add opinionated bg
-    .session {
-        &-authentication .login-callout {
-            background: var(--color-bg-primary)
-            border-color: var(--color-border-secondary)
-        }
-        // fix Box shadow no using CSS vars upstream e.g. https://github.com/settings/security
-        &-device {
-            .session-state-indicator.recent {
-                box-shadow: 0 0 5px v45
-            }
-        }
-    }
-
-    // https://github.com/about no css vars
-    hr { border-color: var(--color-border-secondary) }
+    // fix Box shadow no using CSS vars upstream e.g. https://github.com/settings/security
+    .session-device .session-state-indicator.recent { box-shadow: 0 0 5px v45 }
 
     // Logout fixes
     .home-nav-item.selected { border-color: v09; color: v99 i }
@@ -1438,28 +1625,32 @@ bs() { box-shadow: arguments }
         .btn-mktg-fluid {
             background: var(--color-btn-primary-bg)
             &::before {
-                background-image: linear-gradient(-180deg, var(--color-btn-primary-hover-bg), var(--color-btn-primary-hover-bg))
-            }
-            &:hover {
-                background-image: linear-gradient(-180deg, var(--color-btn-primary-hover-bg), var(--color-btn-primary-hover-bg))
+                background-image: linear-gradient(-180deg, var(--color-btn-primary-hover-bg),
+                                                           var(--color-btn-primary-hover-bg))
             }
         }
 
         .btn-white-outline-mktg-fluid {
-          background: none
-          box-shadow: inset 0 0 0 1px hsla(convert($v98), .6)
-          color: v98
-          &:hover {
-              background: none
-              box-shadow: inset 0 0 0 1px hsla(convert($v99), .8)
-              color: v98
-          }
+            background: none
+            box-shadow: inset 0 0 0 1px hsla(convert($v98), .6)
+            color: v98
+            &:hover {
+                background: none
+                box-shadow: inset 0 0 0 1px hsla(convert($v99), .8)
+                color: v98
+            }
         }
 
         .home-git-log-center::after { background: v95 }
         svg path[d="m1-8c0 75 108 75 108 150"] { g: 0 v95 }
+        img {
+            &[src*="matrix-workflow-test"], &[src*="matrix-workflow-pub"] {
+                filter: invert(.95) hue-rotate(180deg) contrast(.8)
+                mix-blend-mode: exclusion
+            }
+        }
 
-        .text-gray-dark-mktg { color: v99 i  }
+        .text-gray-dark-mktg { color: v99 i }
 
         .btn-outline-mktg-fluid {
             color: v78
@@ -1476,10 +1667,6 @@ bs() { box-shadow: arguments }
     // see: https://bugzilla.mozilla.org/show_bug.cgi?id=1394491
     optgroup {
         background-color: bg5
-        &::before {
-            color: v97
-            background-color: bg5
-        }
     }
 
     // ORG third party access borders (not using css vars upstream)
@@ -1489,137 +1676,37 @@ bs() { box-shadow: arguments }
     }
 
     // Actions
-    .CheckStep {
+    .filter-list[data-target='remote-pagination.list'] {
         a {
-            &:hover { color: var(--color-text-white) i }
-        }
-
-        .CheckStep-error-text { --color-auto-red-3: v15 }
-
-        &-line {
-            color: var(--color-diff-blob-num-text)
-
-            .CheckStep-line-number { color: var(--color-diff-blob-num-text) }
-
-            &:hover {
-                --color-auto-gray-0: var(--color-text-white)
-                --color-auto-gray-8: var(--color-code-selection-bg)
-            }
-
-            .CheckStep-line-content a { color: v08 }
-
-            &.selected {
-                color: var(--color-diff-blob-num-text)
-
-                .CheckStep-line-number { color: var(--color-diff-blob-num-text) }
-            }
-        }
-
-        .log-line-command {
-            color: var(--color-auto-blue-7)
-
-            .CheckStep-line-number { color: var(--color-auto-blue-7) }
-        }
-
-        .log-line-error {
-            background-color: v11
-
-            .CheckStep-line-number { --color-auto-red-3: v15 }
-            .CheckStep-line-content { --color-auto-gray-2: v95 }
-        }
-
-        &-header {
-            background-color: bg2
-            box-shadow: none
-
-            &:hover {
-                background-color: bg3
-                box-shadow: none
-            }
-
-            &-label { color: v97 }
-
-            &-dropdown {
-                background-color: bg2 i
-                color: v99
-
-                &:hover {
-                    color: var(--color-text-tertiary)
-                    background-color: bg3 i
-
-                    .octicon { color: var(--color-text-primary) i }
-                }
-            }
-        }
-
-        &[open] {
-            .CheckStep-header {
-                color: var(--color-text-white)
-                background-color: bg3
-                box-shadow: none
-
-                &-label { color: var(--color-text-primary) }
-            }
+            &:hover { color: v99 }
         }
     }
 
     .CheckRun {
-        background-color: var(--color-bg-primary)
-
         &-header {
-            border-bottom: 1px solid bg5
+            // remove radius from border e.g. https://git.io/JuFet
+            &.rounded-top-0.rounded-md-top-1 { rad: 0 i }
             .CheckRun {
                 &-search-input {
-                    color: var(--color-text-secondary)
-                    background-color: bg2
+                    background-color: bg3
                     &:focus { color: var(--color-text-primary) }
                 }
             }
-
-            &-counter {
-                color: var(--color-text-secondary)
-                background-color: var(--color-counter-bg)
-            }
-        }
-
-        &-log-title { color: v96 }
-
-        &-header {
-            background-color: var(--color-bg-primary)
-            border-top: 1px solid var(--color-border-primary)
-
-            .btn-link {
-                &:not([disabled]) {
-                    color: var(--color-text-secondary)
-
-                    &:hover {
-                        background-color: v01
-                        color: v98
-                    }
-
-                    .octicon { color: var(--color-text-primary) }
-                }
-            }
-
-            .btn .btn-link {
-                &:not([disabled]) {
-                    color: var(--color-text-tertiary)
-
-                    .octicon { color: var(--color-text-tertiary) }
-                }
-            }
-        }
-        &-search details[open] .CheckStep-header-dropdown {
-            background-color: bg3 i
-            color: v99
-
-            .octicon { c: v98 0 0 }
         }
     }
-
-    .checks-list-item.bg-white { c: 0 0 var(--color-bg-secondary) }
+    // opinionated hover
+    #partial-actions-workflow-runs div:hover { background-color: bg1 }
 
     .actions-fullwidth-module.color-bg-tertiary { --color-bg-tertiary: bg0 }
+
+    .actions-fullwidth-module {
+        .py-3 {
+            padding-top: 0 i
+            padding-bottom: 0 i
+        }
+        // align edit icon to center
+        [title="Edit"] svg { margin-top: 12px }
+    }
 
     // fix dropdown menu disabled entries bg on hover GH upstream bug
     .dropdown {
@@ -1637,17 +1724,25 @@ bs() { box-shadow: arguments }
             &::after { --color-auto-gray-8: var(--color-bg-primary) }
             &::before { border-bottom-color: bg4 }
         }
+        &-signed-commit .dropdown-menu::after {
+            --color-auto-gray-1: var(--color-bg-tertiary)
+        }
     }
 
     // Global -> Color overrides.
     /{
         // NOTE: Remaps bg1 to bg0.
-        .js-profile-timeline-year-list,
+        .js-profile-timeline-year-list
         .notification-navigation,
         .tabnav {
-            &.bg-white {
-                c: 0 0 bg0
+            &.color-bg-primary {
+                c: 0 0 bg1
             }
+        }
+
+        // remove shadow
+        .social-count, .form-control, .form-select {
+            box-shadow: none
         }
         .diffbar,
         .TimelineItem-break,
@@ -1656,13 +1751,20 @@ bs() { box-shadow: arguments }
         }
 
         // NOTE: Remaps bgX to bg1.
-        .commit-form,
         .form-actions .bg-gray-light {
             c: 0 0 bg1
         }
 
+        // dont let syntax themes style affect the resolve button background on PR's inline discussion only
+        // e.g. https://git.io/JuFTn
+        form[action*='resolve'] { background-color: bg0 }
+
+        .commit-form {
+            c: 0 0 bg1
+        }
+
         // Profile -> Navigation.
-        #js-pjax-container > .position-sticky.bg-white {
+        #js-pjax-container > .position-sticky.color-bg-primary {
             &:first-child { c: 0 0 bg2 }
         }
 
@@ -1694,28 +1796,19 @@ bs() { box-shadow: arguments }
 
         // Check list progress tweaks
         .task-progress .progress-bar {
-            --color-auto-gray-3: bg5
-            .progress { --color-auto-gray-4: v09 }
+            --color-border-secondary: bg5
+            .progress { --color-border-tertiary: v09 }
         }
 
         // Flash only blue to accent color
-        .flash:not([class*="-warn"]):not([class*="-error"]):not([class*="-info"]) {
+        .flash:not([class*="-warn"]):not([class*="-error"]):not([class*="-info"]):not([class*="-succ"]) {
             background-image: linear-gradient(v01 , v01)
             border-color: v02
             color: var(--color-alert-info-text)
             .octicon {
                 --color-alert-info-icon: v07
-                &:hover { color: v09 }
+                &-x:hover { color: v09 }
             }
-        }
-
-        // upstream regression no css vars e.g. https://support.github.com/tickets/personal/0 status yellow
-        .flash-warn {
-            background-color: v31 //#fffbdd
-            border-color: v34 //rgba(176,136,0,0.2)
-            color: var(--color-alert-info-text)
-
-            .octicon { color: v35 }
         }
 
         // Commit ref & user blue to accent color
@@ -1728,13 +1821,26 @@ bs() { box-shadow: arguments }
             // Code blocks.
             pre { c: 0 0 var(--color-codemirror-bg) }
 
-            blockquote { color: v96 }
+            // tweak blockquotes
+            blockquote {
+                color: v96
+                p { color: v96 }
+            }
 
             // metrics image e.g. https://github.com/AbhayAysola
             /img[data-canonical-src*="https://metrics.lecoq.io/"] {
                 filter: invert(.90) hue-rotate(180deg) saturate(1.5) brightness(80%)
                 background: t
             }
+
+            // tweak kbd shadow (add depth) e.g. https://github.com/bus-stop/terminus#commands
+            kbd { box-shadow: inset 0 -3px 0 bg5 }
+
+            // tweak nth table tr:nth-child(2n) in case it contains kbd entries (as above)
+            table tr:nth-child(2n) { --color-bg-tertiary: bg2 }
+                tt, code {
+                    background-color: var(--color-codemirror-bg)
+                }
         }
 
         // Releases.
@@ -1759,8 +1865,8 @@ bs() { box-shadow: arguments }
             mix-blend-mode: lighten
         }
 
-        // fix GH circlebadge https://github.com/login/oauth/authorize?client_id=c602a8bd54b1e774f864&scope=repo
-        .CircleBadge[style*="background-color: #fff; overflow"] { background-color: var(--color-bg-tertiary) }
+        // fix GH circlebadge e.g. https://git.io/JuFe6
+        .CircleBadge[style*="background-color: #fff; overflow"] { background-color: bg3 i }
 
 
         .CircleBadge-icon[alt*="workflow logo"] {
@@ -1783,6 +1889,18 @@ bs() { box-shadow: arguments }
         svg[width="56"][height="56"][viewBox="0 0 62.9 56"] {
             [fill="#79b8ff"] { g: var(--color-icon-secondary) }
             [fill="#2088ff"] { g: var(--color-icon-primary) }
+        }
+
+        // anim-rotate svg inline colors
+        svg[width="92%"][height="92%"][viewBox="0 0 16 16"] {
+            /[stroke*="#dbab0a"] {
+                g: 0 v37
+                filter: saturate(5)
+            }
+            /[fill*="#dbab0a"] {
+                g: v37 0
+                filter: saturate(5)
+            }
         }
 
         // Images
@@ -1866,7 +1984,7 @@ bs() { box-shadow: arguments }
         }
 
         .home-git-log-light .home-branch > path { g: 0 v95 }
-        .home-git-log-dark::after, .home-git-log-light::after, .home-repo-comp::after {	background: v95 }
+        .home-git-log-dark::after, .home-git-log-light::after, .home-repo-comp::after { background: v95 }
         .home-git-log-dark-icons .home-git-icon > circle, .home-git-log-dark .home-git-icon > circle,
         .home-git-log-dark-icons .home-git-icon > path, .home-git-log-dark .home-git-icon > path {
             g: 0 v94
@@ -1879,7 +1997,27 @@ bs() { box-shadow: arguments }
 
         // Logout logos
         /img {
-            &[src*="platform"] { filter: invert(1) hue-rotate(180deg)brightness(80%) }
+            &[src*="/logos/platform"] { filter: invert(1) hue-rotate(180deg)brightness(80%) }
+        }
+
+        // drag-and-drop over textarea using HEX color not CSS var
+        .dragover textarea,.dragover .drag-and-drop {
+            box-shadow: 0 0 3px v07
+            border: 1px solid v07
+        }
+
+        // external link icon dark as a mofo, this is visible at stylus wiki
+        // only as its a userimage. svg is better mk.
+        img[alt="external link"] {
+                r       = unquote
+                prefix  = 'data:image/svg+xml;utf8,'
+                path    = '<svg xmlns="http://www.w3.org/2000/svg" '
+                path   += 'width="14" height="14" opacity="1" fill="' + to_svg($v99) + '">'
+                path   += '<path d="M2 2h3v1H3v6h6V7h1v3H2zm4.211 0H10v3.789L8.579 4.368 '
+                path   += '6.447 6.5 5.5 5.553l2.132-2.132z"/>'
+                background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
+                width: 0
+                padding: 6px
         }
     }
 
@@ -1918,10 +2056,13 @@ bs() { box-shadow: arguments }
         }
 
         // Fix alignment and colors of sticky navbars.
+        /.notification-shelf.is-stuck { z-index: 98 i }
         /.gh-header {
             // Issues.
             &-sticky.is-stuck {
+                z-index: 98 i
                 + .gh-header-shadow {
+                    z-index: 97 i
                     c: 0 0 bg2
                 }
             }
@@ -1975,28 +2116,60 @@ bs() { box-shadow: arguments }
 
         // Notifications. @upstream
         .mail-status {
-            background-image: none i
+            background-image: none
             c: 0 0 v08
         }
 
         // Logged out style.
         .header-logged-out {
-            padding-top: 3px i
-            padding-bottom: 3px i
+            padding-bottom: 5px i
 
             // Default one uses white color.
             --color-text-white: v98
         }
     }
 
+    // fix branch select menu single/last entry cut off
+    .SelectMenu-modal .SelectMenu-item {
+        &:last-of-type {
+            padding-top: 14px
+            span { margin-top: -6px }
+        }
+        &:first-of-type:last-of-type {
+             padding-top: 11px
+            .octicon-check {
+                margin-top: -5px
+            }
+        }
+     }
+    .SelectMenu-list {
+        margin-bottom: auto
+        [style*='transform; height: 66px'] {
+            height: 77px i
+        }
+    }
+    .SelectMenu-footer {
+      margin-top: auto
+      margin-bottom: auto
+      border-top: 1
+    }
+
+    /.SelectMenu-header {
+        background-color: bg2
+    }
+
+
     // Notification
     .notifications-list-item {
         &.notification-unread {
-            --color-notifications-row-bg: bg2
-            .notification-list-item-unread-indicator { --color-bg-info-inverse: v08 }
+            .notification-list-item-unread-indicator {
+                background-color: v08
+                height: 10px
+                width: @height
+            }
         }
         &.notification {
-            &-read, &-archived { --color-notifications-row-read-bg: bg1 }
+            &-read, &-archived { --color-notifications-row-read-bg: rgba(BG, .8) i }
         }
         &:hover {
             --color-auto-blue-5: v04
@@ -2010,6 +2183,11 @@ bs() { box-shadow: arguments }
 
     // Feature preview notification dot
     .feature-preview-indicator { background-image: linear-gradient(v08, v08) }
+    // Feature preview octo
+    svg[width="200"][height="200"][viewBox="0 0 146 108"] {
+        filter: grayscale(1) brightness(.7)
+    }
+
 
     // Navigation. @upstream
     .UnderlineNav-item {
@@ -2033,25 +2211,36 @@ bs() { box-shadow: arguments }
         }
     }
 
-
+    // Project -> Find file page e.g. https://github.com/style-it-themes/dark-github/find/main
+    .tree-browser-result {
+        &[aria-selected="false"] {c: 0 0 rgba(convert($bg2), .7) }
+        &:hover { c: 0 0 bg2 }
+    }
 
     // Override Sidenav BG too bright
     // e.g. https://github.com/vednoc/dark-github/security/code-scanning
-    .SideNav { --color-bg-secondary: var(--color-bg-primary) }
+    //      https://github.com/settings/profile
+    .SideNav, .menu[aria-label] { background-color: bg1 }
+    .menu-heading { background-color: bg2 }
 
     // Reset colors for tabs.
     .tabnav-tab {
-        &.selected,
-        &[aria-selected="true"],
-        &[aria-current]:not([aria-current="false"]) {
-            c: 0 0 bg0
-        }
         &[aria-current="true"], // Explore: topics/tag
         &[aria-current="true"].code,
         &[aria-current="true"].preview,
         &[aria-selected="true"].write-tab:not(#z),
         &[aria-selected="true"].preview-tab:not(#z) {
-            c: 0 0 bg1
+            background-color: bg1
+        }
+        // fix stargazers tab bg color e.g. https://git.io/JuFYB
+        &[data-selected-links*='stargazers_'] {
+            background-color: bg1 i
+            // fix upstream bug no border at bottom https://git.io/JuFYB
+            &:not(.selected) {
+                border-bottom: 1px solid bg4
+                // dont move text + counter when selected
+                margin-top: 2px
+            }
         }
     }
 
@@ -2063,14 +2252,21 @@ bs() { box-shadow: arguments }
 
     // Project -> Tags. @upstream
     .topic-tag {
+        background-color: var(--color-topic-tag-bg)
+        border: 1px solid var(--color-topic-tag-border)
+        color: var(--color-topic-tag-text)
         &-action, &-link { c: 0 v04 }
+        &:hover, &-action-hover {
+            background-color: var(--color-topic-tag-hover-bg)
+            color: var(--color-topic-tag-text)
+        }
 
         // marketplace cat tag
         &:active { background-color: var(--color-topic-tag-active-bg) }
-        &-contrast {
+        &-contrast, &-action {
             .delete-topic-link {
                 background-color: var(--color-topic-tag-bg)
-                border-left-color: v04
+                border-left: 1px solid v04 i
                 &:hover { background-color: var(--color-topic-tag-hover-bg) }
             }
         }
@@ -2098,7 +2294,7 @@ bs() { box-shadow: arguments }
         // notifications saved bg fix
         &-body .bg-gray { --color-bg-tertiary: bg1 }
         // Avoid coloring box danger border
-        &.p-3 {
+        &.p-3:not(.pinned-item-list-item) {
             // Fix sponsors card e.g. https://github.com/sponsors/elrumo/card
             background-color: bg1 // must be bg1
             border: 1px solid bg4
@@ -2110,8 +2306,8 @@ bs() { box-shadow: arguments }
         // Border color for modals.
         &--overlay { c: 0 bg5 }
 
-        // Override bg row gray settings/security -> sessions
-        &-row--gray { c: 0 0 bg1 }
+        // Override bg row hover settings/security -> sessions
+        &-row.TableObject:hover { c: 0 0 bg1 }
         // Tree items.
         &-row.js-navigation-item {
             c: 0 bg4
@@ -2137,21 +2333,16 @@ bs() { box-shadow: arguments }
 
         // Feat -> Neutral colors in latest commit.
         if (latest_commit) {
-            &-header--blue { c: 0 bg5 bg2 }
+            .hx_commit-tease { c: 0 bg5 bg2 }
+
             // Commit details.
-            /.full-commit {
-                c: 0 0 bg2
-                p.commit-title { c: v98 }
-            }
+            /.full-commit { c: 0 0 bg2 }
         }
         else {
-            &-header--blue { c: 0 v04 v01 }
-            // Commit details
-            /.full-commit {
-                p.commit-title {
-                    color: v98
-                }
-            }
+            .hx_commit-tease { c: 0 v04 v01 }
+
+            // Commit details.
+            /.full-commit { c: 0 0 v01 }
         }
 
         // Feat -> Shorter headers.
@@ -2159,7 +2350,7 @@ bs() { box-shadow: arguments }
             condition = (readme_header == 1) ? '' : '--blue'
             /.repository-content &-header{ condition } {
                 padding-top: 8px
-                padding-bottom: 7px
+                padding-bottom: 8px
 
                 // Smaller avatars.
                 .avatar[style*='width:24px'] {
@@ -2171,14 +2362,42 @@ bs() { box-shadow: arguments }
                     }
                 }
             }
+            condition = (short_headers == 1) ? '' : '--responsive'
+            /.repository-content &-header{ condition },
+            /.audit-log-search [class^="Box-header"]{ condition } {
+                padding-top: 8px
+                padding-bottom: 8px
+            }
+            condition = (short_headers == 1) ? '' : '-header'
+            /[data-url*="notifications"] [class*="-header"]{ condition } {
+                height: 40px i
+            }
+            condition = (short_headers == 1) ? '' : '-header'
+            /#advisories [class^="table-list-header"]{ condition } {
+                max-height: 47px
+            }
+            condition = (short_headers == 1) ? '' : '-header'
+            /div [class*="table-list-header"] div{ condition } {
+                max-height: 47px
+                margin-top: -2px
+            }
+            condition = (short_headers == 1) ? '' : '-header'
+            .Box-btn-octicon .octicon.octicon-x{ condition } {
+                vertical-align: top
+                margin-top: -.2rem
+            }
+            condition = (short_headers == 1) ? '' : '-header'
+            [class="Box-header"] .Box-title{ condition } {
+                margin-top: -.3rem
+            }
         }
     }
 
     // Feat tab/indent size
     if (tab_size) {
         body pre, .highlight, .diff-table, .tab-size {
-           tab-size: tab_size i
-           -moz-tab-size: tab_size i
+            tab-size: tab_size i
+            -moz-tab-size: tab_size i
         }
         .cm-tab {
             width: tab_size ch
@@ -2190,6 +2409,11 @@ bs() { box-shadow: arguments }
         }
     }
 
+    // remove GitHub Desktop from get repo options modal.
+    if (!(rm_ghdskt-op)) {
+        [data-target="get-repo.modal"] .js-remove-unless-platform { display: none i }
+    }
+
     // make optional truncate at higher or set width.
     // e.g. https://github.com/Gitoffthelawn?tab=overview&from=2020-10-01&to=2020-10-31
     .TimelineItem {
@@ -2198,17 +2422,19 @@ bs() { box-shadow: arguments }
 
     // Billing icon fixes https://github.com/settings/billing
     .billing-box-header {
-        /img[src*="site/icons"] {
+        /img[src*="site/icons"], /img[src*="site/features"]:not([src*="bg-whats-new"]) {
             filter: grayscale(1) brightness(1.5)
         }
+        /img[src*="/site/icons/footer/github-logo"] { filter: invert(.95) brightness(1.1) }
     }
 
     // large Icons in settings
     #options_bucket {
-        /img[src*="icons/marketing"] {
-            filter: grayscale(1) brightness(1.5)
-        }
+        /img[src*="icons/marketing"] { filter: grayscale(1) brightness(1.1) }
     }
+
+    // Actions user icon/avatar
+    .avatar-user[alt="@actions-user"] { filter: grayscale(1) brightness(2) }
 
     // darken main box-header bg allows buttons on hover to contrast
     /.repository-content {
@@ -2219,20 +2445,19 @@ bs() { box-shadow: arguments }
         // remove margin above codemirror
         .file-header.mb-2 { margin-bottom: 0 i }
         // remove top margin when in edit mode
-        .commit-create .CodeMirror-scroll {
-            margin-top: -8px
-        }
+        .commit-create .CodeMirror-scroll { margin-top: -8px }
 
         img[src*="actions"] {
             filter: grayscale(1) invert(0.95) brightness(1.5)
         }
+
         .bg-white.blob-code:not(.border-bottom-0) {
             shade = (dark(BG)) ? darken : lighten
             background: mix(shade(FG, 5%), BG, 2%) i
         }
     }
-     // When issues are locked, we match tab bg color
-    // e.g.
+    // When issues are locked, we match tab bg color
+    // e.g. https://github.com/atom/atom/issues/75
     .previewable-comment-form .blankslate {
         background: var(--color-bg-primary)
         // remove extra space between tabnav and blankslate
@@ -2241,9 +2466,15 @@ bs() { box-shadow: arguments }
 
     // When you have dark syntax themes the contrast
     // between comment body and code blocks is lost this override adds its back
-    .comment-body, .review-comment, .discussion-comment.unminimized-comment {
+    // comment-body:not markdown body e.g. link missing
+    .comment-body:not(.markdown-body), .review-comment, .discussion-comment.unminimized-comment {
         shade = (dark(BG)) ? darken : lighten
         background: mix(shade(FG, 5%), BG, 2%) i
+        border-radius: 0 0 3px 3px
+    }
+    // Viewing edited comments history popup bg match to hack above.
+    details-dialog div.Box-body.overflow-auto {
+        background: mix(shade(FG, 5%), BG, 2%)
     }
     // Dont mangle preview tab with above styling
     .preview-selected .comment .comment-body { c: 0 0 bg1 }
@@ -2271,14 +2502,19 @@ bs() { box-shadow: arguments }
         }
     }
 
-    // Tweak user status emoji picker
-    .btn-outline[class*='emoji-picker-'] {
-        // add transition
-        transition: all .15s
-        &:hover {
-            // Add scale and transition
-            scale: 1.3
-
+    // Button tweaks
+    .btn {
+        &-outline[class*='emoji-picker-'] {
+            // add transition
+            transition: all .15s
+            &:hover {
+                // Add scale and transition
+                scale: 1.3
+            }
+        }
+        // box shadow remove on .btn
+        &.selected, &[aria-selected="true"] {
+            box-shadow: none
         }
     }
 
@@ -2289,7 +2525,7 @@ bs() { box-shadow: arguments }
         // Graphs -> Contributors.
         /.graphs {
             .tint-box, .capped-card-content {
-                c: 0 0 bg2
+                c: 0 0 rgba(convert($bg2), .6)
             }
             line[stroke*='#000'] { g: 0 bg4 }
             text[fill='#6a737d'] { g: v94 0 }
@@ -2300,16 +2536,19 @@ bs() { box-shadow: arguments }
             // dot not using stroke  css vars
             .dot { g: 0 var(--color-bg-success-inverse) }
 
-            // Network -> Invert colors.
-            @media (prefers-color-scheme: light) {
-                if (dark(BG)) {
-                    /#network > .Box {
-                        c: 0 0 bg0
-                        canvas { filter: invert(.9) hue-rotate(180deg) contrast(1.1) }
+            @media (prefers-color-scheme: dark) {
+                // Network -> Invert colors.
+                /#network > .Box {
+                    c: 0 0 bg0
+                    canvas {
+                        filter:
                     }
                 }
             }
         }
+
+        // Tables.
+        /.gutter table.capped-list th { c: 0 bg4 }
 
         // Graphs -> Traffic.
         /.traffic-graph {
@@ -2334,9 +2573,11 @@ bs() { box-shadow: arguments }
                 filter: invert(.75)
             }
         }
+    }
 
-        // Tables.
-        /.gutter table.capped-list th { c: 0 bg4 }
+    nav[aria-label="Insights"] span[aria-label*="Upgrade to GitHub Team"] {
+        background-color: t
+        color: v92 i
     }
 
     // Not using css vars upstream, deletion is??
@@ -2364,11 +2605,16 @@ bs() { box-shadow: arguments }
         g: v09
     }
 
+    // Packages release page metrics
+    // https://github.com/users/BtbN/packages/container/package/ffmpeg-builds%2Fbase-win64
+    rect[fill="#28A745"] {
+        g: v09
+    }
+
     // Override pulse authors bar rect and contrib person path color
     .pulse-authors-graph .bar rect, .contrib-person path {
-        --color-auto-orange-5: v05
-        --color-auto-orange-4: v05
-        fill-opacity: .5
+        g: v07
+        fill-opacity: .6
     }
 
     g.mini { --color-auto-orange-4: v04 }
@@ -2396,17 +2642,62 @@ bs() { box-shadow: arguments }
     .branch-action-body::after { border-right-color: bg1 i }
 
     .timeline-comment {
-        &--caret {
-            &::before { border-right-color: bg5 }
-            &::after { border-right-color: bg3 }
-            &.current-user {
-                border-color: var(--color-box-border-info)
-                &::before { border-right-color: v04 }
-                &::after { border-right-color: v02 }
+        &--caret:not(.Box--condensed) {
+            &::before {
+                background-color: bg5
             }
-
+            &::after {
+                background-color: bg3
+                background-image: none
+            }
             /:target &::before { border-right-color: var(-color-timeline-target-badge-shadow) i }
+
+            /.edit-comment-hide .color-bg-canvas-inset,
+            /.discussion-comment.reorderable-task-lists {
+                shade = (dark(BG)) ? darken : lighten
+                --color-bg-canvas-inset: mix(shade(FG, 5%), BG, 2%)
+            }
+            /.discussion-comment .color-bg-primary {
+                --color-bg-primary: mix(shade(FG, 5%), BG, 2%) i
+            }
+            /.discussion-comment.timeline-chosen-answer {
+                border-radius: 3px 3px 3px 3px
+            }
         }
+        // https://support.github.com/ticket/personal/0/#ticknr
+        &--caret.new-comment {
+            .ticket-head { background-color: bg3 }
+            &::before {
+                background-color: bg5
+            }
+            &::after {
+                background-color: bg3
+                background-image: none
+            }
+        }
+        // explore
+        &--caret.Box--condensed {
+            &::before {
+                background-color: bg3
+            }
+            &::after {
+                background-color: bg2
+                background-image: none
+            }
+        }
+        &.new-comment {
+            border-color: bg5
+        }
+        &-header {
+            background-color: bg3
+            border-color: bg5
+            color: v98
+        }
+        &.comment  {
+            border-color: bg5
+        }
+        &-label { border-color: bg5 }
+        // end #ticknr
 
         // PR -> CLI instructions.
         /.merge-branch-manually { c: 0 bg5 }
@@ -2431,6 +2722,11 @@ bs() { box-shadow: arguments }
         }
     }
 
+    // conflict resolution header alignment fix
+    h3.py-3.color-text-secondary.color-bg-secondary {
+        height: 51px
+    }
+
     // Override merge status bg
     .merge-status-item {
         --color-bg-tertiary: rgba(convert($bg2), .5)
@@ -2447,7 +2743,12 @@ bs() { box-shadow: arguments }
         }
 
         // Add border to calendar legends.
-        .legend li { bs: inset 0 0 0 1px var(--color-calendar-graph-day-border) i; rad: 1px i; width: 11px i; height: @width }
+        .legend li {
+            bs: inset 0 0 0 1px var(--color-calendar-graph-day-border) i
+            rad: 1px i
+            width: 11px i
+            height: @width
+        }
 
         // Halloween activity overview.
         .halloween-activity-overview .activity-overview {
@@ -2490,14 +2791,30 @@ bs() { box-shadow: arguments }
 
         // Inline diffs.
         &-code {
-            &-addition .x { color: var(--color-codemirror-text) }
-            &-deletion .x { color: var(--color-codemirror-text) }
+            //&-addition .x { color: var(--color-codemirror-text) }
+            //&-deletion .x { color: var(--color-codemirror-text) }
             &-inner { c: var(--color-codemirror-text) 0 0 }
+            &.color-bg-primary {
+                background-color: var(--color-codemirror-bg)
+            }
         }
         // color the blob-num bg in timeline comments
-        &-num:not([class*="-addition"]):not([class*="-deletion"]):not([class*="-expandable"]) {
-            background: var(--color-codemirror-gutters-bg) i
+        &-num:not([class*="-addition"]):not([class*="-deletion"]):not([class*="-expandable"]):not([class*="-empty"]) {
+            background-color: var(--color-codemirror-gutters-bg) i
+
+            // 1) pinned-item-list-item code blocks items e.g. https://github.com/ChrisTitusTech
+            &.pinned-gist-blob-num {
+                &:hover { color: var(--color-diff-blob-num-hover-text) }
+            }
         }
+
+        &-wrapper-embedded {
+            c: 0 0 var(--color-codemirror-bg)
+        }
+
+        // remove padding from actions workflow
+        // e.g. https://github.com/the-j0k3r/stylus/actions/runs/607188869/workflow
+        &-wrapper.bg-white.py-3.rounded-bottom-1 { padding: 0 i }
 
         // Line highlight.
         /table.highlight > tbody > tr {
@@ -2514,6 +2831,22 @@ bs() { box-shadow: arguments }
         /.code-list { & &-item { c: 0 bg3 }}
     }
 
+    // 2) pinned-item-list-item code blocks items e.g. https://github.com/ChrisTitusTech
+    .pinned-item-list-item .color-bg-tertiary {
+        background-color: var(--color-codemirror-bg) i
+        padding-top: 0 i
+        padding-bottom: 0 i
+        rad: 0 i
+        pre {
+            padding-left: 10px
+            &:hover {
+                background-color: var(--color-codemirror-activeline-bg)
+                min-width: 92%
+                rad: 0
+            }
+        }
+    }
+
     // Code
     /{
         // Feat -> Add borders around code blocks and similar elements.
@@ -2522,6 +2855,7 @@ bs() { box-shadow: arguments }
             .markdown-body { code, tt, pre { border: 1px solid bg5 }}
             .commit { &-ref, &-sha { border: 1px solid bg5 }}
             .branch-name { border: 1px solid bg5 }
+            .markdown-title code  { border: 1px solid bg5 }
         }
 
         // Syntax highlighting keep it; some subdomains use it
@@ -2615,8 +2949,8 @@ bs() { box-shadow: arguments }
         }
 
         // Highlight docs | github
-        code, .highlight{
-            background: var(--color-codemirror-bg)
+        code, .highlight {
+            background-color: var(--color-codemirror-bg)
             // color the blob-num bg in editors
             .blob {
                 &-num:not([class*="-addition"]):not([class*="-deletion"]):not([class*="-expandable"]) {
@@ -2667,7 +3001,13 @@ bs() { box-shadow: arguments }
 
         // Code is colored in wrong places e.g. https://github.com/openstyles/stylus/issues/1176#L328
         // Remove bg from e.g. -> Merge remote-tracking branch 'upstream/master'
-        code { background-color: inherit }
+        // Remove code bg when using syntax themes style when
+        // 1) notification-list-item-link has .markdown-title code with a syntax theme styled bg where not wanted
+        // 2) .gh-header-show .markdown-title code issue title contaisn code bg styled by syntax theme style.
+        code, .extended-markdown p code,
+        .notification-list-item-link .markdown-title code,
+        .gh-header-show .markdown-title code { background-color: inherit }
+        .new-discussion-timeline .markdown-title code { background-color: bg2 }
 
         // CodeMirror editor.
         div.CodeMirror-selected {
@@ -2711,6 +3051,7 @@ bs() { box-shadow: arguments }
             }
             &-lines { background: var(--color-codemirror-bg) }
             &-gutters { background: var(--color-codemirror-gutters-bg) }
+            &-gutter-filler, &-scrollbar-filler { background-color: initial }
         }
         .cm {
             &-string { color: var(--color-codemirror-syntax-string) }
@@ -2903,16 +3244,6 @@ bs() { box-shadow: arguments }
 }
 
 @-moz-document regexp('https?://((docs)\.)github?.com(/.*)?') {
-    // https://docs.github.com
-    body {
-        background-color: bg0
-        &, p { c: v98 }
-        a {
-            color: v07
-            &:hover { color: v09 }
-        }
-    }
-
     // Landing svg
     #landing {
         /[data-name="octocat header"] {
@@ -2921,12 +3252,12 @@ bs() { box-shadow: arguments }
         }
     }
 
-    // TODO https://docs.github.com/en/enterprise-server@3.0/admin/release-notes
+    body { background-color: bg2 i }
 
     // Search container
     header {
         #search-results-container {
-            background: var(--color-bg-secondary)
+            background: bg3
             box-shadow: 0 1px 15px var(--color-shadow-medium)
         }
     }
@@ -2940,22 +3271,9 @@ bs() { box-shadow: arguments }
     //  All procedural images
     .procedural-image-wrapper {
         /img:not([src*="updated"]) {
-            filter: invert(.95) hue-rotate(180deg) brightness(1.3)
+            filter: invert(.95) hue-rotate(180deg) brightness(1.4)
+            border-color: v99
             mix-blend-mode: lighten
-        }
-    }
-
-    // More guides
-    .Box {
-        background-color: bg1
-        border: 1px solid bg4
-        // header at https://docs.github.com/en/actions/guides
-        &-header {
-            background-color: bg2
-            border-color: bg5
-        }
-        &-row {
-            border-top: 1px solid bg5
         }
     }
 
@@ -2964,37 +3282,19 @@ bs() { box-shadow: arguments }
     }
 
     // Sidebar
-    .sidebar {
-        background-color: var(--color-bg-primary)
-        a { color: v98 }
-        &-maptopic {
-            .sidebar-article {
-                &::before { border-left: .1rem solid v05 }
-                &.active::before { border-left: .3rem solid v05 }
-            }
-        }
-        &-background-color { background-color: var(--color-bg-primary) }
-        &-article.is-current-page > a { color: v03 }
-        &-category {
-            &.active { background-color:  var(--color-bg-primary) }
-            & > a { color: v07 }
-            & summary a { color: v07 }
-            & .is-current-page > a { color: v09 }
-        }
-        &-product {
-            & > a { color: v07 }
-            & summary a { color: v09 }
-        }
-        &-maptopic {
-            .is-current-page > a { color: v06 }
-        }
-        &-products {
-            a:hover { color: v09 }
-            arrow:hover { color: v08 }
-        }
-    }
+    [data-testid="sidebar"] {
+        background-color: bg3
 
+    }
+    [data-testid*="sidebar"] {
+        &::before { border-color: v08; border-width: 2px }
+        li a:hover { color: v08 i }
+        li .color-bg-info[data-is-active-category="true"] { c: 0 0 bg2 }
+        li[data-is-current-page="false"] .color-text-primary:hover { color: v08 i }
+        [data-testid="sidebar-article"][data-is-current-page="true"]::before { border-left-width: 5px }
+    }
     // Backgrounds
+    /*
     .bg {
         &-blue {
             c: 0 0 v63
@@ -3023,7 +3323,6 @@ bs() { box-shadow: arguments }
 
     // Borders
     .border {
-        border: 1px solid bg4 i
         &-top { c: 0 bg4 0 }
         &-left { c: 0 bg4 0 }
         &-blue { c: 0 v63 0 }
@@ -3033,20 +3332,25 @@ bs() { box-shadow: arguments }
         &-bottom { c: 0 var(--color-border-secondary) 0 }
         &-yellow { c: 0 v32 0 }
     }
+    */
 
     .markdown-body {
+        a, h1 a, h2 a, h3 a {
+            color: v07
+        }
         table {
             tr {
-                background-color: bg0
+                background-color: bg2
                 border-top-color: var(--color-border-secondary)
-                &:nth-child(2n) { background-color: bg0 }
+                &:nth-child(2n) { background-color: bg2 }
             }
             // no borders opinionated or not in this
             td code { border: 0 }
             th {
-                background-color: bg0
+                background-color: bg2
                 box-shadow: 0 3px 0 0 var(--color-border-secondary)
             }
+            code { background-color: var(--color-markdown-code-bg) }
         }
         h1, h2 { border-bottom-color: var(--color-border-secondary) }
         .highlight pre, pre {
@@ -3065,6 +3369,15 @@ bs() { box-shadow: arguments }
         }
         hr { background-color: bg4 }
     }
+
+    .js-release-notes-patch-link.selected {
+        --color-auto-blue-1: v02
+    }
+
+    h1 a, h2 a, h3 a {
+        color: v07
+    }
+
 
     // Text colors
     .text {
@@ -3097,6 +3410,8 @@ bs() { box-shadow: arguments }
         }
     }
 
+    h2 a { color: v08 }
+
     // Shadows
     .box-shadow {
         &-large { box-shadow: var(--color-shadow-large) i }
@@ -3107,70 +3422,23 @@ bs() { box-shadow: arguments }
         &-large:hover { box-shadow: var(--color-shadow-large) i }
     }
 
-    [open] > .btn {
-        border-color: var(--color-btn-border)
-        background-color: var(--color-btn-bg)
-    }
-    .btn {
-        color: var(--color-btn-primary-text)
-        border-color: var(--color-btn-border)
-        background-color: var(--color-btn-bg)
-        transition: color, background 0.2s
-        &-link { color: v08 }
-        &:active,
-        &.selected,
-        &[aria-selected="true"] {
-            background-color: var(--color-btn-hover-bg) i
-            box-shadow: var(--color-shadow-inset)
+    // Buttons
+    // e.g. https://git.io/JubrI
+    button.arrow-for-scrolling-top {
+        background-color: v08
+        color: v98
+
+        // align chevron to middle of button by increasing size,
+        // default size is to small and not center aligned on button
+        .octicon-chevron-up {
+            width: 25px
+            height: @width
         }
-        &.disabled,
-        &:disabled,
-        &[aria-disabled="true"] {
-            color: var(--color-text-disabled)
-            background-color: var(--color-btn-bg)
-            border-color: var(--color-btn-border)
-        }
-        &.hover,
-        &:hover {
-            background-color: var(--color-btn-hover-bg)
-            border-color: var(--color-btn-hover-border)
-        }
-        &-mktg {
-            color: v98
-            border-color: v08
-            background-color: v06
-            &:hover { background-color: v04; border-color: v06; color: v98 }
-            &:focus { box-shadow: 0 0 0 3px v02 }
-        }
-        &-outline {
-            color: v08
-            border-color: bg5
-            background-color: var(--color-btn-bg)
-            &:hover {
-                background-color: v08 //bg3
-                box-shadow: 0 1px 0 rgba(FG, .1), inset 0 1px 0 rgba(FG, .03)
-                color: v98
-            }
-            &-mktg {
-                background-color: bg1
-                border-color: v06
-                color: v06
-                &:hover { background-color: bg1; border-color: v09; color: v09 }
-                &:focus { box-shadow: 0 0 0 3px v02 }
-            }
-            &:focus { box-shadow: 0 0 0 3px v02 }
-            &.disabled,
-            &:disabled,
-            &[aria-disabled="true"] {
-                color: var(--color-btn-outline-disabled-text)
-                background-color: var(--color-btn-bg)
-                border-color: var(--color-btn-border)
-            }
-        }
-        .octicon { color: v94 }
     }
 
-    :checked + .x-radio-label { background: v04 }
+    :checked + .x-radio-label { background: v04
+        svg { --color-auto-inverse: v98 }
+    }
 
     #landing[style*="background-color: #fafbfc"],
     .js-support-banner[style*="background-color: #fafbfc"] {
@@ -3231,52 +3499,50 @@ bs() { box-shadow: arguments }
         }
     }
 
-    // style latest dumb inline styles, there was no issue here whatsoever.
-    section[style="background:#fafbfc" i] {
-      background: bg2 i
+    // stick to consistent style of select boxes e.g. https://docs.github.com/en/actions/guides
+    a[role="button"].color-border-inverse {
+        border-color: v98 i
     }
 
-    // Style more inline color styles e.g. https://docs.github.com/en/actions/guides
-    div.position-absolute[style*="background: linear-gradient(to right"] {
-      filter: invert(1)
-      mix-blend-mode: darken
-    }
-    div.position-absolute[style*="background: linear-gradient(to left"] {
-      filter: invert(1)
-      mix-blend-mode: darken
-    }
-
-    // Fix styles e.g. https://docs.github.com/en/actions/guides
-    .bg-gradient {
-        &--blue-purple {
-            background: linear-gradient(-70deg, v66 0%, v77 100%)
-
-            .border-white {
-                border: 1px solid v98 i
-                &:hover { border: 1px solid v99 i }
-            }
-        }
-        &--purple-pink {
-            background: linear-gradient(135deg, v75 0%, v86 100%)
-
-            .border-white {
-                border: 1px solid v98 i
-                &:hover { border: 1px solid v99 i }
-            }
-        }
-    }
-
-    // Fix styles e.g. https://docs.github.com/en/actions/guides
-    .text-gradient--purple-pink { background-image: linear-gradient(135deg, v79 0%, v89 100%) }
-
-    // Fix styles e.g. https://docs.github.com/en/actions/guides
-    .border-gradient--purple-pink {
-        &::after { background: linear-gradient(135deg, v79 0%, v89 100%) }
-        &::before { background: bg2 }
-    }
     // stick to consistent style of select boxes e.g. https://docs.github.com/en/actions/guides
     select.form-select {
         border: 1px solid bg5 i
+    }
+
+    // stupid dynamic css everywhere and doesnt even use css vars. fuckers
+    [class*="Tooltip__TooltipBase-"] {
+        &.tooltipped-n::before { border-top-color: bg4 }
+        &::after { background: bg4 }
+    }
+
+    // stupid new dynamic css classes in dropdowns, if this spreads goodby styling github.
+    [class*="Dropdown__DropdownMenu-"] {
+        background-color: bg1
+        border-color: bg4
+        rad: 3px
+        box-shadow: var(--color-shadow-medium)
+        &::before {
+            border-color: t t bg4
+        }
+        &::after {
+            border-color: t t bg1
+        }
+        /[class*="Dropdown__DropdownItem-"] {
+            a {
+                color: v96
+                &:focus { background-color: t }
+            }
+            &:hover, &:focus {
+                background-color: v03
+                a { background-color: v03; color: v98 }
+            }
+        }
+    }
+
+    // TODO https://docs.github.com/en/enterprise-server@3.0/admin/release-notes
+    .btn-outline [class*="octicon-chevron-"] {
+        width: 20px
+        height: @width
     }
 
     // GraphQl IDE iframe in docs
@@ -3302,12 +3568,7 @@ bs() { box-shadow: arguments }
         background: v01
         color: v97
     }
-
-    // GraphQl IDE iframe body
-    iframe#graphiql {
-       /body { background-color: bg1 }
-    }
-
+    // GraphQl IDE body
     .graphiql {
         &-ide {
             border-top: 1px solid bg4
@@ -3553,7 +3814,7 @@ bs() { box-shadow: arguments }
         }
     }
     .CodeMirror {
-        background: bg1
+        background: var(--color-codemirror-bg)
         .CodeMirror {
             &-cursor { border-left: 1px solid var(--color-codemirror-text) }
         }
@@ -3617,7 +3878,7 @@ bs() { box-shadow: arguments }
         color: var(--color-btn-primary-text)
         background-color: var(--color-btn-primary-bg)
         background-image: none
-        box-shadow: 0 1px 0 rgba(27, 31, 35, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        box-shadow: 0 1px 0 rgba(convert($v60), .1), inset 0 1px 0 rgba(convert($v99), .03);
         &:hover {
             background-image: none
             background-color: var(--color-btn-primary-hover-bg) }
@@ -3637,20 +3898,20 @@ bs() { box-shadow: arguments }
 @-moz-document regexp('https?://((support)\\.)github?.com(/.*)?') {
     // https://support.github.com
 
-    // Override main section
-    html {
-        body {
-            background-color: bg1 i
-            color: v97
-            a { color: v09 }
-        }
-    }
-
-    // Banner
-    .banner-prompt-bg { background-image: initial }
-
     hr, .rule { border-color: var(--color-border-primary) }
 
+    #file-uploader[upload-url='https://github.zendesk.com'] .color-bg-secondary {
+        background-color: bg0 i
+    }
+
+    .dotcom .Header-link {
+        color: v98
+        &:hover { color: v09 }
+    }
+
+    .dotcom .octicon-mark-github { fill: v98 i }
+
+    .actions-icon-bg { background: radial-gradient(139% 139% at 64% 0, v03 0, v05 100%); }
     // Backgrounds
     .bg {
         &-blue {
@@ -3664,8 +3925,8 @@ bs() { box-shadow: arguments }
     // Text colors
     .text {
         &-blue {
-          c: v08 0 0
-          &:hover { c: v09 0 0 }
+        c: v08 0 0
+        &:hover { c: v09 0 0 }
         }
         &-gray { c: v98 0 0 }
         &-gray-dark { c: v97 0 0 }
@@ -3683,49 +3944,11 @@ bs() { box-shadow: arguments }
         &:hover { c: v09 0 0 }
     }
 
-    // Buttons
-    .btn {
-        color: var(--color-btn-primary-text)
-        border-color: var(--color-btn-border)
-        background-color: var(--color-btn-bg)
-        &:focus,
-        &.focus { box-shadow: 0 0 0 .2px fg5 }
-        &:active,
-        &.selected, &[aria-selected="true"] {
-            background-color: var(--color-btn-focus-bg)
-            box-shadow: var(--color-shadow-inset)
-        }
-        // fix aberratiosn when selecting tab and leaving screen, txt color goes dark
-        &-link:not(:active) { color: v98 }
-        &:hover { background-color: var(--color-btn-hover-bg) }
-        &-mktg {
-            color: var(--color-btn-primary-icon)
-            border: 1px solid v06
-            &:focus { box-shadow: 0 0 0 .2em v01 }
-            &:hover { border: 1px solid v06 }
-        }
-        &-primary {
-            color: var(--color-btn-primary-text)
-            background-color: var(--color-btn-primary-bg)
-            box-shadow: 0 1px 0 rgba(BG, .1), inset 0 1px 0 rgba(FG, .03);
-            &:hover { background-color: var(--color-btn-primary-hover-bg) }
-            &:focus,
-            &.focus { box-shadow: 0 0 0 2px v01 }
-            &:active,
-            &.selected,
-            &[aria-selected="true"] {
-                background-color: var(--color-btn-primary-focus-bg)
-                box-shadow: var(--color-shadow-inset)
-            }
-        }
-    }
-
     // CSS order matters here to override btn-link:not(:hover) above
     .Header {
-        background-color: bg3
         &-item img { filter: invert(1) }
         .Header-link {
-            color: v08
+            --color-scale-white: v08
             &:hover { color: v09 }
         }
     }
@@ -3748,33 +3971,6 @@ bs() { box-shadow: arguments }
         }
     }
 
-    .form-select, .form-control {
-        color: var(--color-text-secondary)
-        background-color: var(--color-input-bg)
-        border-color: var(--color-input-border)
-        box-shadow: none;
-        &.focus,
-        &:focus {
-            border-color: v06
-            box-shadow: 0 0 0 3px v01
-        }
-    }
-
-    .form-group {
-        .form-control {
-            background-color: var(--color-input-contrast-bg)
-            &.input-contrast {
-                background-color: var(--color-input-contrast-bg)
-            }
-            &:focus {
-                background-color: var(--color-input-bg)
-                border-color: v06
-                box-shadow: 0 0 0 3px v01
-            }
-        }
-        & #q {  background-color: var(--color-input-bg) }
-    }
-
     // Search result
     #site-search-results {
         .search-result {
@@ -3784,32 +3980,13 @@ bs() { box-shadow: arguments }
         }
     }
 
-    // recolor search icon svg -> https://support.github.com/
-    #q {
-        r       = unquote
-        prefix  = 'data:image/svg+xml;utf8,'
-        prefix += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">'
-        path    = '<path fill="' + to_svg($v95) + '" fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93'
-        path   += ' 5.93 0 0013 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.8'
-        path   += '3 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 000-1.41v.01zM7 10.7c-2.59 0-4.7'
-        path   += '-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"/>'
-        xy      = 'no-repeat 6px'
-
-        background: s("url('%s%s</svg>') %s", r(prefix), r(path), r(xy) i)
-    }
-
-    // style toolbar-item color previewable form e.g. https://support.github.com/contact
-    .toolbar-item {
-        color: var(--color-text-secondary)
-        &:hover { color: v09 }
-    }
-
-    .previewable-comment-form .comment-form-head.tabnav { background: bg3 }
-
     .add-markdown-comment {
         color: v98
-        border: 1px solid var(--color-border-primary)
+        .color-bg-secondary { --color-bg-secondary: bg1 }
     }
+
+    .form-select { --color-bg-primary: bg2 }
+
     // Fix preview/write selected due to necessary override for contrast reasons
     .preview-selected {
         shade = (dark(BG)) ? darken : lighten
@@ -3821,41 +3998,22 @@ bs() { box-shadow: arguments }
     // tooltipped
     .tooltipped {
         &::after {
-            background: bg2
+            background: bg3
             color: v98
         }
-        &::before {
-            color: v98
-        }
+        &::before { color: v98 }
         &-n::before, &-ne::before, &-nw::before {
             border-top-color: bg2
         }
     }
 
-    .tabnav {
-        border-bottom: 1px solid var(--color-border-primary)
-        &-tab {
-            color: v96
-            &:hover { color: v98 }
-            &.selected,
-            &[aria-selected="true"],
-            &[aria-current]:not([aria-current="false"]) {
-                border-color: var(--color-border-primary)
-            }
-        }
-    }
-
     .drag-and-drop {
         color: var(--color-text-tertiary)
-        background-color: var(--color-bg-primary)
-        border: 1px solid var(--color-border-primary)
     }
 
-    #contact-us {
-        img[src*="mona"] {
-            filter: invert(.95) hue-rotate(180deg) brightness(1.5) grayscale(1)
-            mix-blend-mode: lighten
-        }
+    img[src*="mona"] {
+        filter: invert(.95) hue-rotate(180deg) brightness(1.5) grayscale(1)
+        mix-blend-mode: lighten
     }
 
     // Icon -> no messages
@@ -3866,7 +4024,7 @@ bs() { box-shadow: arguments }
     }
 }
 
-@-moz-document regexp('https?://render\.githubusercontent?.com(/.*)?') {
+@-moz-document regexp('https?://(render|viewscreen)\.githubusercontent?.com(/.*)?') {
     // https://render.githubusercontent.com
     // Diff -> Image background.
 
@@ -3883,10 +4041,15 @@ bs() { box-shadow: arguments }
             c: 0 bg1 0
         }
 
-        // apply dark/light
-        &:not([data-document-path]) img, canvas {
-            background-image: dark
-            &:hover { background-image: light }
+        // Feat darken transparent img bg
+        if (render_img-tb) {
+            // apply dark/light
+            &:not([data-document-path]) img, canvas {
+                background-image: dark
+                &:hover { background-image: light }
+            }
+
+            [data-file*="stl"] canvas { background-image: none i }
         }
 
         // Rich diff -> Border/text colors.
@@ -3912,7 +4075,7 @@ bs() { box-shadow: arguments }
             }
         }
 
-        // fix imgs https://github.com/udacity/deep-learning-v2-pytorch/blob/master/cycle-gan/CycleGAN_Solution.ipynb
+        // fix imgs https://git.io/Jubr0
         .output_area {
             .output_png { background: bg5 }
 
@@ -3971,7 +4134,7 @@ bs() { box-shadow: arguments }
             }
         }
     }
-    .math { &-inline, &-display { filter: invert(1) } }
+    .math { &-inline, &-display { filter: invert(.95) } }
 
     // rendered content ipynb
     .rendered_html {
@@ -3981,15 +4144,15 @@ bs() { box-shadow: arguments }
             color: v98
         }
         // Fix tables https://gist.github.com/hootyshoot/2f910a1464e6d563d4f8b45a992ed42d
-        tr, th, td { border-color: v93 }
+        tr, th, td, hr { border-color: var(--color-codemirror-gutters-bg) }
     }
 
     if (code_borders) {
         // Add border around code, highlight, rendered.
         .highlight { border: 1px solid bg5 }
-        .rendered_html p code { border: 1px solid bg5 }
+
         // fix border + bg color
-        // e.g. https://render.githubusercontent.com/view/ipynb?commit=3a95d118f9df5a86826e1791c5c100817f0fd924&enc_url=68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f756461636974792f646565702d6c6561726e696e672d76322d7079746f7263682f336139356431313866396466356138363832366531373931633563313030383137663066643932342f6379636c652d67616e2f4379636c6547414e5f536f6c7574696f6e2e6970796e62&nwo=udacity%2Fdeep-learning-v2-pytorch&path=cycle-gan%2FCycleGAN_Solution.ipynb&repository_id=147386085&repository_type=Repository#Residual-Functions
+        // e.g. https://git.io/JuDYc
         .rendered_html {
             blockquote p code, li code {
                 background-color: initial
@@ -3998,7 +4161,7 @@ bs() { box-shadow: arguments }
         }
     }
 
-    // notebook bg https://github.com/udacity/deep-learning-v2-pytorch/blob/master/autoencoder/convolutional-autoencoder/Convolutional_Autoencoder_Exercise.ipynb
+    // notebook bg https://git.io/JuDYB
     div {
         #notebook { background-color: var(--color-codemirror-bg) }
     }
@@ -4009,9 +4172,9 @@ bs() { box-shadow: arguments }
             &:hover { color: v09 }
         }
         code, pre {  color: v96 }
-        /hr, /blockquote { border-color: bg4 }
+        /hr, /blockquote { border-color: var(--color-codemirror-gutters-bg) }
         // https://github.com/lekhovitsky/CS364A/blob/notebooks/exercises/e1.ipynb
-        .highlight { background-color: bg2 }
+        .highlight { background-color: var(--color-codemirror-bg-contrast) }
     }
 
     // Diff -> Images diff bar.
@@ -4021,7 +4184,7 @@ bs() { box-shadow: arguments }
             c: v96 bg5
             &.active {
                 c: v98
-                &::before { c: bg5 }
+                &::before { c: lighten(convert($bg5), 15%) }
             }
         }
     }
@@ -4096,6 +4259,14 @@ bs() { box-shadow: arguments }
         color: var(--color-codemirror-text)
     }
 }
+@-moz-document regexp('https?://(gist|raw).githubusercontent?.com(/.*)?'),
+/*-----------*/regexp('https?://pipelines.actions.githubusercontent?.com(/.*)?') {
+    // https://github.com(patch|diff)
+    // Target and style https://git.io/Jubrr
+    html {
+        background: var(--color-codemirror-bg) i
+    }
+}
 @-moz-document regexp('https?://vscode-auth\.github?.com(/.*)?') {
     // https://vscode-auth.github.com
     body {
@@ -4121,25 +4292,13 @@ bs() { box-shadow: arguments }
 }
 @-moz-document regexp('https?://github.com/marketplace.*(/.*)?') {
     // https://github.com/marketplace
-    .btn {
-        &-mktg {
-            background-color: v08
-            border: 1px solid v08
-            color: v98
-        }
-        &-outline-mktg {
-            background-color: t
-            border-color: rgba(convert($v08), .5)
-            color: v08
-            &:hover {
-                background-color: t
-                border-color: v09
-                color: v09
-            }
-        }
-    }
 
     .topic-tag-contrast { --color-auto-blue-2: v01 }
+
+    // fix btn ouline text vcenter [Explore free apps] e.g.https://github.com/marketplace
+    .btn-outline-mktg[data-hydro-click*='{"event_type":"marketplace.recommended_page.click"'] {
+        padding: 18px 27px
+    }
 
     // Overrides
     .Marketplace {
@@ -4151,7 +4310,7 @@ bs() { box-shadow: arguments }
 
             /img[src*="icon-marketplace"] {
                 filter: grayscale(1) invert(0.95) brightness(1.5)
-           }
+            }
         }
 
         &Background-recommendations {
@@ -4160,11 +4319,19 @@ bs() { box-shadow: arguments }
                 mix-blend-mode: lighten
             }
         }
+
+        &Details .text-mono:hover {
+        color: v08
+
+        .octicon { g: v08 0 }
+        }
     }
 
     // Marketplace free trial filter border fixes
-    .filter-item.selected .Label--gray {
-        --color-auto-white: var(--color-auto-black)
+    .filter-item {
+        &.selected .Label--gray { --color-auto-white: var(--color-auto-black) }
+        &.selected .Label--secondary { --color-auto-white: var(--color-auto-black) }
+        &:hover { --color-bg-tertiary: bg2 }
     }
 
     // fix gh circlebadge bg e.g. https://github.com/marketplace/dependabot-preview
@@ -4177,20 +4344,74 @@ bs() { box-shadow: arguments }
         margin-top: -.1rem
         transition: margin-top .17s ease-in-out, box-shadow .12s ease-in-out
     }
-}
-@-moz-document regexp('https?://github.com/(explore|topics|trending|collections|events|sponsors|team)(/.*)?') {
-    // https://github.com/(various)
-    .btn-mktg {
-        background-color: v08
-        border: 1px solid v08
-        color: v99
-        transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)
-
-        &:hover {
-            background-color: v09
-            border: 1px solid v09
-            color: v99
+    .color-bg-primary {
+    [style*="marketplace-images.githubusercontent.com/30"],
+    [style*="marketplace-images.githubusercontent.com/704"],
+    [style*="marketplace-images.githubusercontent.com/1110"],
+    [style*="marketplace-images.githubusercontent.com/497"] {
+            filter: invert(.95) hue-rotate(180deg) i
+            mix-blend-mode: exclusion
+            box-shadow: none i
+            .CircleBadge { box-shadow: none i }
+            h3.color-text-primary {
+                color: v90 i
+            }
         }
+    }
+    .btn {
+        &-mktg {
+            color: var(--color-btn-primary-icon)
+            border: 1px solid v06
+            &:focus { box-shadow: 0 0 0 0.2em v01 }
+            &:hover { border: 1px solid v06 }
+        }
+        &-outline-mktg {
+            color: v08 i
+            &:hover, &:focus {
+                background-color: v09 i
+                color: v99 i
+                box-shadow: none i
+            }
+        }
+        &:focus,
+        &.focus { box-shadow: 0 0 0 2px v01 }
+        &:active,
+        &.selected,
+        &[aria-selected="true"] {
+            background-image: none
+            background-color: var(--color-btn-primary-focus-bg)
+            box-shadow: var(--color-shadow-inset)
+        }
+    }
+}
+@-moz-document regexp('https?://github.com/(explore|topics|trending|collections|events|sponsors|team|organizations|pricing)(/.*)?') {
+    // https://github.com/(various)
+    .btn {
+        &-mktg { transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1) }
+    }
+
+    .pricing-matrix-sticky-header {
+        /img[src*="/site/icons"] { filter: grayscale(1) brightness(1.4); mix-blend-mode: exclusion }
+        /img[src*="/site/icons/chevron"] { filter: invert(.95) brightness(1.1) }
+    }
+    // e.g. https://github.com/pricing
+    img[src*="bg-whats-new"] {
+        display: none
+    }
+
+    // e.g. https://github.com/organizations/plan
+    [class*="pricing"] {
+        .bg-gray-0 { --color-auto-gray-0: bg2 }
+        .bg-gray-1 { --color-auto-gray-1: bg3 }
+
+        img {
+            &[src*="/icons/checkmark.svg"] { filter: saturate(1.5) brightness(.9) }
+            &[src*="/icons/x.svg"] { filter: invert(.95) }
+        }
+    }
+    .height-full {
+        &.bg-gray-0 { --color-auto-gray-0: bg2 }
+        &.bg-gray-1 { --color-auto-gray-1: bg3 }
     }
 
     aside img[src*="tada"] {
@@ -4214,7 +4435,7 @@ bs() { box-shadow: arguments }
     div img[src*="site/team"]:not([src*="workflow"]), .team-dialogue {
         filter: invert(.95) hue-rotate(180deg) saturate(2)
         &.customer-story-bg, &.testimonial-image-blend, &.circle {
-          filter: none
+        filter: none
         }
     }
 
@@ -4236,8 +4457,8 @@ bs() { box-shadow: arguments }
                 border-left-color: bg0
             }
             &::before {
-              border-bottom-color: t
-              border-left-color: bg3
+            border-bottom-color: t
+            border-left-color: bg3
             }
         }
         &--right {
@@ -4272,6 +4493,148 @@ bs() { box-shadow: arguments }
         }
     }
 }
+
+@-moz-document regexp('https?://api\.funcaptcha.com.*(/.*)?') {
+    *:not([id*="fcimgform"]), body, html {
+        background-color: rgba(convert($bg1), .4)
+    }
+    #audio_error p {
+        color: $v16 i
+    }
+    #interstitial {
+        background-color: rgba(convert($bg1), .86) i
+    }
+    #game {
+        background: $bg1 none repeat scroll 0% 0%
+    }
+    html {
+        border-color: $bg4
+    }
+    .svg-fc-style-loader {
+        g: $v98 0
+    }
+    .loader-ctn {
+        position: absolute
+        z-index: 2
+    }
+    #home {
+        background-color: $bg1
+    }
+    #app {
+        background-color: $bg1
+        color: $v98
+    }
+    #fc-nojs-form {
+        background-color: $bg1
+        border-color: t
+        height: auto
+    }
+    .metaTooltipRight:focus::after {
+        background: $bg3
+        border: 1px solid $bg4
+        color: $v98
+        padding: 5px 10px
+        rad: 3px
+        width: auto
+        white-space: pre
+    }
+    #home_children_button {
+        background: $bg2 none repeat
+        border-color: rgba(convert($bg4), 1)
+        color: rgba(convert($v08), 1)
+        rad: .25em
+        outline: 0
+        &:focus {
+            outline: 0
+            box-shadow: 0 0 2px 1px $v17
+        }
+    }
+    .fc_meta_audio_btn, .fc_meta_changeback, .fc_meta_help_btn, .fc_meta_reload_btn,
+    #game_children_text, .audio_info, #audio_response_field_label, .intro-txt {
+        color: $v95
+    }
+    #victoryScreen span, .infoCtn span, p {
+        color: $v97
+    }
+    .fancy_btn, input[type="submit"].fancy_btn {
+        background-color: $bg2
+        border-color: $bg4
+        color: $v98
+        padding: 5px 10px
+        rad: .25em
+    }
+    input[type="text" i] {
+        background-color: $bg0
+        border-color: $bg4
+        color: $v98
+        padding: 10px 10px
+        rad: 3px
+        &:focus {
+            border-color: $v09
+            box-shadow: 0 0 0 3px rgba(convert($v04), .5)
+            outline: 0
+        }
+    }
+    #interstitial {
+        &_wrapper {
+            background-color: rgba(convert($bg3), .5)
+            box-shadow: rgba(convert($bg5), .19) 0px 0px 5px 3px
+            border-radius: 3px
+            border: 1px solid rgba(convert($bg4), .14)
+        }
+        &_progressIndicatorItem {
+            background-color: rgba(convert($bg5), .5)
+            border-right: 1px solid $bg4
+            border-top: 1px solid $bg4
+            border-bottom: 1px solid $bg4
+            &:first-child {
+                border-radius: 3px 0 0 3px
+                border-left: 1px solid $bg4
+            }
+            &:last-child {
+                border-radius: 0 3px 3px 0
+            }
+        }
+        &_progressIndicator_filler {
+            background-color: $bg5
+        }
+    }
+
+    [class*="ChallengeSelectableOverlay_"] {
+        border: 1px solid t
+        &:hover {
+            border: 1px solid $v97
+            &:focus, &::after {
+                border: 2px dashed rgba(t, 1)
+            }
+        }
+    }
+    /.meta_buttons span {
+        color: $v94 i
+        transition: color .4s
+        &:hover {
+            color: $v97 i
+        }
+    }
+}
+
+@-moz-document regexp('https?://github-readme-stats\.vercel\.app.*(/.*)?'),
+/*-----------*/regexp("https?://camo\\.githubusercontent\\.com.*(/.*)?") {
+    svg {
+
+        rect[stroke="#E4E2E2"] { g: 0 $v98 }
+        rect[fill="#151515"] { g: $bg0 0 }
+        g .header, g .stat { g: $v98 0 }
+        g .rank-circle { g: 0 $v97 }
+        g .rank-circle-rim { g: 0 $bg4; opacity: 1}
+        g .rank-text { g: $v97 0 }
+        g .icon { g: $v47 0 }
+
+        // Lnaguages
+        rect[fill="#ddd"] { g: $bg4 0 }
+        rect[fill="#89e051"] { g: $v47 0; rad: 2px i }
+    }
+}
 @-moz-document regexp('https?://metrics.lecoq.io.*(/.*)?') {
     svg {
         color: v94
@@ -4293,5 +4656,128 @@ bs() { box-shadow: arguments }
 
     h1, h2, h3 {
         color: v09
+    }
+}
+@-moz-document regexp('https?://www\.githubstatus\.com(/.*)?') {
+    a {
+        color: v08
+        &:hover { color: v09 }
+        &:focus { outline: none; text-decoration: underline }
+    }
+    .page-footer > a:first-child::after {
+        // style icon color
+        r       = unquote
+        prefix  = 'data:image/svg+xml;charset=utf8,'
+        prefix += '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" '
+        prefix += 'xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" '
+        data    = 'd="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 '
+        data   += '01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z" fill="' + to_svg($v08) + '"/>'
+        background-image: s("url('%s%s</svg>') %s", r(prefix), r(data) )
+    }
+    // Backgrounds
+    .bg {
+        &-blue-light { background-color: v60 i }
+        &-blue { background-color: vv63 i }
+        &-purple-light { background-color: var(--color-auto-purple-1) i }
+        &-white { c: 0 0 bg2 }
+        &-red {
+            &-light { c: 0 0 v10 }
+        }
+        &-guides {
+            &-gradient { background: linear-gradient(0deg, bg2 0%, t 100%) i }
+        }
+        &-gray {
+            &-light { c: 0 0 var(--color-bg-primary) }
+            &-dark { c: 0 0 var(--color-bg-secondary) }
+        }
+        &-black { background-color: bg1 }
+    }
+    body.status .layout-content.status .border-color, hr, .tooltip-base, .markdown-display table,
+    .layout-content.status.status-index .unresolved-incidents .unresolved-incident.impact-none .updates {
+        border-color: v96
+    }
+    .month-title {
+        border-bottom-color: bg5 i
+    }
+    body.status, .color-primary, .color-primary:hover,
+    .layout-content.status-index .status-day .update-title.impact-none a,
+    .layout-content.status-index .status-day .update-title.impact-none a:hover,
+    .layout-content.status-index .timeframes-container .timeframe.active,
+    .layout-content.status-full-history .month .incident-container .impact-none,
+    .layout-content.status.status-index .incidents-list .incident-title.impact-none a,
+    .incident-history .impact-none,
+    .layout-content.status .grouped-items-selector.inline .grouped-item.active,
+    .layout-content.status.status-full-history .history-nav a.current,
+    .layout-content.status.status-full-history .history-nav a:not(.current):hover,
+    div[id^="subscribe-modal"] .modal-header .close, .grouped-item-label,
+    #uptime-tooltip .tooltip-box .tooltip-content .related-events .related-event a.related-event-link {
+        color: v98
+    }
+    .components-container, .component-container {
+        background-color: bg3
+        box-shadow: 0 0.25rem 0.75rem rgba(convert($bg2), .05)
+        border-color: bg4
+
+        .status-msg, .tooltip-base {
+            color: v96
+        }
+    }
+    .incident-container .incident-title::before {
+        // style icon color
+        r       = unquote
+        prefix  = 'data:image/svg+xml;charset=utf8,'
+        prefix += '<svg width="14" height="16" viewBox="0 0 14 16" fill="none" '
+        prefix += 'xmlns="http://www.w3.org/2000/svg">'
+        data    = '<path fill-rule="evenodd" clip-rule="evenodd" d="M6.99999 2.'
+        data   += '3C10.14 2.3 12.7 4.86 12.7 8C12.7 11.14 10.14 13.7 6.99999 '
+        data   += '13.7C3.85999 13.7 1.29999 11.14 1.29999 8C1.29999 4.86 3.85'
+        data   += '999 2.3 6.99999 2.3ZM7 1C3.14 1 0 4.14 0 8C0 11.86 3.14 15 '
+        data   += '7 15C10.86 15 14 11.86 14 8C14 4.14 10.86 1 7 1ZM8 4H6V9H8V4ZM8 10H6V12H8V10Z" '
+        data   += 'fill="' + to_svg($v97) + '"/>'
+        background-image: s("url('%s%s</svg>') %s", r(prefix), r(data) )
+
+        background-color: bg5
+        border: 2px solid bg2
+    }
+    .status-day::before, .incident-list::before, .incident-container::before {
+        background-color: bg5
+    }
+    small, .layout-content.status .table-row .date, .color-secondary,
+    .layout-content.status .grouped-items-selector.inline .grouped-item,
+    .layout-content.status.status-full-history .history-footer .pagination a.disabled,
+    .layout-content.status.status-full-history .history-nav a,
+    #uptime-tooltip .tooltip-box .tooltip-content .related-events #related-event-header {
+        color: v95
+    }
+    .border-top, .page-footer {
+        border-color: bg4 i
+    }
+    body.history .history-backpage {
+        background-color: bg2
+        box-shadow: 0 0.25rem 0.75rem rgba(convert($bg0), 0.05)
+        border: 1px solid rgba(convert($bg0), 0.125)
+    }
+    // Text colors
+    .text {
+        &-gray-dark { c: v98 0 0 }
+        &-gray { c: v95 0 0 }
+        &-gray-light { c: v95 0 0 }
+        &-white { c: v98 0 0 }
+        &-blue {
+            c: v08 0 0
+            &:hover { c: v09 0 0 }
+        }
+        &-purple {
+            color: v79 i
+        }
+    }
+
+    // Github status illo header
+    .illo-desktop-header, .illo-mobile-header {
+        /img[src*="19292210/60553863-044dd200-9cea-11e9-987e-7db84449f215.png"],
+        /img[src*="19292210/60553865-044dd200-9cea-11e9-859c-d6f266e2f01f.png"] {
+            filter: invert(.95) grayscale(1) brightness(1.5)
+            mix-blend-mode: exclusion
+        }
     }
 }
