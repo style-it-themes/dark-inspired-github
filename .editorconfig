@@ -14,5 +14,10 @@ block_comment_start = /*
 block_comment = *
 block_comment_end = */
 
+[*.styl]
+block_comment_start = //
+block_comment = //
+block_comment_end =
+
 [*.svg]
 insert_final_newline = false
