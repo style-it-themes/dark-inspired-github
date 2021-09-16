@@ -1,27 +1,27 @@
 {
-  "name": "dark-gitHub",
-  "title": "Dark GitHub",
+  "name": "dark-inspired-github",
+  "title": "Dark Inspired GitHub",
   "version": "2.1.0",
   "license": "MIT",
-  "homepage": "https://github.com/style-it-themes/dark-github",
-  "repository": "style-it-themes/dark-github",
+  "homepage": "https://github.com/style-it-themes/dark-inspired-github",
+  "repository": "style-it-themes/dark-inspired-github",
   "bugs": {
-    "url": "https://github.com/style-it-themes/dark-github/issues/new/choose"
+    "url": "https://github.com/style-it-themes/dark-inspired-github/issues/new/choose"
   },
   "private": true,
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "devDependencies": {
-    "updates": "^11.4.0",
-    "versions": "^8.4.3",
+    "updates": "^12.2.0",
+    "versions": "^9.0.0",
     "eclint": "^2.8.1"
   },
   "scripts": {
-    "patch": "versions -p -C patch dark-github.user.styl",
-    "minor": "versions -p -C minor dark-github.user.styl",
-    "major": "versions -p -C major dark-github.user.styl",
-    "lintfix": "eclint fix dark-github.user.styl",
+    "patch": "versions -p -C patch dark-inspired-github.user.styl",
+    "minor": "versions -p -C minor dark-inspired-github.user.styl",
+    "major": "versions -p -C major dark-inspired-github.user.styl",
+    "lintfix": "eclint fix dark-inspired-github.user.styl",
     "update": "updates -cuU && npm install"
   }
 }
