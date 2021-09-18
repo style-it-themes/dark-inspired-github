@@ -2822,7 +2822,7 @@ bs() { box-shadow: arguments }
             }
         }
         // color the blob-num bg in timeline comments
-        &-num:not([class*="-addition"]):not([class*="-deletion"]):not([class*="-expandable"]):not([class*="-empty"]) {
+        &-num:not([class*="-addition"]):not([class*="-deletion"]):not([class*="-expandable"]):not([class*="-empty"]):not([data-line-number="..."]) {
             background-color: var(--color-codemirror-gutters-bg) i
 
             // 1) pinned-item-list-item code blocks items e.g. https://github.com/ChrisTitusTech
