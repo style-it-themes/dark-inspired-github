@@ -3318,17 +3318,16 @@ bs() { box-shadow: arguments }
         }
         table {
             tr {
-                background-color: bg2
-                border-top-color: var(--color-border-secondary)
-                &:nth-child(2n) { background-color: bg2 }
+                background-color: bg1
+                &:nth-child(2n) { background-color: bg1 }
             }
             // no borders opinionated or not in this
             td code { border: 0 }
             th {
-                background-color: bg2
+                background-color: bg1
                 box-shadow: 0 3px 0 0 var(--color-border-secondary)
             }
-            code { background-color: var(--color-markdown-code-bg) }
+            code { background-color: var(--color-codemirror-bg) }
         }
         h1, h2 { border-bottom-color: var(--color-border-secondary) }
         .highlight pre, pre {
