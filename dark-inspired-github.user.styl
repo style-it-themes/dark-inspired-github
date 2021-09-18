@@ -2168,7 +2168,6 @@ bs() { box-shadow: arguments }
         background-color: bg2
     }
 
-
     // Notification
     .notifications-list-item {
         &.notification-unread {
@@ -2197,7 +2196,6 @@ bs() { box-shadow: arguments }
     svg[width="200"][height="200"][viewBox="0 0 146 108"] {
         filter: grayscale(1) brightness(.7)
     }
-
 
     // Navigation. @upstream
     .UnderlineNav-item {
@@ -2275,7 +2273,6 @@ bs() { box-shadow: arguments }
     // Project -> Tags. @upstream
     .topic-tag {
         background-color: var(--color-topic-tag-bg)
-        border: 1px solid var(--color-topic-tag-border)
         color: var(--color-topic-tag-text)
         &-action, &-link { c: 0 v04 }
         &:hover, &-action-hover {
@@ -3275,8 +3272,6 @@ bs() { box-shadow: arguments }
         }
     }
 
-    body { background-color: bg2 i }
-
     // Search container
     header {
         #search-results-container {
@@ -3316,46 +3311,6 @@ bs() { box-shadow: arguments }
         li[data-is-current-page="false"] .color-text-primary:hover { color: v08 i }
         [data-testid="sidebar-article"][data-is-current-page="true"]::before { border-left-width: 5px }
     }
-    // Backgrounds
-    /*
-    .bg {
-        &-blue {
-            c: 0 0 v63
-            &-1 { c: 0 0 v60 }
-            &-light { c: 0 0 v60 }
-        }
-        &-purple-light { c: 0 0 var(--color-auto-purple-1) }
-        &-white { c: 0 0 bg2 }
-        &-red {
-            &-light {
-                c: 0 0 v10
-                a { color: v09 }
-            }
-        }
-        &-guides {
-            &-gradient { background: linear-gradient(0deg, bg2 0%, t 100%) i }
-        }
-        &-yellow {
-            &-light { c: 0 0 v30 }
-        }
-        &-gray {
-            c: 0 0 bg1
-            &-light { c: 0 0 bg2 }
-        }
-    }
-
-    // Borders
-    .border {
-        &-top { c: 0 bg4 0 }
-        &-left { c: 0 bg4 0 }
-        &-blue { c: 0 v63 0 }
-        &-purple { c: 0 var(--color-auto-purple-6) 0 }
-        &-gray-light { c: 0 var(--color-border-primary) 0 }
-        &-red { c: 0 v15 0 }
-        &-bottom { c: 0 var(--color-border-secondary) 0 }
-        &-yellow { c: 0 v32 0 }
-    }
-    */
 
     .markdown-body {
         a, h1 a, h2 a, h3 a {
@@ -3399,22 +3354,6 @@ bs() { box-shadow: arguments }
 
     h1 a, h2 a, h3 a {
         color: v07
-    }
-
-
-    // Text colors
-    .text {
-        &-gray-dark { c: v98 0 0 }
-        &-gray { c: v95 0 0 }
-        &-gray-light { c: v95 0 0 }
-        &-white { c: v98 0 0 }
-        &-blue {
-            c: v08 0 0
-            &:hover { c: v09 0 0 }
-        }
-        &-purple {
-            color: v79 i
-        }
     }
 
     .color {
@@ -3470,32 +3409,6 @@ bs() { box-shadow: arguments }
 
     .underline-dashed { background-image: linear-gradient(to right, bg5 50%, bg0 0%) i }
     .UnderlineNav-item { color: var(--color-menu-heading-text) }
-
-    // Search elements
-    .ais-SearchBox {
-        &-input {
-            r       = unquote
-            prefix  = 'data:image/svg+xml;utf8,'
-            prefix += '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">'
-            path    = '<path fill="' + to_svg($v95) + '" fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93'
-            path   += ' 5.93 0 0013 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.8'
-            path   += '3 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 000-1.41v.01zM7 10.7c-2.59 0-4.7'
-            path   += '-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"/>'
-            xy      = 'no-repeat 6px'
-
-            background: bg2 s("url('%s%s</svg>') %s", r(prefix), r(path), r(xy) )
-            border: 1px solid bg5
-            box-shadow: inset 0 1px 0 rgba(BG, .2)
-            color: v98
-            &:focus {
-                background-color: bg0
-                border-color: v04
-                box-shadow: 0 0 0 3px v01
-                color: v99
-            }
-        }
-        &-Hits-item:hover { background: bg4 }
-    }
 
     .search-result-title {
         mark { color: v08 }
@@ -3917,7 +3830,6 @@ bs() { box-shadow: arguments }
         }
     }
 }
-
 @-moz-document regexp('https?://((support)\\.)github?.com(/.*)?') {
     // https://support.github.com
 
@@ -3934,7 +3846,8 @@ bs() { box-shadow: arguments }
 
     .dotcom .octicon-mark-github { fill: v98 i }
 
-    .actions-icon-bg { background: radial-gradient(139% 139% at 64% 0, v03 0, v05 100%); }
+    // actions icons bg https://support.github.com/features/actions
+    .actions-icon-bg { background: radial-gradient(139% 139% at 64% 0, v03 0, v05 100%) }
     // Backgrounds
     .bg {
         &-blue {
@@ -3970,10 +3883,6 @@ bs() { box-shadow: arguments }
     // CSS order matters here to override btn-link:not(:hover) above
     .Header {
         &-item img { filter: invert(1) }
-        .Header-link {
-            --color-scale-white: v08
-            &:hover { color: v09 }
-        }
     }
 
     // Box Header
@@ -3997,7 +3906,6 @@ bs() { box-shadow: arguments }
     // Search result
     #site-search-results {
         .search-result {
-            &:hover { background: v01 }
             &-title em { color: v08 }
             &-intro em { border-bottom: 1px solid v06 }
         }
@@ -4367,6 +4275,7 @@ bs() { box-shadow: arguments }
         margin-top: -.1rem
         transition: margin-top .17s ease-in-out, box-shadow .12s ease-in-out
     }
+
     .color-bg-primary {
     [style*="marketplace-images.githubusercontent.com/30"],
     [style*="marketplace-images.githubusercontent.com/704"],
