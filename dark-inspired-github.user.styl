@@ -2237,10 +2237,14 @@ bs() { box-shadow: arguments }
     .tabnav-tab {
         &[aria-current="true"], // Explore: topics/tag
         &[aria-current="true"].code,
-        &[aria-current="true"].preview,
+        &[aria-current="true"].preview {
+            background-color: bg1
+            border-bottom: 0
+        }
         &[aria-selected="true"].write-tab:not(#z),
         &[aria-selected="true"].preview-tab:not(#z) {
-            background-color: bg1
+            background-color: bg0
+            border-bottom: 0
         }
         // fix stargazers tab bg color e.g. https://git.io/JuFYB
         &[data-selected-links*='stargazers_'] {
@@ -2252,7 +2256,15 @@ bs() { box-shadow: arguments }
                 margin-top: 2px
             }
         }
+        // github should stop changing CSS vars just because its tuesday
+        // These are tabs in PR's
+        &.selected[href] { background-color: bg1 }
     }
+
+    // explore tab star button bg doesnt match main site.
+    .starring-container .color-bg-primary {
+        &.unstarred, &.starred { background-color: bg2 i }
+     }
 
     // Modals -> Overlay.
     .details-overlay-dark[open] > summary::before {
