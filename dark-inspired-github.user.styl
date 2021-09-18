@@ -2664,12 +2664,13 @@ bs() { box-shadow: arguments }
     .branch-action-body::after { border-right-color: bg1 i }
 
     .timeline-comment {
-        &--caret:not(.Box--condensed) {
+        // exclude carets in explore tab and branch action body areas.
+        &--caret:not(.branch-action-body):not(.unminimized-comment) {
             &::before {
                 background-color: bg5
             }
             &::after {
-                background-color: bg3
+                background-color: bg2
                 background-image: none
             }
             /:target &::before { border-right-color: var(-color-timeline-target-badge-shadow) i }
@@ -2686,19 +2687,8 @@ bs() { box-shadow: arguments }
                 border-radius: 3px 3px 3px 3px
             }
         }
-        // https://support.github.com/ticket/personal/0/#ticknr
-        &--caret.new-comment {
-            .ticket-head { background-color: bg3 }
-            &::before {
-                background-color: bg5
-            }
-            &::after {
-                background-color: bg3
-                background-image: none
-            }
-        }
         // explore
-        &--caret.Box--condensed {
+        &--caret.Box--condensed:not(#crazy-donkey) {
             &::before {
                 background-color: bg3
             }
@@ -2707,13 +2697,21 @@ bs() { box-shadow: arguments }
                 background-image: none
             }
         }
+        &--caret:not(#crazy-donkey) {
+            &::after {
+                background-color: bg2
+                background-image: none
+            }
+        }
+        // these carets are like donkeys.
+        &--caret:not(.branch-action-body):not(.current-user) {
+            &::after {
+                background-color: bg3
+                background-image: none
+            }
+        }
         &.new-comment {
             border-color: bg5
-        }
-        &-header {
-            background-color: bg3
-            border-color: bg5
-            color: v98
         }
         &.comment  {
             border-color: bg5
