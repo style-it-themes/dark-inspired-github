@@ -2262,7 +2262,7 @@ bs() { box-shadow: arguments }
     // explore tab star button bg doesnt match main site.
     .starring-container .color-bg-primary {
         &.unstarred, &.starred { background-color: bg2 i }
-     }
+    }
 
     // Modals -> Overlay.
     .details-overlay-dark[open] > summary::before {
@@ -2496,7 +2496,7 @@ bs() { box-shadow: arguments }
         background: mix(shade(FG, 5%), BG, 2%)
     }
     // Dont mangle preview tab with above styling
-    .preview-selected .comment .comment-body { c: 0 0 bg1 }
+    .preview-selected .comment .comment-body { c: 0 0 bg0 }
 
     // PR review reply border radius fix (upstream bug)
     .review-thread-reply { border-radius: 0 0 0 0 }
@@ -3264,6 +3264,7 @@ bs() { box-shadow: arguments }
 }
 
 @-moz-document regexp('https?://((docs)\.)github?.com(/.*)?') {
+    // https://docs.github.com/en
     // Landing svg
     #landing {
         /[data-name="octocat header"] {
@@ -3434,9 +3435,13 @@ bs() { box-shadow: arguments }
         }
     }
 
-    // stick to consistent style of select boxes e.g. https://docs.github.com/en/actions/guides
-    a[role="button"].color-border-inverse {
-        border-color: v98 i
+    .border {
+        border-color: bg4 i
+    }
+
+    // https://docs.github.com/en/actions/guides labels
+    .IssueLabel.color-bg-info-inverse {
+        border: 1px solid v04
     }
 
     // stick to consistent style of select boxes e.g. https://docs.github.com/en/actions/guides
@@ -3474,7 +3479,7 @@ bs() { box-shadow: arguments }
         }
     }
 
-    // https://docs.github.com/en/get-started
+    // dont drink and style e.g. https://docs.github.com/en/get-started
     .btn-primary-matte {
         background-color: v05
         border-color: v07
@@ -3885,6 +3890,19 @@ bs() { box-shadow: arguments }
         50% { opacity: .9 }
         100% { opacity: .3 }
     }
+
+    .timeline-comment {
+        // https://support.github.com/ticket/personal/0/#ticknr
+        &--caret.new-comment {
+            .ticket-head { background-color: bg3 }
+        }
+        &-header {
+            background-color: bg3
+            border-color: bg5
+            color: v98
+        }
+    }
+
     // Backgrounds
     .bg {
         &-blue {
@@ -4314,10 +4332,10 @@ bs() { box-shadow: arguments }
     }
 
     .color-bg-primary {
-    [style*="marketplace-images.githubusercontent.com/30"],
-    [style*="marketplace-images.githubusercontent.com/704"],
-    [style*="marketplace-images.githubusercontent.com/1110"],
-    [style*="marketplace-images.githubusercontent.com/497"] {
+        [style*="marketplace-images.githubusercontent.com/30"],
+        [style*="marketplace-images.githubusercontent.com/704"],
+        [style*="marketplace-images.githubusercontent.com/1110"],
+        [style*="marketplace-images.githubusercontent.com/497"] {
             filter: invert(.95) hue-rotate(180deg) i
             mix-blend-mode: exclusion
             box-shadow: none i
