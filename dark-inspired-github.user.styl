@@ -14,6 +14,7 @@
 @var select   cg_theme      'Select a color scheme       ' {
     'Custom colors   *' :   'custom-style',
     'Cobalt           ' :   'cobalt',
+    'Duo Tone         ' :   'duo',
     'Material         ' :   'material',
     'Material Darker  ' :   'material-dkr',
     'Twilight         ' :   'twilight',
@@ -97,6 +98,7 @@ bs() { box-shadow: arguments }
     ColorSchemes = {
         'custom-style'   : { BG:   cg_bg, FG:   cg_fg, AC:   cg_ac }
         'cobalt'         : { BG: #002240, FG: #d0d0d0, AC: #0088ff }
+        'duo'            : { BG: #221d1a, FG: #ffdac2, AC: #d7aa3f }
         'material'       : { BG: #263238, FG: #eeffff, AC: #82aaff }
         'material-dkr'   : { BG: #212121, FG: #eeffff, AC: #82aaff }
         'solarized-dark' : { BG: #002b36, FG: #fdf6e3, AC: #268bd2 }
@@ -837,7 +839,7 @@ bs() { box-shadow: arguments }
         --color-timeline-badge-bg: bg3 //#e1e4e8;
         --color-timeline-badge-success-border: t
         --color-timeline-target-badge-border: v04 //#2188ff;
-        --color-timeline-target-badge-shadow: v01 //#c8e1ff;
+        --color-timeline-target-badge-shadow: v09 //#c8e1ff;
         --color-timeline-merged-bg: var(--color-auto-purple-5);
 
         --color-select-menu-bg: bg2 //#fff;
@@ -1047,7 +1049,7 @@ bs() { box-shadow: arguments }
 
         --color-accent-fg: v09
         --color-accent-emphasis: v02
-        --color-accent-muted: rgba(convert($v09), .4)
+        --color-accent-muted: rgba(convert($v05), .4)
         --color-accent-subtle: v01
 
         --color-success-fg: v45
@@ -1580,6 +1582,10 @@ bs() { box-shadow: arguments }
             vertical-align: middle
             margin-top: -.1rem
         }
+        input#whitespace-cb {
+            vertical-align: middle
+            margin-top: -.1rem
+        }
     }
 
     .Label {
@@ -1823,9 +1829,12 @@ bs() { box-shadow: arguments }
 
         // Commit ref & user blue to accent color
         .commit-ref {
-            --color-branch-name-text: v07
-            .user { --color-auto-blue-7: v07 }
+            color: v08
+            .user { color: v07 }
         }
+
+        // readme only nested blockquote p code style + li code + a code
+        #readme code { background-color: var(--color-codemirror-bg) }
 
         .markdown-body {
             // Code blocks.
@@ -2193,8 +2202,9 @@ bs() { box-shadow: arguments }
     // Feature preview notification dot
     .feature-preview-indicator { background-image: linear-gradient(v08, v08) }
     // Feature preview octo
-    svg[width="200"][height="200"][viewBox="0 0 146 108"] {
-        filter: grayscale(1) brightness(.7)
+    .feature-preview-dialog svg {
+        filter: grayscale(1) brightness(.9)
+        mix-blend-mode: exclusion
     }
 
     // Navigation. @upstream
@@ -2423,7 +2433,7 @@ bs() { box-shadow: arguments }
             overflow: hidden i
         }
         // hide GH indent size when editing files via browser
-        select[id="indent-size"] {
+        select[aria-label='Indent size'] {
             display: none i
         }
     }
@@ -2647,11 +2657,11 @@ bs() { box-shadow: arguments }
     /:target {
         .timeline-comment {
             border-color: v04 i
-            box-shadow: 0 0 0 .2em v02
+            box-shadow: 0 0 0 .2em v01
             &[class*='--caret'] {
                 &::before {
-                    filter: drop-shadow(-.28em 0 0 v02)
                     background-color: v04
+                    filter: drop-shadow(-.28em 0 0 v02)
                 }
             }
         }
@@ -2670,7 +2680,7 @@ bs() { box-shadow: arguments }
                 background-color: bg2
                 background-image: none
             }
-            /:target &::before { border-right-color: var(-color-timeline-target-badge-shadow) i }
+            /:target &::before { background-color: var(-color-timeline-target-badge-shadow) i }
 
             /.edit-comment-hide .color-bg-canvas-inset,
             /.discussion-comment.reorderable-task-lists {
@@ -2694,7 +2704,7 @@ bs() { box-shadow: arguments }
                 background-image: none
             }
         }
-        &--caret:not(#crazy-donkey) {
+        &--caret:not(#crazy-donkey):not(.current-user):not(.branch-action-body) {
             &::after {
                 background-color: bg2
                 background-image: none
@@ -2739,6 +2749,10 @@ bs() { box-shadow: arguments }
         /.thread-subscription-status {
             c: 0 bg5
             /.sidebar-notifications & { c: 0 0 bg0 }
+        }
+
+        &.current-user .timeline-comment-header {
+            border-bottom-color: bg5
         }
     }
 
