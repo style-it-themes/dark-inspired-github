@@ -43,9 +43,17 @@ Then install this style clicking:
 [![INSTALL DIRECTLY WITH - STYLUS Stylus](https://img.shields.io/badge/Install_directly_with-Stylus-21d1d0.svg?longCache=true&style=for-the-badge)](https://github.com/style-it-themes/dark-inspired-github/raw/main/dark-inspired-github.user.styl)
   > Only available using Stylus (see the [documentation](https://github.com/openstyles/stylus/wiki/Usercss)). 🎉
 
- ## Recommended Extensions
+### Additional Userstyles
 
-I recommend you install [Stylus Wardrobe](https://github.com/style-it-themes/stylus-wardrobe)
+Style-It Themes (and I) recommends the additonal styles below which can be used together without issues.
+These add unapparelled consistent experience and extend customizations options for other areas of your browsing life.
+
+Save your retinas from the burn!
+
+* [DD-WRT Forum Inspired Themes](https://github.com/style-it-themes/dd-wrt-forum-inspired-themes)
+* [DD-WRT Trac Inspired Themes](https://github.com/style-it-themes/dd-wrt-trac-inspired-themes)
+* [Stylus Wardrobe](https://github.com/style-it-themes/stylus-wardrobe)
+* [Overlay Scrollbars](https://github.com/StylishThemes/Overlay-Scrollbars)
 
 This is another Style-it Themes project developed/maintained by myself which aims to provide<br>
 consistent color themes for the OpenStyles Stylus extension
