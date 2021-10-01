@@ -2789,6 +2789,26 @@ bs() { box-shadow: arguments }
         &.current-user .timeline-comment-header {
             border-bottom-color: bg5
         }
+
+        // fkcing upstream twats constantly fkcing around inconsistently with css vars
+        /.color-bg-canvas .previewable-comment-form .comment-form-head {
+          c: 0 0 bg2
+          .color-bg-canvas {
+              c: 0 0 bg2
+          }
+        }
+    }
+    .composer.timeline-new-comment .rounded-top-2.color-bg-canvas {
+        background-color: hsla(convert($bg2), .5) i
+        border-bottom: 1px solid bg4
+    }
+    .composer.timeline-new-comment .hx_comment-box--tip::after {
+        background-image: linear-gradient(hsla(convert($bg2), .5), hsla(convert($bg2), .5)) i
+    }
+
+    // comit page button next/prev chevron align
+    .btn-outline [class*="octicon-chevron-"] {
+        margin-top: -.079rem
     }
 
     // conflict resolution header alignment fix
