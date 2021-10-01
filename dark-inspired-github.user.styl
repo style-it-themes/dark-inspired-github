@@ -2234,9 +2234,12 @@ bs() { box-shadow: arguments }
     // Feature preview notification dot
     .feature-preview-indicator { background-image: linear-gradient(v08, v08) }
     // Feature preview octo
-    .feature-preview-dialog svg {
+    .feature-preview-dialog svg:not(.octicon) {
         filter: grayscale(1) brightness(.9)
         mix-blend-mode: exclusion
+    }
+    .feature-preview-dialog .color-text-white {
+      color: v98 i
     }
 
     // Navigation. @upstream
