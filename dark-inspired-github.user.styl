@@ -37,6 +37,7 @@
 
 @var checkbox custom_font   'Use custom font overrides   ' 0
 @var checkbox c_scrollbars  'Use scrollbar overrides     ' 1
+@var checkbox a_user_status "User status below avatar"     1
 @var checkbox navbar_sticky 'Navbar sticky position      ' 0
 @var checkbox latest_commit 'Neutral latest commit colors' 0
 @var checkbox readme_header 'Legacy readme header design ' 0
@@ -1344,6 +1345,24 @@ bs() { box-shadow: arguments }
             width: 5px
             &-track { background: bg2 }
             &-thumb { background: v04 }
+        }
+    }
+
+    if (a_user_status) {
+        .user-status-circle-badge-container {
+            position: static
+            margin-left: 0
+            margin-bottom: -10px
+            margin-top: 10px
+         }
+         .CircleBadge, .page-profile .user-status-container {
+             background: t
+         }
+    }
+    else {
+        .user-status-circle-badge-container {
+            margin-bottom: 32px
+            margin-left: -40px
         }
     }
 
