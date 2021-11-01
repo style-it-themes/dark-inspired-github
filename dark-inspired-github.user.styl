@@ -2463,14 +2463,27 @@ bs() { box-shadow: arguments }
     }
 
     // Navigation. @upstream
-    .UnderlineNav-item {
-        &.selected,
-        &[role="tab"][aria-selected="true"],
-        &[aria-current]:not([aria-current="false"]) {
-            border-color: v09
+    body {
+        .UnderlineNav-item, .site-subnav .subnav-primary {
+            &.selected,
+            &[role="tab"][aria-selected="true"],
+            &[aria-current]:not([aria-current="false"]) {
+                border-color: v09 i
+            }
+            &:focus, &:hover { border-color: v09 i }
+            /.UnderlineNav { bs: inset 0 -1px 0 bg4 i }
         }
-        &:focus, &:hover { border-color: v09 }
-        /.UnderlineNav { bs: inset 0 -1px 0 bg4 }
+        .tabnav-tab[aria-current] {
+            border-top-color: v09 i
+        }
+        .SelectMenu-tab {
+            &.selected,
+            &[role="tab"][aria-selected="true"],
+            &[aria-current]:not([aria-current="false"]) {
+                border-top-color: v09 i
+            }
+            &:focus, &:hover { border-top-color: v09 i }
+        }
     }
 
     // Sub-navigation. @upstream
