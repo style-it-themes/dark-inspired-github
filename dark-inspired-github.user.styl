@@ -14,7 +14,7 @@
 @var select   cg_theme      'Select a color scheme       ' {
     'Custom colors   *' :   'custom-style',
     'Cobalt           ' :   'cobalt',
-    'Duo Tone         ' :   'duo',
+    'Duo Cocoa        ' :   'duo-cocoa',
     'Material         ' :   'material',
     'Material Darker  ' :   'material-dkr',
     'Twilight         ' :   'twilight',
@@ -30,14 +30,15 @@
 @var range    cg_fg_sat     'Foreground color saturation ' [0, 0, 100, 0.1, '%']
 
 @var number   tab_size      'Tab size                    ' [8, 2, 8, 2]
+@var checkbox center_gh     'Center GitHub Navigation    ' 0
 
 @var text     f_ui          'UI font                     ' ''font_name''
 @var text     f_mono        'Monospace font              ' ''font_name''
-@var text     b_hgwd        'Checkbox width/height       ' '.88rem'
+@var text     transition    'Define transition value     ' 'all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)'
 
 @var checkbox custom_font   'Use custom font overrides   ' 0
 @var checkbox c_scrollbars  'Use scrollbar overrides     ' 1
-@var checkbox a_user_status "User status below avatar"     1
+@var checkbox a_user_status 'User status below avatar    ' 1
 @var checkbox navbar_sticky 'Navbar sticky position      ' 0
 @var checkbox latest_commit 'Neutral latest commit colors' 0
 @var checkbox readme_header 'Legacy readme header design ' 0
@@ -47,13 +48,20 @@
 @var checkbox rm_ghdskt-op  'Show get repo w/ GH Desktop ' 0
 @var checkbox code_borders  'Add code/pre/other borders  ' 1
 
+@var checkbox use-date-clr  'Date color override         ' 1
+@var number   lgnd-blk-size 'Blame block size            ' [10, 6, 10, 2, 'px']
+@var text     lgnd-blk-rad  'Legend block radius         ' 2px
+@var number   blame-br-wdth 'Blame border width          ' [10, 2, 10, 2, 'px']
 ==/UserStyle== */
 // Remove old browser prefixes.
-vendors = official
-version = 'Dark Inspired GitHub - v3.1.0'
-t       = transparent
-i       = !important
-r       = unquote
+vendors   = official
+version   = 'Dark Inspired GitHub - v3.1.0'
+copyright = '© 2021 Style-it-themes: the-j0k3r'
+license   = 'MIT'
+homeURL   = 'https://github.com/style-it-themes/dark-inspired-github'
+t         = transparent
+i         = !important
+r         = unquote
 
 // Convert colors to HSLA format.
 // NOTE: This is done just for consistency of generated colors.
@@ -99,7 +107,7 @@ bs() { box-shadow: arguments }
     ColorSchemes = {
         'custom-style'   : { BG:   cg_bg, FG:   cg_fg, AC:   cg_ac }
         'cobalt'         : { BG: #002240, FG: #d0d0d0, AC: #0088ff }
-        'duo'            : { BG: #221d1a, FG: #ffdac2, AC: #d7aa3f }
+        'duo-cocoa'      : { BG: #221d1a, FG: #ffdac2, AC: #d7aa3f }
         'material'       : { BG: #263238, FG: #eeffff, AC: #82aaff }
         'material-dkr'   : { BG: #212121, FG: #eeffff, AC: #82aaff }
         'solarized-dark' : { BG: #002b36, FG: #fdf6e3, AC: #268bd2 }
@@ -188,7 +196,7 @@ bs() { box-shadow: arguments }
             // Case for RGB colors.
             else {
                 $hue   = $sel.hue
-                $color = hsl($hue, 65% + cg_sat, 65% + cg_lig)
+                $color = hsl($hue, 60% + cg_sat, 60% + cg_lig)
                 $color = darken($color, (100% - (num + 2) * 7.5))
                 $color = lightness($color, lightness($color) + num)
             }
@@ -213,6 +221,10 @@ bs() { box-shadow: arguments }
     :root:not(#crazy) *, [data-color-mode][data-light-theme] {
         // Userstyle info.
         --style-name: version
+        --copyright: copyright
+        --license: license
+        --homeurl: homeURL
+        --scrollbars: c_scrollbars
 
         // Generate CSS color variables.
         colors = (bg fg v0 v1 v2 v3 v4 v5 v6 v7 v8 v9)
@@ -228,16 +240,16 @@ bs() { box-shadow: arguments }
         }
         shade = (dark(BG)) ? darken : lighten
 
-        --v0-0: mix(shade(BG,  0%), AC, 90%)
-        --v0-1: mix(shade(BG, 40%), AC, 80%)
-        --v0-2: mix(shade(BG, 40%), AC, 70%)
-        --v0-3: mix(shade(BG, 40%), AC, 60%)
-        --v0-4: mix(shade(BG, 65%), AC, 50%)
-        --v0-5: mix(shade(BG, 50%), AC, 40%)
-        --v0-6: mix(shade(BG, 50%), AC, 30%)
-        --v0-7: mix(shade(BG, 50%), AC, 20%)
-        --v0-8: mix(shade(BG, 50%), AC, 10%)
-        --v0-9: mix(shade(BG, 50%), AC, 0%)
+        --v0-0: to_hsla(mix(shade(BG, 90%), AC, 90%))
+        --v0-1: to_hsla(mix(shade(BG, 80%), AC, 80%))
+        --v0-2: to_hsla(mix(shade(BG, 70%), AC, 70%))
+        --v0-3: to_hsla(mix(shade(BG, 60%), AC, 60%))
+        --v0-4: to_hsla(mix(shade(BG, 50%), AC, 50%))
+        --v0-5: to_hsla(mix(shade(BG, 40%), AC, 40%))
+        --v0-6: to_hsla(mix(shade(BG, 30%), AC, 30%))
+        --v0-7: to_hsla(mix(shade(BG, 20%), AC, 20%))
+        --v0-8: to_hsla(mix(shade(BG, 10%), AC, 10%))
+        --v0-9: to_hsla(mix(shade(BG, 0%), AC, 0%))
 
         // Native CSS variables.
         --color-scale-black: v98 //#1b1f23;
@@ -458,15 +470,15 @@ bs() { box-shadow: arguments }
         --color-fade-fg-70: rgba(convert($bg1), .70)
         --color-fade-fg-85: rgba(convert($bg1), .85)
 
-        --color-border-primary: bg5 //#e1e4e8;
-        --color-border-secondary: bg3 //#eaecef;
-        --color-border-tertiary: bg4 //#d1d5da;
-        --color-border-overlay: bg4 //#e1e4e8
-        --color-border-inverse: bg1 //#fff;
-        --color-border-info: v03 //#0366d6;
-        --color-border-danger: v13 //#d73a49;
-        --color-border-success: v43 //#34d058;
-        --color-border-warning: v33 //#f9c513;
+        --color-border-primary: bg5
+        --color-border-secondary: bg3
+        --color-border-tertiary: bg4
+        --color-border-overlay: bg4
+        --color-border-inverse: bg1
+        --color-border-info: v03
+        --color-border-danger: v13
+        --color-border-success: v43
+        --color-border-warning: v33
         --color-border-default: bg4
         --color-border-muted: bg4
         --color-border-subtle: rgba(convert($bg2), .15)
@@ -565,7 +577,7 @@ bs() { box-shadow: arguments }
         --color-btn-primary-focus-bg: v43 //#2ea44f;
         --color-btn-primary-focus-border: v45 //rgba(27,31,35,0.15);
         --color-btn-primary-focus-shadow: 0 0 0 3px v41 //rgba(46,164,79,0.4);
-        --color-btn-primary-icon: rgba(FG, .8)
+        --color-btn-primary-icon: v98
         --color-btn-primary-counter-bg: rgba(FG, .2)
 
         --color-btn-outline-text: v07 //#0366d6;
@@ -921,10 +933,10 @@ bs() { box-shadow: arguments }
         --color-hidden-text-expander-bg: rgba(BG, .126) //#dfe2e5;
         --color-hidden-text-expander-bg-hover: rgba(convert($bg5), .6) //#c6cbd1;
         --color-drag-and-drop-border: rgba(convert($v08), .4) //#c3c8cf;
-        --color-upload-enabled-border: bg5 //#dfe2e5;
-        --color-upload-enabled-border-focused: v04 //#4a9eff;
-        --color-previewable-comment-form-border: rgba(convert($v68), .4) //#c3c8cf;
-        --color-previewable-comment-form-bg: t //#fff; @upstream
+        --color-upload-enabled-border: bg5
+        --color-upload-enabled-border-focused: v04
+        --color-previewable-comment-form-border: rgba(convert($v68), .4)
+        --color-previewable-comment-form-bg: t // @upstream
 
         --color-underlinenav-border: rgba(209,213,218,0);
         --color-underlinenav-border-hover: bg5 //#d1d5da;
@@ -946,7 +958,7 @@ bs() { box-shadow: arguments }
         --color-header-search-bg: bg4 //#24292e;
         --color-header-search-border: bg5 //#444d56;
         --color-search-keyword-hl: bg5 //rgba(187,128,9,0.4);
-        --color-search-hover-hl: var(--color-scale-white);
+        --color-search-hover-hl: var(--color-scale-white)
         --color-tooltip-text: v98 //#fff;
         --color-tooltip-bg: bg3 //#24292e;
 
@@ -962,27 +974,27 @@ bs() { box-shadow: arguments }
         --color-discussion-border: v45 //#a2cbac;
         --color-discussion-bg-success: v43;
 
-        --color-discussions-answer-border: var(--color-scale-green-5);
-        --color-discussions-answer-icon: var(--color-scale-green-6);
-        --color-discussions-answer-text: var(--color-scale-green-6);
-        --color-discussions-state-answered-icon: var(--color-scale-white);
+        --color-discussions-answer-border: var(--color-scale-green-5)
+        --color-discussions-answer-icon: var(--color-scale-green-6)
+        --color-discussions-answer-text: var(--color-scale-green-6)
+        --color-discussions-state-answered-icon: var(--color-scale-white)
 
-        --color-actions-workflow-table-sticky-bg: hsla(0,0%,100%,0.95);
+        --color-actions-workflow-table-sticky-bg: hsla(0, 0%, 100%, .95)
         --color-workflow-card-bg: bg2
         --color-workflow-card-connector-highlight-bg: v09
         --color-workflow-card-connector-highlight: v09
         --color-workflow-card-connector-inactive: v94
         --color-workflow-card-connector: var(--color-scale-gray-3)
         --color-workflow-card-connector-bg: var(--color-scale-gray-3)
-        --color-workflow-card-connector-inactive-bg: var(--color-border-primary);
-        --color-workflow-card-inactive-bg: var(--color-bg-canvas-inset);
+        --color-workflow-card-connector-inactive-bg: var(--color-border-primary)
+        --color-workflow-card-inactive-bg: var(--color-bg-canvas-inset)
         --color-workflow-card-header-shadow: t
-        --color-workflow-card-progress-complete-bg: var(--color-scale-blue-4);
-        --color-workflow-card-progress-incomplete-bg: var(--color-scale-gray-2);
+        --color-workflow-card-progress-complete-bg: var(--color-scale-blue-4)
+        --color-workflow-card-progress-incomplete-bg: var(--color-scale-gray-2)
 
         --color-repo-language-color-border: bg4
-        --color-gist-editor-bg: var(--color-scale-white);
-        --color-profile-color-modes-ga-moon: var(--color-scale-gray-9);
+        --color-gist-editor-bg: var(--color-scale-white)
+        --color-profile-color-modes-ga-moon: var(--color-scale-gray-9)
 
         --color-global-nav-logo: v98 //#fff;
         --color-global-nav-bg: bg1 //#24292e;
@@ -993,10 +1005,10 @@ bs() { box-shadow: arguments }
         --color-global-nav-input-icon: v97 //#d1d5da;
         --color-global-nav-input-placeholder: v95 //#959da5;
 
-        --color-notifications-button-text: var(--color-text-secondary);
-        --color-notifications-button-hover-text: var(--color-text-primary);
-        --color-notifications-button-hover-bg: var(--color-auto-gray-2);
-        --color-notifications-row-read-bg: var(--color-bg-tertiary);
+        --color-notifications-button-text: var(--color-text-secondary)
+        --color-notifications-button-hover-text: var(--color-text-primary)
+        --color-notifications-button-hover-bg: var(--color-auto-gray-2)
+        --color-notifications-row-read-bg: var(--color-bg-tertiary)
         --color-notifications-row-bg: bg2
 
         --color-page-header-bg: var(--color-bg-secondary)
@@ -1086,6 +1098,7 @@ bs() { box-shadow: arguments }
         --color-sponsors-muted: v84
         --color-sponsors-subtle: v82
 
+        --color-primer-fg-disabled: v96
         --color-primer-canvas-backdrop: rgba(convert($bg0), .5)
         --color-primer-canvas-sticky: rgba(convert($bg1), .95)
         --color-primer-border-active: v04
@@ -1263,13 +1276,68 @@ bs() { box-shadow: arguments }
         background-color: bg1
         color: var(--color-text-primary);
     }
+    .container-xl {
+        max-width: 1260px
+    }
+    .color-bg-default {
+        background-color: var(--color-bg-primary) i
+    }
+    .color-bg-primary {
+        background-color: var(--color-bg-primary) i
+    }
+    .color-bg-secondary[aria-label='Check suites'] {
+        background: bg1 i
+    }
+    .color-bg-tertiary {
+        background: bg3 i
+    }
+    .color-bg-default.width-full.color-border-muted {
+        background-color: bg2 i
+    }
+    .color-text-secondary {
+        color: var(--color-text-secondary) i
+    }
+    .command-palette.color-bg-primary {
+        c: 0 0 bg2
+        border: 1px solid bg4
+    }
+    .command-palette a.color-bg-tertiary {
+        c: 0 0 v02
+    }
+    .command-palette .command-palette-input-group {
+        c: 0 0 bg2
+        [style*='background-color: transparent'] {
+            c: 0 0 bg2
+        }
+    }
+    .command-palette command-palette-tip {
+        code.color-bg-tertiary {
+            background-color: var(--color-codemirror-bg) i
+        }
+    }
+    command-palette-item-stack {
+        c: 0 0 bg1
+    }
+    [data-target="command-palette-item.hintText"] {
+        background-color: bg2
+        border: 1px solid bg4
+    }
+    .hide-sm .hide-sm {
+        padding: 3px 6px
+    }
 
+    a {
+        transition: transition
+        &.color-text-primary:hover {
+            color: v09 i
+        }
+    }
     // https://github.com/login/device
     html.color-bg-secondary[data-color-mode][data-light-theme] { background-color: inherit i }
 
     // Base styles.
     html {
-        ::placeholder { c: v94 }
+        ::placeholder { c: v96 }
         ::selection { background-color: var(--color-codemirror-selection-bg); color: var(--color-codemirror-text) }
 
         body {
@@ -1317,7 +1385,11 @@ bs() { box-shadow: arguments }
             line-height: 21px
             font-size: 13px
         }
-
+        // https://github.com/atom/atom/discussions/23088 fix border and text
+        .social-reaction-summary-item.discussion-footer-answered-badge {
+            border-color: v45
+            color: v47 i
+        }
 
         // Feat -> allow disabling appearance tab
         if (!(show_gh_tab)) {
@@ -1343,24 +1415,25 @@ bs() { box-shadow: arguments }
 
     // Feat -> Theme scrollbars
     if (c_scrollbars) {
-        * { scrollbar-color: v04 bg2 i }
+        *:not(select) { scrollbar-color: v03 bg2 i }
         /::-webkit-scrollbar {
             width: 5px
-            &-track { background: bg2 }
-            &-thumb { background: v04 }
+            &-track { background: bg2 i }
+            &-thumb { background: v04 i }
         }
     }
 
     if (a_user_status) {
+        // this is better used with
         .user-status-circle-badge-container {
             position: static
             margin-left: 0
             margin-bottom: -10px
             margin-top: 10px
-         }
-         .CircleBadge, .page-profile .user-status-container {
-             background: t
-         }
+        }
+        .CircleBadge, .page-profile .user-status-container {
+            background: t
+        }
     }
     else {
         .user-status-circle-badge-container {
@@ -1369,9 +1442,108 @@ bs() { box-shadow: arguments }
         }
     }
 
+    if (center_gh) {
+        .UnderlineNav  {
+            max-width: 1280px
+            margin-right: auto
+            margin-left: auto
+        }
+        .notification-shelf [class*='notification-'],
+        .application-main > main .width-full:not(.color-bg-default) {
+            max-width: 1220px
+            margin-right: auto
+            margin-left: auto
+        }
+        .js-header-wrapper {
+            .Header {
+                border-bottom: 0
+                max-width: 1280px
+                margin-right: auto
+                margin-left: auto
+            }
+            .header {
+                background: bg1
+            }
+        }
+        #repository-container-header.hide-full-screen {
+            border-top: 2px solid bg4
+            box-shadow: inset 0 -1px 0 bg4
+            div[class] {
+                max-width: 1280px
+                margin-right: auto
+                margin-left: auto
+            }
+        }
+        .repository-content .flex-column.width-full {
+            max-width: 1280px
+            margin-right: auto
+            margin-left: auto
+        }
+        body.intent-mouse .Header[role='banner'] {
+            max-width: 1280px
+            margin-right: auto
+            margin-left: auto
+        }
+        body > div.position-relative {
+            background: bg3
+        }
+    }
+
+    .line-age-legend .heat {
+        width: lgnd-blk-size
+        height: @width
+        margin: 2px 0 0
+        border-radius: lgnd-blk-rad
+    }
+    .reblame-link {
+        opacity: .8
+    }
+    .heat {
+        &[data-heat="1"] { background: rgba(convert($v09), 1) }
+        &[data-heat="2"] { background: rgba(convert($v09), .9) }
+        &[data-heat="3"] { background: rgba(convert($v09), .8) }
+        &[data-heat="4"] { background: rgba(convert($v09), .7) }
+        &[data-heat="5"] { background: rgba(convert($v09), .6) }
+        &[data-heat="6"] { background: rgba(convert($v09), .5) }
+        &[data-heat="7"] { background: rgba(convert($v09), .4) }
+        &[data-heat="8"] { background: rgba(convert($v09), .3) }
+        &[data-heat="9"] { background: rgba(convert($v09), .2) }
+        &[data-heat="10"] { background: rgba(convert($v09), .1) }
+    }
+    .blame-commit {
+        &[data-heat="1"] { border-right: blame-br-wdth solid rgba(convert($v09), 1) }
+        &[data-heat="2"] { border-right: blame-br-wdth solid rgba(convert($v09), .9) }
+        &[data-heat="3"] { border-right: blame-br-wdth solid rgba(convert($v09), .8) }
+        &[data-heat="4"] { border-right: blame-br-wdth solid rgba(convert($v09), .7) }
+        &[data-heat="5"] { border-right: blame-br-wdth solid rgba(convert($v09), .6) }
+        &[data-heat="6"] { border-right: blame-br-wdth solid rgba(convert($v09), .5) }
+        &[data-heat="7"] { border-right: blame-br-wdth solid rgba(convert($v09), .4) }
+        &[data-heat="8"] { border-right: blame-br-wdth solid rgba(convert($v09), .3) }
+        &[data-heat="9"] { border-right: blame-br-wdth solid rgba(convert($v09), .2) }
+        &[data-heat="10"] { border-right: blame-br-wdth solid rgba(convert($v09), .1) }
+    }
+    if (use-date-clr) {
+        .blame-commit-date[data-heat] {
+            color: v98
+        }
+    }
+    else {
+        .blame-commit-date {
+            &[data-heat="1"] { color: rgba(convert($v09), 1) }
+            &[data-heat="2"] { color: rgba(convert($v09), .9) }
+            &[data-heat="3"] { color: rgba(convert($v09), .8) }
+            &[data-heat="4"] { color: rgba(convert($v09), .7) }
+            &[data-heat="5"] { color: rgba(convert($v09), .6) }
+            &[data-heat="6"] { color: rgba(convert($v09), .5) }
+            &[data-heat="7"] { color: rgba(convert($v09), .4) }
+            &[data-heat="8"] { color: rgba(convert($v09), .3) }
+            &[data-heat="9"] { color: rgba(convert($v09), .2) }
+            &[data-heat="10"] { color: rgba(convert($v09), .1) }
+        }
+    }
+
     // Better checkbox/radio inputs.
     input {
-        r       = unquote
         prefix  = 'data:image/svg+xml;utf8,'
         prefix += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">'
 
@@ -1382,11 +1554,11 @@ bs() { box-shadow: arguments }
                 -moz-appearance: none
                 appearance: none
                 cursor: pointer
-                height: b_hgwd
-                width: b_hgwd
+                height: .88rem
+                width: @height
                 border: 1px solid bg5
                 background-size: cover
-                transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)
+                transition: transition
                 c: v08 0 bg1
             }
             &:disabled, &:hover:active:disabled, &:disabled:hover {
@@ -1397,7 +1569,7 @@ bs() { box-shadow: arguments }
 
         &[type='radio'] {
             // fix border radius at https://github.com/settings/profile Emoji color
-            border-radius: 50%
+            rad: 50%
             // align with checked state
             padding: 7px
             &:checked {
@@ -1409,7 +1581,7 @@ bs() { box-shadow: arguments }
         }
 
         &[type='checkbox'] {
-            border-radius: 2px
+            rad: 2px
             &:checked {
                 path ='<path fill="' + to_svg($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
                 background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
@@ -1456,13 +1628,14 @@ bs() { box-shadow: arguments }
             }
         }
         // audit log export inut fields
-        &[id="start-time"], &[id="end-time" i] {
+        &[id="start-time"], &[id="end-time"] {
             -webkit-appearance: none
             -moz-appearance: none
             appearance: none
             background: bg0
             border: 1px solid bg5
             color: v99
+            rad: 3px
             &:active, &:focus-visible {
                 border-color: v08
                 outline: none
@@ -1473,7 +1646,6 @@ bs() { box-shadow: arguments }
     // Better select element styles.
     /select {
         // Custom icon.
-        r       = unquote
         prefix  = 'data:image/svg+xml;utf8,'
         prefix += '<svg width="16" height="16" fill="' + to_svg($v95) + '" '
         prefix += 'xmlns="http://www.w3.org/2000/svg">'
@@ -1608,13 +1780,17 @@ bs() { box-shadow: arguments }
             vertical-align: middle
             margin-top: -.1rem
         }
+        // e.g.
+        form[action*="diffview"] {
+            margin-top: -.3rem
+        }
     }
 
     .Label {
         // override .Label.Label--purple colors e.g. PRO badge
         &.Label--purple[title="Label: Pro"] {
-            --color-auto-purple-4: v78
-            --color-auto-purple-5: v78
+            color: v78
+            border-color: v78
         }
     }
     .label, .Label { line-height: 1.8em }
@@ -1622,13 +1798,16 @@ bs() { box-shadow: arguments }
     // Btn overrides/fixes
     .btn {
         // Override button icon star/fork/watch
-        .octicon { --color-text-tertiary: v97 }
+        .octicon { color: v97 }
         // Override danger disabled and fix non active border e.g. right click on btn
         &-danger:disabled, &-danger.disabled, &-danger[aria-disabled="true"] {
-            --color-btn-border: bg3
+            border-color: bg3
             &:not(:active) {
                 border-color: bg3
             }
+        }
+        &-link {
+            transition: transition
         }
     }
 
@@ -1651,6 +1830,8 @@ bs() { box-shadow: arguments }
 
     // fix Box shadow no using CSS vars upstream e.g. https://github.com/settings/security
     .session-device .session-state-indicator.recent { box-shadow: 0 0 5px v45 }
+
+    .session-authentication { background-color: bg1 }
 
     // Logout fixes
     .home-nav-item.selected { border-color: v09; color: v99 i }
@@ -1759,11 +1940,11 @@ bs() { box-shadow: arguments }
 
             .dropdown-divider { border-color: bg4 }
 
-            &::after { --color-auto-gray-8: var(--color-bg-primary) }
+            &::after { background-color: var(--color-bg-primary) }
             &::before { border-bottom-color: bg4 }
         }
         &-signed-commit .dropdown-menu::after {
-            --color-auto-gray-1: var(--color-bg-tertiary)
+            background-color: var(--color-bg-tertiary)
         }
     }
 
@@ -1779,13 +1960,13 @@ bs() { box-shadow: arguments }
         }
 
         .stale-files-tab {
-          border: 1px solid v23
-          color: v28
-          transition: transition
-          &:hover {
-            background: v21
-            border-color: v24
-          }
+            border: 1px solid v23
+            color: v28
+            transition: transition
+            &:hover {
+                background: v21
+                border-color: v24
+            }
         }
 
         // remove shadow
@@ -1806,6 +1987,10 @@ bs() { box-shadow: arguments }
         // dont let syntax themes style affect the resolve button background on PR's inline discussion only
         // e.g. https://git.io/JuFTn
         form[action*='resolve'] { background-color: bg0 }
+        //  and also when creating new comment e.g. https://git.io/J2qjf
+        .line-comments .inline-comment-form {
+            background-color: bg0
+        }
 
         .commit-form {
             c: 0 0 bg1
@@ -1820,7 +2005,7 @@ bs() { box-shadow: arguments }
         [style*='background-color: #fcfdfd'] {
             c: 0 0 bg0
             // fix explore, tab color and bg color should match
-            .bg-white { c: 0 0 bg0 }
+            .color-bg-primary { c: 0 0 bg0 }
         }
         // Topics -> Issues.
         [style*='(255\,255\,255\,1)\, rgba(255\,255\,255\,0))'] {
@@ -1840,21 +2025,20 @@ bs() { box-shadow: arguments }
         }
 
         // restyle progress bg
-        .Progress, .progress-bar { --color-auto-gray-2: bg4 }
+        .Progress, .progress-bar { background-color: bg2 i }
 
         // Check list progress tweaks
         .task-progress .progress-bar {
-            --color-border-secondary: bg5
-            .progress { --color-border-tertiary: v09 }
+            background-color: bg4 i
+            .progress { border-color: v09 i }
         }
 
         // Flash only blue to accent color
-        .flash:not([class*="-warn"]):not([class*="-error"]):not([class*="-info"]):not([class*="-succ"]) {
+        .flash-full:not([class*="-warn"]):not([class*="-error"]):not([class*="-info"]):not([class*="-succ"]) {
             background-image: linear-gradient(v01 , v01)
             border-color: v02
             color: var(--color-alert-info-text)
             .octicon {
-                --color-alert-info-icon: v07
                 &-x:hover { color: v09 }
             }
         }
@@ -1916,6 +2100,17 @@ bs() { box-shadow: arguments }
             mix-blend-mode: lighten
         }
 
+        // stars page sponsor/star button margin upstream bug
+        // e.g. https://github.com/stars/silverwind
+        .repo-list [aria-label*='Sponsor'] {
+            margin-bottom: .3rem
+        }
+        // not using css vars, seriously?
+        // e.g. https://github.com/search?q=dd-wrt
+        .repo-list .octicon[style='color: #6a737d'] {
+            color: var(--color-text-primary) i
+        }
+
         // fix GH circlebadge e.g. https://git.io/JuFe6
         .CircleBadge[style*="background-color: #fff; overflow"] { background-color: bg3 i }
 
@@ -1923,6 +2118,13 @@ bs() { box-shadow: arguments }
         .CircleBadge-icon[alt*="workflow logo"] {
             filter: invert(0.95) brightness(1.5) grayscale(1)
             mix-blend-mode: lighten
+        }
+
+        // color swatch size its way too small
+        code span.circle {
+            width: 12px i
+            height: @width
+            vertical-align: text-bottom
         }
 
         // Actions icon
@@ -1963,6 +2165,13 @@ bs() { box-shadow: arguments }
                 // A mix-blend-mode: exclusion value will blend images with themes closer
                 mix-blend-mode: exclusion
             }
+        }
+
+        // e.g. https://github.com/mirror/dd-wrt/pull/75/files jump to conversation
+        svg[aria-labelledby='1olh1b70i63oak12qnyiu384vz1id0z'] {
+            filter: invert(0.95) hue-rotate(180deg) brightness(1.8) grayscale(1)
+            // A mix-blend-mode: exclusion value will blend images with themes closer
+            mix-blend-mode: exclusion
         }
 
         // Crest logged out bg
@@ -2051,6 +2260,11 @@ bs() { box-shadow: arguments }
             &[src*="/logos/platform"] { filter: invert(1) hue-rotate(180deg)brightness(80%) }
         }
 
+        // https://github.com/mirror/dd-wrt/find/master
+        .tree-finder-input {
+            background: bg1
+        }
+
         // drag-and-drop over textarea using HEX color not CSS var
         .dragover textarea,.dragover .drag-and-drop {
             box-shadow: 0 0 3px v07
@@ -2060,15 +2274,15 @@ bs() { box-shadow: arguments }
         // external link icon dark as a mofo, this is visible at stylus wiki
         // only as its a userimage. svg is better mk.
         img[alt="external link"] {
-                r       = unquote
-                prefix  = 'data:image/svg+xml;utf8,'
-                path    = '<svg xmlns="http://www.w3.org/2000/svg" '
-                path   += 'width="14" height="14" opacity="1" fill="' + to_svg($v99) + '">'
-                path   += '<path d="M2 2h3v1H3v6h6V7h1v3H2zm4.211 0H10v3.789L8.579 4.368 '
-                path   += '6.447 6.5 5.5 5.553l2.132-2.132z"/>'
-                background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
-                width: 0
-                padding: 6px
+            r       = unquote
+            prefix  = 'data:image/svg+xml;utf8,'
+            path    = '<svg xmlns="http://www.w3.org/2000/svg" '
+            path   += 'width="14" height="14" opacity="1" fill="' + to_svg($v99) + '">'
+            path   += '<path d="M2 2h3v1H3v6h6V7h1v3H2zm4.211 0H10v3.789L8.579 4.368 '
+            path   += '6.447 6.5 5.5 5.553l2.132-2.132z"/>'
+            background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
+            width: 0
+            padding: 6px
         }
     }
 
@@ -2085,7 +2299,7 @@ bs() { box-shadow: arguments }
     // Navbar.
     .js-header-wrapper {
         // fix border below https://github.com/settings/apps/authorizations header
-        .Header { border-bottom: 1px solid bg5 }
+        //.header { border-bottom: 1px solid bg5 }
 
         // Feat -> Sticky navbar.
         if (navbar_sticky) {
@@ -2176,33 +2390,39 @@ bs() { box-shadow: arguments }
             padding-bottom: 5px i
 
             // Default one uses white color.
-            --color-text-white: v98
+            color: v98
         }
     }
 
     // fix branch select menu single/last entry cut off
     .SelectMenu-modal .SelectMenu-item {
         &:last-of-type {
-            padding-top: 14px
+            padding-top: 12px
             span { margin-top: -6px }
         }
         &:first-of-type:last-of-type {
-            padding-top: 11px
             .octicon-check {
-                margin-top: -5px
+                margin-top: -6px
             }
         }
+        &:only-of-type {
+            padding-top: 10px i
+            padding-bottom: 10px i
+        }
     }
-    .SelectMenu-list {
-        margin-bottom: auto
-        [style*='transform; height: 66px'] {
-            height: 77px i
+    .SelectMenu-list[data-target*='listContainer'] {
+        [style*='max-height: 330px'] {
+            max-height: 4850px i
+            height: 100% i
+        }
+        [style*='transform; height: 33px'] {
+            height: 34px i
+            margin-top: .1rem
         }
     }
     .SelectMenu-footer {
-        margin-top: auto
-        margin-bottom: auto
-        border-top: 1
+        margin-top: 1px
+        background-color: bg2
     }
 
     /.SelectMenu-header {
@@ -2239,7 +2459,7 @@ bs() { box-shadow: arguments }
         mix-blend-mode: exclusion
     }
     .feature-preview-dialog .color-text-white {
-      color: v98 i
+        color: v98 i
     }
 
     // Navigation. @upstream
@@ -2486,10 +2706,11 @@ bs() { box-shadow: arguments }
 
     // Billing icon fixes https://github.com/settings/billing
     .billing-box-header {
-        /img[src*="site/icons"], /img[src*="site/features"]:not([src*="bg-whats-new"]) {
+        /img[src*="site/icons"]:not([src*='x']):not([src*='check']):not([src*="footer/github-logo"]),
+        /img[src*="site/features"]:not([src*="bg-whats-new"]) {
             filter: grayscale(1) brightness(1.5)
         }
-        /img[src*="/site/icons/footer/github-logo"] { filter: invert(.95) brightness(1.1) }
+        /img[src*="footer/github-logo"] { filter: invert(.95) brightness(1.1) }
     }
 
     // large Icons in settings
@@ -2523,7 +2744,7 @@ bs() { box-shadow: arguments }
     // When issues are locked, we match tab bg color
     // e.g. https://github.com/atom/atom/issues/75
     .previewable-comment-form .blankslate {
-        background: var(--color-bg-primary)
+        background: bg0
         // remove extra space between tabnav and blankslate
         margin-top: -8px
     }
@@ -2548,6 +2769,11 @@ bs() { box-shadow: arguments }
 
     // fix select menu border color (saved replies menu)
     .select-menu-item:hover code .border { border-color: v95 i }
+
+    // fix the formatting tools on post edit background color
+    .previewable-comment-form .comment-form-head.tabnav .toolbar-commenting {
+        background: t i
+    }
 
     // Fix dark emoji on dark backgrounds
     if (dark(BG)) {
@@ -2581,6 +2807,14 @@ bs() { box-shadow: arguments }
             box-shadow: none
         }
     }
+    .dropdown-item .emoji {
+        transition: all .15s
+        &:hover {
+            // Add scale and transition
+            scale: 1.3
+        }
+    }
+
 
     // Project -> Insights.
     .menu-item {
@@ -2741,7 +2975,7 @@ bs() { box-shadow: arguments }
         }
         &--caret:not(#crazy-donkey):not(.current-user):not(.branch-action-body) {
             &::after {
-                background-color: bg2
+                background-color: bg3
                 background-image: none
             }
         }
@@ -2776,7 +3010,7 @@ bs() { box-shadow: arguments }
 
         // Badges.
         /.TimelineItem-badge {
-            background-color: var(--bg-0)
+            border: 2px solid bg1
             &.color-text-white { color: v98 i }
         }
 
@@ -2791,11 +3025,12 @@ bs() { box-shadow: arguments }
         }
 
         // fkcing upstream twats constantly fkcing around inconsistently with css vars
-        /.color-bg-canvas .previewable-comment-form .comment-form-head {
-          c: 0 0 bg2
-          .color-bg-canvas {
-              c: 0 0 bg2
-          }
+        /.color-bg-canvas .previewable-comment-form .comment-form-head,
+        /#new_pull_request .previewable-comment-form .comment-form-head {
+            c: 0 0 bg2
+            .color-bg-canvas {
+                c: 0 0 bg2
+            }
         }
     }
     .composer.timeline-new-comment .rounded-top-2.color-bg-canvas {
@@ -2804,6 +3039,16 @@ bs() { box-shadow: arguments }
     }
     .composer.timeline-new-comment .hx_comment-box--tip::after {
         background-image: linear-gradient(hsla(convert($bg2), .5), hsla(convert($bg2), .5)) i
+    }
+    /#new_pull_request .timeline-comment .discussion-topic-header {
+        background-color: hsla(convert($bg3), .65) i
+        border-bottom: 1px solid bg4
+    }
+    /#gnew_pull_request .timeline-new-comment .hx_comment-box--tip::after {
+        background-image: linear-gradient(hsla(convert($bg1), .5), hsla(convert($bg1), .5)) i
+    }
+    .page-responsive #new_pull_request .timeline-comment--caret::before {
+        background-color: bg4 i
     }
 
     // comit page button next/prev chevron align
@@ -2819,6 +3064,11 @@ bs() { box-shadow: arguments }
     // Override merge status bg
     .merge-status-item {
         --color-bg-tertiary: rgba(convert($bg2), .5)
+    }
+
+    .timeline-actions {
+        background-color: bg3
+        border-top: 2px solid bg3
     }
 
     // Profile.
@@ -2857,6 +3107,7 @@ bs() { box-shadow: arguments }
             border-top-color: t i
             border-top-left-radius: 0
             border-top-right-radius: 0
+            background-color: bg0 i
         }
 
         // add opinionated outline + offset on day.active for actual contrast
@@ -2865,6 +3116,9 @@ bs() { box-shadow: arguments }
             outline-offset: 1px
         }
 
+        .graph-before-activity-overview {
+            background-color: bg0
+        }
     }
 
     // Diff -> Changes. @upstream
@@ -4250,7 +4504,7 @@ bs() { box-shadow: arguments }
         color: v98
         background-color: v65
         background-image: linear-gradient(-180deg, v64, v64)
-        transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)
+        transition: transition
         &::before {
             background-image: linear-gradient(-180deg, v65, v65)
         }
@@ -4261,7 +4515,7 @@ bs() { box-shadow: arguments }
     }
     .btn-outline-mktg-fluid {
         background: none
-        transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)
+        transition: transition
         &:hover {
             background: none
             box-shadow: inset 0 0 0 2px v04
@@ -4376,9 +4630,9 @@ bs() { box-shadow: arguments }
         }
 
         &Details .text-mono:hover {
-        color: v08
+            color: v08
 
-        .octicon { g: v08 0 }
+            .octicon { g: v08 0 }
         }
     }
 
@@ -4443,31 +4697,40 @@ bs() { box-shadow: arguments }
 @-moz-document regexp('https?://github.com/(explore|topics|trending|collections|events|sponsors|team|organizations|pricing)(/.*)?') {
     // https://github.com/(various)
     .btn {
-        &-mktg { transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1) }
+        &-mktg { transition: transition }
     }
 
     .pricing-matrix-sticky-header {
-        /img[src*="/site/icons"] { filter: grayscale(1) brightness(1.4); mix-blend-mode: exclusion }
-        /img[src*="/site/icons/chevron"] { filter: invert(.95) brightness(1.1) }
+        /img[src*="/site/icons"]:not([src*='x']):not([src*='check']):not([src*="github-logo"]) { filter: grayscale(1) brightness(1.4) }
+        /img[src*="/site/icons/chevron"]:not([src*='x']) { filter: invert(.95) brightness(1.1) }
     }
     // e.g. https://github.com/pricing
     img[src*="bg-whats-new"] {
         display: none
     }
+    .pricing-dark-container {
+        background-color: bg2
+        [class*="-mktg"].color-text-white { color: v98 i }
+    }
+    /img[src*="github-logo"] { filter: invert(.95) brightness(1.1) }
 
     // e.g. https://github.com/organizations/plan
-    [class*="pricing"] {
-        .bg-gray-0 { --color-auto-gray-0: bg2 }
-        .bg-gray-1 { --color-auto-gray-1: bg3 }
-
-        img {
-            &[src*="/icons/checkmark.svg"] { filter: saturate(1.5) brightness(.9) }
-            &[src*="/icons/x.svg"] { filter: invert(.95) }
-        }
+    .pricing-recommended-plan {
+        background-image: radial-gradient(circle, v06 0%, v06 48%, v06 85%, v06 98%) i
+        p.color-text-white { color: v98 i }
     }
     .height-full {
-        &.bg-gray-0 { --color-auto-gray-0: bg2 }
-        &.bg-gray-1 { --color-auto-gray-1: bg3 }
+        .color-bg-primary { background-color: bg2 i }
+        .color-bg-secondary { background-color: bg3 i }
+        .text-center.color-bg-primary { background-color: bg1 i }
+    }
+    #compare-features {
+        .color-bg-primary { background-color: bg1 i }
+    }
+    form[action="/organizations/plan"] {
+        max-width: 1200px
+        margin-left: auto
+        margin-right: auto
     }
 
     aside img[src*="tada"] {
@@ -4476,22 +4739,27 @@ bs() { box-shadow: arguments }
     }
 
     // Team page https://github.com/team
-    .bg-white[style*="box-shadow: 0 0 20px 20px #ffffff"] {
+    .color-bg-primary[style*="box-shadow: 0 0 20px 20px #ffffff"] {
         c: 0 0 t
         bs: var(--color-shadow-large) i
+    }
+    [class*="-mktg"], .gutter-lg-spacious {
+        &.color-bg-primary { background-color: bg1 i }
+        .color-bg-primary { background-color: bg1 i }
     }
 
     a[href="#organizations"][style*="background-color: #fff"] {
         c: 0 0 t
     }
 
-    div.bg-white img[src*="site/team"], .team-dialogue, .team-graph-left, .team-graph-right {
+    div.color-bg-primary img[src*="site/team"]:not([src*="actions"]),
+    .team-dialogue, .team-graph-left, .team-graph-right {
         filter: invert(.95) hue-rotate(180deg) saturate(2)
     }
-    div img[src*="site/team"]:not([src*="workflow"]), .team-dialogue {
+    div img[src*="site/team"]:not([src*="workflow"]):not([src*="actions-"]), .team-dialogue {
         filter: invert(.95) hue-rotate(180deg) saturate(2)
         &.customer-story-bg, &.testimonial-image-blend, &.circle {
-        filter: none
+            filter: none
         }
     }
 
@@ -4524,7 +4792,7 @@ bs() { box-shadow: arguments }
                 border-bottom-color: t
             }
             &::after {
-                border-width: 15px;
+                border-width: 15px
                 border-right-color: bg0
                 border-bottom-color: t
             }
@@ -4539,7 +4807,7 @@ bs() { box-shadow: arguments }
         color: v98
         background-color: v08
         background-image: linear-gradient(-180deg, v08, v07)
-        transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)
+        transition: transition
         &::before {
             background-image: linear-gradient(-180deg, v09, v08)
         }
@@ -4547,6 +4815,16 @@ bs() { box-shadow: arguments }
             background-color: v09
             background-image: linear-gradient(-180deg, v09, v08)
         }
+    }
+    .btn-mktg {
+        background: linear-gradient(-180deg, v04, v04) i
+        &:hover, &:focus {
+            box-shadow: 0 3px 2px rgba(convert($bg2), .07) i
+        }
+        &::before {
+            background: linear-gradient(-180deg, v05, v05) i
+        }
+        &.color-text-white { color: v98 i }
     }
 }
 

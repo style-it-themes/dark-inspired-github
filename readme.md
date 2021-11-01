@@ -4,15 +4,17 @@
 <br>
 <h2 align="center"><strong>Dark Inspired GitHub</strong></h2>
 <p align="center">
-  <a href="https://discord.gg/EpdGSfH">
-    <img src="https://img.shields.io/badge/style--it--themes-discord%20channel-blue.svg?style=for-the-badge" alt="Style-it-themes Discord Channel">
+  <a href="https://matrix.to/#/#style_it_themes_public:matrix.org">
+    <img src="https://img.shields.io/badge/style--it--themes-matrix%20channel-blue.svg?style=for-the-badge" alt="Style-It Themes (sit)  :matrix.org channel">
   </a>
   <a href="https://github.com/style-it-themes/dark-inspired-github/releases">
     <img src="https://img.shields.io/github/tag/style-it-themes/dark-inspired-github.svg?label=Current%20Version&style=for-the-badge" alt="Style-it-themes Current Version">
   </a>
+  <!--
   <a href="https://david-dm.org/Style-it-Themes/dark-inspired-github?type=dev">
     <img src="https://img.shields.io/david/dev/style-it-themes/dark-inspired-github.svg?label=devDependencies&style=for-the-badge" alt="devDependencies">
   </a>
+  -->
 </p>
 
 ## About
