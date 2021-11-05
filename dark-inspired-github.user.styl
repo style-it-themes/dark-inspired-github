@@ -1412,6 +1412,14 @@ bsh() { box-shadow: arguments }
         }
         img.octospinner[src], .is-loading, .loading,
         svg.octospinner, .anim-rotate, img[src*="spinners"] { filter: opacity(0.6) }
+
+        // Diff view e.g. https://github.com/mirror/dd-wrt/pull/83/files
+        img {
+            &[src$='unified.svg'], &[src$='split.svg'] {
+                filter: invert(.95) hue-rotate(189deg) saturate(2)
+                mix-blend-mode: exclusion
+            }
+        }
     }
 
     // Feat -> Theme scrollbars
