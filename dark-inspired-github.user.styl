@@ -1584,9 +1584,16 @@ bsh() { box-shadow: arguments }
             &:checked {
                 path = '<circle cx="256" cy="256" r="128" fill="' + to_hex($v99) + '"/>'
                 background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
-                c: 0 v08 v09
+                c: 0 v09 v05
             }
-            &:focus, &:hover { c: 0 v09 bg2 }
+            &:focus, &:focus-within, &:focus-visible {
+                c: 0 v09 bg2
+                bsh: 0 0 10px 0 v04
+                outline: 0
+            }
+            &:hover {
+                c: 0 v09 bg2
+            }
         }
 
         &[type='file'] {
@@ -1655,6 +1662,7 @@ bsh() { box-shadow: arguments }
                     height: 1.233rem i
                     width: 2.23rem i
                 }
+                &:hover { c: 0 v09 bg2 }
                 &:disabled, &:hover:active:disabled, &:disabled:hover {
                     c: v95 bg5 bg1
                     opacity: .5
@@ -1725,8 +1733,8 @@ bsh() { box-shadow: arguments }
                 vertical-align: -.19rem
             }
         }
-        .js-setting-toggle label {
-            &[for] {
+        .js-setting-toggle label  {
+            &[for]  {
                 vertical-align: -.19rem
             }
             input[type] {
@@ -1747,6 +1755,17 @@ bsh() { box-shadow: arguments }
             &.two-factor-enforcement-form label {
                 vertical-align: -.26rem
             }
+            // https://github.com/mirror/dd-wrt/pull/43/files filter
+            &.js-file-filter-form {
+                label input[name="file-filters[]"] {
+                    vertical-align: -.4rem
+                }
+                .select-menu-list label {
+                    input.js-viewed-files-toggle {
+                        vertical-align: -.4rem
+                    }
+                }
+            }
         }
         section {
             &[aria-labelledby="repo_forking"] .note {
@@ -1763,14 +1782,33 @@ bsh() { box-shadow: arguments }
                 &:checked {
                     path ='<path fill="' + to_hex($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
                     background-image: s("url('%s%s</svg>') %s", r(prefix), r(path))
-                    c: 0 v08 v09
+                    c: 0 v09 v05
                     rad: 2px
+                    &:focus-visible {
+                        c: 0 v09 v02
+                        bsh: 0 0 10px 0 v04 i
+                        outline: 0
+                    }
                 }
-                &:focus, &:hover { c: 0 v09 bg2 }
+                &:hover { c: 0 v09 bg2 }
+                &:focus, &:focus-within {
+                    c: 0 v09 v05
+                    bsh: 0 0 10px 0 v04 i
+                    outline: 0
+                }
+                &:focus-visible {
+                    c: 0 v09 v02
+                    bsh: 0 0 10px 0 v04 i
+                    outline: 0
+                }
+                &:disabled, &:hover:active:disabled, &:disabled:hover {
+                    c: 0 v09 v09
+                    bsh: none
+                }
                 &:indeterminate {
                     path = '<rect x="128" y="128" width="256" height="256" fill="' + to_hex($v99) + '"/>'
                     background-image: s("url('%s%s</svg>') %s", r(prefix), r(path))
-                    c: 0 v08 v09
+                    c: 0 v09 v05
                     &:hover { c: 0 v09 bg2 }
                 }
             }
