@@ -2475,17 +2475,20 @@ bsh() { box-shadow: arguments }
 
     // Navigation. @upstream
     body {
+        --base-color: v09
         .UnderlineNav-item, .site-subnav .subnav-primary {
+            transition-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53)
+            transition-duration: .4s
             &.selected,
             &[role="tab"][aria-selected="true"],
             &[aria-current]:not([aria-current="false"]) {
-                border-color: v09 i
+                border-color: v09
             }
             &:focus, &:hover { border-color: v09 }
             /.UnderlineNav { bsh: inset 0 -1px 0 bg4 }
         }
         .tabnav-tab[aria-current] {
-            border-top-color: v09 i
+            border-top-color: v09
         }
         .SelectMenu-tab {
             &.selected,
@@ -2493,7 +2496,7 @@ bsh() { box-shadow: arguments }
             &[aria-current]:not([aria-current="false"]) {
                 border-top-color: v09 i
             }
-            &:focus, &:hover { border-top-color: v09 i }
+            &:focus, &:hover { border-top-color: v09 }
         }
     }
 
