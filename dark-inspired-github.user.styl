@@ -3355,10 +3355,6 @@ bsh() { box-shadow: arguments }
             c: 0 0 var(--color-codemirror-bg)
         }
 
-        // remove padding from actions workflow
-        // e.g. https://github.com/the-j0k3r/stylus/actions/runs/607188869/workflow
-        &-wrapper.bg-white.py-3.rounded-bottom-1 { padding: 0 i }
-
         // Line highlight.
         /table.highlight > tbody > tr {
             background-color: var(--color-codemirror-bg)
@@ -3374,12 +3370,27 @@ bsh() { box-shadow: arguments }
         /.code-list { & &-item { c: 0 bg3 }}
     }
 
+    // remove padding from actions workflow on edit
+    // e.g. https://github.com/the-j0k3r/stylus/actions/runs/607188869/workflow
+    [action*='ci.yml'] {
+        .commit-create.pt-1 {
+            padding-top: 0 i
+            .CodeMirror[style*='height: 914px'] {
+                height: 945px
+            }
+        }
+        // make this nav bar height same as on left
+        [data-test-selector='marketplace-sidebar'] .UnderlineNav {
+            background-color: bg2 i
+            height: 2.77rem
+        }
+    }
+
     // 2) pinned-item-list-item code blocks items e.g. https://github.com/ChrisTitusTech
-    .pinned-item-list-item .color-bg-tertiary {
+    .pinned-item-list-item .color-bg-subtle {
         background-color: var(--color-codemirror-bg) i
         padding-top: 0 i
         padding-bottom: 0 i
-        rad: 0 i
         pre {
             padding-left: 10px
             &:hover {
