@@ -29,7 +29,7 @@
 @var range    cg_lig        'Lightness of RGB colors     ' [0, -30, 30, 0.01]
 @var range    cg_fg_sat     'Foreground color saturation ' [0, 0, 100, 0.1, '%']
 
-@var number   tab_size      'Tab size                    ' [8, 2, 8, 2]
+@var number   tab_size      'Tab size                    ' [8, 2, 8, 2, 'ch']
 @var checkbox center_gh     'Center GitHub Navigation    ' 0
 
 @var text     f_ui          'UI font                     ' ''font_name''
@@ -1281,7 +1281,7 @@ bsh() { box-shadow: arguments }
         max-width: 1260px
     }
     .color-bg-default {
-        background-color: var(--color-bg-primary) i
+        background-color: bg0 i
     }
     .color-bg-primary {
         background-color: var(--color-bg-primary) i
@@ -1297,34 +1297,6 @@ bsh() { box-shadow: arguments }
     }
     .color-text-secondary {
         color: var(--color-text-secondary) i
-    }
-    .command-palette.color-bg-primary {
-        c: 0 0 bg2
-        border: 1px solid bg4
-    }
-    .command-palette a.color-bg-tertiary {
-        c: 0 0 v02
-    }
-    .command-palette .command-palette-input-group {
-        c: 0 0 bg2
-        [style*='background-color: transparent'] {
-            c: 0 0 bg2
-        }
-    }
-    .command-palette command-palette-tip {
-        code.color-bg-tertiary {
-            background-color: var(--color-codemirror-bg) i
-        }
-    }
-    command-palette-item-stack {
-        c: 0 0 bg1
-    }
-    [data-target="command-palette-item.hintText"] {
-        background-color: bg2
-        border: 1px solid bg4
-    }
-    .hide-sm .hide-sm {
-        padding: 3px 6px
     }
 
     a {
@@ -1495,6 +1467,14 @@ bsh() { box-shadow: arguments }
         }
         body > div.position-relative {
             background: bg3
+        }
+        .js-notifications-container {
+            .notification-navigation {
+                width: 20rem
+            }
+            .js-check-all-container {
+                margin-left: 2.8rem
+            }
         }
     }
 
@@ -1920,12 +1900,12 @@ bsh() { box-shadow: arguments }
         }
 
         // fix label alignment when opening a PR on 3rd party repos [ ] Allow edits by maintainers (?)
-        [action*='set_collab'] label {
-            padding-top: 3px
+        /[action*='set_collab'] label {
+           margin-top: .3rem
         }
         .js-slash-command-surface [name="collab_privs"] { margin: -10px }
         .js-slash-command-surface label.mr-1 { margin: -14px; padding-bottom: 20px }
-        .js-slash-command-surface summary path { vertical-align: middle; padding-top: 10px }
+        .js-slash-command-surface summary .octicon-question { vertical-align: .4rem;  margin-top: -14px }
 
         // Fix https://github.com/:org/:project/settings/access select all checkbox alignment
         .repository-content [itemtype*="Repository"] #select-all-checkbox {
@@ -2175,8 +2155,9 @@ bsh() { box-shadow: arguments }
             background-color: bg0
         }
 
+        // when editing a file via browser
         .commit-form {
-            c: 0 0 bg1
+            c: 0 0 bg0
         }
 
         // Profile -> Navigation.
@@ -2467,6 +2448,45 @@ bsh() { box-shadow: arguments }
             width: 0
             padding: 6px
         }
+
+        // notifications navigation bg
+        .notification-navigation.color-bg-default {
+            c: 0 0 bg1
+        }
+
+        // command pallete ctrl + k
+        .command-palette {
+            a.color-bg-tertiary {
+                c: 0 0 v02
+            }
+            .command-palette-input-group {
+                c: 0 0 bg2
+                [style*='background-color: transparent'] {
+                    c: 0 0 bg2
+                }
+            }
+            command-palette-tip {
+                code.color-bg-tertiary {
+                    background-color: var(--color-codemirror-bg) i
+                }
+            }
+            &.color-bg-primary {
+                c: 0 0 bg2
+                border: 1px solid bg4
+            }
+
+        }
+        command-palette-item-stack {
+            c: 0 0 bg1
+        }
+        [data-target="command-palette-item.hintText"] {
+            background-color: bg2
+            border: 1px solid bg4
+        }
+        .hide-sm .hide-sm {
+            padding: 3px 6px
+        }
+        // end command pallete
     }
 
     // Projects collumn to accent color
@@ -2878,12 +2898,12 @@ bsh() { box-shadow: arguments }
 
     // Feat tab/indent size
     if (tab_size) {
-        body pre, .highlight, .diff-table, .tab-size {
+        body pre, .highlight, .diff-table, .tab-size, [data-tab-size] {
             tab-size: tab_size i
             -moz-tab-size: tab_size i
         }
         .cm-tab {
-            width: tab_size ch
+            width: tab_size i
             overflow: hidden i
         }
         // hide GH indent size when editing files via browser
@@ -2943,9 +2963,13 @@ bsh() { box-shadow: arguments }
     // When issues are locked, we match tab bg color
     // e.g. https://github.com/atom/atom/issues/75
     .previewable-comment-form .blankslate {
-        background: bg0
+        background: bg1
         // remove extra space between tabnav and blankslate
         margin-top: -8px
+    }
+
+    .previewable-comment-form .comment-form-head.tabnav {
+        c: 0 0 bg2
     }
 
     // When you have dark syntax themes the contrast
@@ -3165,6 +3189,15 @@ bsh() { box-shadow: arguments }
                 rad: 3px 3px 3px 3px
             }
         }
+        &--caret-nw {
+            &::before {
+                background-color: bg3 i
+            }
+            &::after {
+                background-color: bg0 i
+                background-image: none
+            }
+        }
         // explore
         &--caret.Box--condensed:not(#crazy-donkey) {
             &::before {
@@ -3310,6 +3343,8 @@ bsh() { box-shadow: arguments }
             border-top-left-radius: 0
             border-top-right-radius: 0
             background-color: bg0 i
+            // fix contribution calendar broken by idiot blind people upstream.
+            min-width: 728px
         }
 
         // add opinionated outline + offset on day.active for actual contrast
@@ -3320,6 +3355,17 @@ bsh() { box-shadow: arguments }
 
         .graph-before-activity-overview {
             background-color: bg0
+            // fix contribution calendar broken by idiot blind people upstream.
+            min-width: 728px
+        }
+
+        // fix contribution calendar broken by idiot blind people upstream.
+        .ContributionCalendar {
+            align-items: baseline i
+        }
+        // override the override
+        #year-list-container .color-bg-default {
+            background-color: t i
         }
     }
 
@@ -4439,10 +4485,10 @@ bsh() { box-shadow: arguments }
     .timeline-comment {
         // https://support.github.com/ticket/personal/0/#ticknr
         &--caret.new-comment {
-            .ticket-head { background-color: bg3 }
+            .ticket-head { background-color: bg2 }
         }
         &-header {
-            background-color: bg3
+            background-color: bg2
             border-color: bg5
             color: v98
         }
