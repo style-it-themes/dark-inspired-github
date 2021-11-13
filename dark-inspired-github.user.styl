@@ -981,6 +981,14 @@ bsh() { box-shadow: arguments }
         --color-discussions-state-answered-icon: var(--color-scale-white)
 
         --color-actions-workflow-table-sticky-bg: hsla(0, 0%, 100%, .95)
+        --color-action-list-item-inline-divider: rgba(208,215,222,0.48);
+        --color-action-list-item-default-hover-bg: rgba(208,215,222,0.32);
+        --color-action-list-item-default-active-bg: rgba(208,215,222,0.48);
+        --color-action-list-item-default-selected-bg: rgba(208,215,222,0.24);
+        --color-action-list-item-danger-hover-bg: rgba(255,235,233,0.64);
+        --color-action-list-item-danger-active-bg: #FFEBE9;
+        --color-action-list-item-danger-hover-text: #cf222e;
+
         --color-workflow-card-bg: bg2
         --color-workflow-card-connector-highlight-bg: v09
         --color-workflow-card-connector-highlight: v09
@@ -1366,7 +1374,7 @@ bsh() { box-shadow: arguments }
 
         // Feat -> allow disabling appearance tab
         if (!(show_gh_tab)) {
-            .menu-item[data-selected-links=*"settings/appearance"] {
+            .menu-item[data-selected-links=*'settings/appearance'] {
                 display: none i
             }
         }
@@ -1383,7 +1391,7 @@ bsh() { box-shadow: arguments }
             c: 0 0 bg1
         }
         img.octospinner[src], .is-loading, .loading,
-        svg.octospinner, .anim-rotate, img[src*="spinners"] { filter: opacity(0.6) }
+        svg.octospinner, .anim-rotate, img[src*='spinners'] { filter: opacity(0.6) }
 
         // Diff view e.g. https://github.com/mirror/dd-wrt/pull/83/files
         img {
@@ -1607,7 +1615,7 @@ bsh() { box-shadow: arguments }
             }
         }
         // audit log export inut fields
-        &[id="start-time"], &[id="end-time"] {
+        &[id='start-time'], &[id='end-time'] {
             -webkit-appearance: none
             -moz-appearance: none
             appearance: none
@@ -1727,7 +1735,7 @@ bsh() { box-shadow: arguments }
                     vertical-align: .15rem
                 }
             }
-            &[aria-labelledby="contributions-heading"] .note,
+            &[aria-labelledby='contributions-heading'] .note,
             &.edit_organization .note,
             &[action*='fork_pr_workflows_policy'] .note {
                 margin-left: 1.5rem
@@ -1737,7 +1745,7 @@ bsh() { box-shadow: arguments }
             }
             // https://github.com/mirror/dd-wrt/pull/43/files filter
             &.js-file-filter-form {
-                label input[name="file-filters[]"] {
+                label input[name='file-filters[]'] {
                     vertical-align: -.4rem
                 }
                 .select-menu-list label {
@@ -1746,9 +1754,14 @@ bsh() { box-shadow: arguments }
                     }
                 }
             }
+            &[action*='set_collab'] {
+                input[name='collab_privs'].mt-1 {
+                    margin-top: -2px i
+                }
+            }
         }
         section {
-            &[aria-labelledby="repo_forking"] .note {
+            &[aria-labelledby='repo_forking'] .note {
                 margin-left: 1.5rem
             }
         }
@@ -1844,7 +1857,7 @@ bsh() { box-shadow: arguments }
         // issue / pr checkbox multi selection
         // e.g. https://git.io/JuFU5
         .Box--responsive {
-            input[type='checkbox' i][aria-label*="all issues"] {
+            input[type='checkbox' i][aria-label*='all issues'] {
                 vertical-align: middle
                 margin-right: -.12rem
             }
@@ -1862,25 +1875,25 @@ bsh() { box-shadow: arguments }
         // https://github.com/orgs/:org/people/pending_invitations
         #select-all-checkbox { vertical-align: super }
 
-        label[for="select-all-checkbox"] { margin-top: -.05rem }
+        label[for='select-all-checkbox'] { margin-top: -.05rem }
 
-        [data-bulk-actions-parameter="pending_collaborator_invitation_ids"] {
-            label[for="select-all-checkbox"] {
+        [data-bulk-actions-parameter='pending_collaborator_invitation_ids'] {
+            label[for='select-all-checkbox'] {
                 margin-left: .11rem
                 margin-top: -.13rem
             }
         }
 
-        [data-bulk-actions-parameter="outside_collaborator_ids"] {
-            label[for="select-all-checkbox"] {
+        [data-bulk-actions-parameter='outside_collaborator_ids'] {
+            label[for='select-all-checkbox'] {
                 margin-top: -.1rem
                 margin-left: .11rem
             }
         }
 
-        [data-bulk-actions-parameter="invitation_ids"] {
-            input[id="select-all-pending"],
-            input[id="select-all-failed"] {
+        [data-bulk-actions-parameter='invitation_ids'] {
+            input[id='select-all-pending'],
+            input[id='select-all-failed'] {
                 vertical-align: top
                 margin-left: -.17rem
                 margin-top: .2rem
@@ -2470,7 +2483,7 @@ bsh() { box-shadow: arguments }
                     background-color: var(--color-codemirror-bg) i
                 }
             }
-            &.color-bg-primary {
+            &.color-bg-default {
                 c: 0 0 bg2
                 border: 1px solid bg4
             }
@@ -2479,7 +2492,7 @@ bsh() { box-shadow: arguments }
         command-palette-item-stack {
             c: 0 0 bg1
         }
-        [data-target="command-palette-item.hintText"] {
+        [data-target='command-palette-item.hintText'] {
             background-color: bg2
             border: 1px solid bg4
         }
@@ -2669,11 +2682,9 @@ bsh() { box-shadow: arguments }
     body {
         --base-color: v09
         .UnderlineNav-item, .site-subnav .subnav-primary {
-            transition-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53)
-            transition-duration: .4s
             &.selected,
-            &[role="tab"][aria-selected="true"],
-            &[aria-current]:not([aria-current="false"]) {
+            &[role='tab'][aria-selected='true'],
+            &[aria-current]:not([aria-current='false']) {
                 border-color: v09
             }
             &:focus, &:hover { border-color: v09 }
@@ -2684,8 +2695,8 @@ bsh() { box-shadow: arguments }
         }
         .SelectMenu-tab {
             &.selected,
-            &[role="tab"][aria-selected="true"],
-            &[aria-current]:not([aria-current="false"]) {
+            &[role='tab'][aria-selected='true'],
+            &[aria-current]:not([aria-current='false']) {
                 border-top-color: v09 i
             }
             &:focus, &:hover { border-top-color: v09 }
@@ -2705,7 +2716,7 @@ bsh() { box-shadow: arguments }
 
     // Project -> Find file page e.g. https://github.com/style-it-themes/dark-github/find/main
     .tree-browser-result {
-        &[aria-selected="false"] {c: 0 0 rgba(convert($bg2), .7) }
+        &[aria-selected='false'] {c: 0 0 rgba(convert($bg2), .7) }
         &:hover { c: 0 0 bg2 }
     }
 
@@ -2717,14 +2728,15 @@ bsh() { box-shadow: arguments }
 
     // Reset colors for tabs.
     .tabnav-tab {
-        &[aria-current="true"], // Explore: topics/tag
-        &[aria-current="true"].code,
-        &[aria-current="true"].preview {
+        transition: none
+        &[aria-current='true'], // Explore: topics/tag
+        &[aria-current='true'].code,
+        &[aria-current='true'].preview {
             background-color: bg1
             border-bottom: 0
         }
-        &[aria-selected="true"].write-tab:not(#z),
-        &[aria-selected="true"].preview-tab:not(#z) {
+        &[aria-selected='true'].write-tab:not(#z),
+        &[aria-selected='true'].preview-tab:not(#z) {
             background-color: bg0
             border-bottom: 0
         }
@@ -2784,7 +2796,7 @@ bsh() { box-shadow: arguments }
     // Project -> File tree.
     .Box {
         .h3, .mb-2 { color: v99 }
-        .btn:not([class*="-"]) {
+        .btn:not([class*='-']) {
             color: var(--color-text-secondary)
             background-color: var(--color-btn-bg)
             border-color: var(--color-btn-border)
@@ -2821,7 +2833,7 @@ bsh() { box-shadow: arguments }
 
         // Remove background from avatar groups + from gistshead avatar
         /.AvatarStack-body,
-        /.gisthead .avatar[data-hovercard-type="user"] { c: 0 0 t }
+        /.gisthead .avatar[data-hovercard-type='user'] { c: 0 0 t }
 
         // Feat -> Old readme header design.
         if (readme_header) {
@@ -2867,20 +2879,20 @@ bsh() { box-shadow: arguments }
             }
             condition = (short_headers == 1) ? '' : '--responsive'
             /.repository-content &-header{ condition },
-            /.audit-log-search [class^="Box-header"]{ condition } {
+            /.audit-log-search [class^='Box-header']{ condition } {
                 padding-top: 8px
                 padding-bottom: 8px
             }
             condition = (short_headers == 1) ? '' : '-header'
-            /[data-url*="notifications"] [class*="-header"]{ condition } {
+            /[data-url*='notifications'] [class*='-header']{ condition } {
                 height: 40px i
             }
             condition = (short_headers == 1) ? '' : '-header'
-            /#advisories [class^="table-list-header"]{ condition } {
+            /#advisories [class^='table-list-header']{ condition } {
                 max-height: 47px
             }
             condition = (short_headers == 1) ? '' : '-header'
-            /div [class*="table-list-header"] div{ condition } {
+            /div [class*='table-list-header'] div{ condition } {
                 max-height: 47px
                 margin-top: -2px
             }
@@ -2890,7 +2902,7 @@ bsh() { box-shadow: arguments }
                 margin-top: -.2rem
             }
             condition = (short_headers == 1) ? '' : '-header'
-            [class="Box-header"] .Box-title{ condition } {
+            [class='Box-header'] .Box-title{ condition } {
                 margin-top: -.3rem
             }
         }
@@ -2914,7 +2926,7 @@ bsh() { box-shadow: arguments }
 
     // remove GitHub Desktop from get repo options modal.
     if (!(rm_ghdskt-op)) {
-        [data-target="get-repo.modal"] .js-remove-unless-platform { display: none i }
+        [data-target='get-repo.modal'] .js-remove-unless-platform { display: none i }
     }
 
     // make optional truncate at higher or set width.
@@ -2925,20 +2937,20 @@ bsh() { box-shadow: arguments }
 
     // Billing icon fixes https://github.com/settings/billing
     .billing-box-header {
-        /img[src*="site/icons"]:not([src*='x']):not([src*='check']):not([src*="footer/github-logo"]),
-        /img[src*="site/features"]:not([src*="bg-whats-new"]) {
+        /img[src*='site/icons']:not([src*='x']):not([src*='check']):not([src*='footer/github-logo']),
+        /img[src*='site/features']:not([src*='bg-whats-new']) {
             filter: grayscale(1) brightness(1.5)
         }
-        /img[src*="footer/github-logo"] { filter: invert(.95) brightness(1.1) }
+        /img[src*='footer/github-logo'] { filter: invert(.95) brightness(1.1) }
     }
 
     // large Icons in settings
     #options_bucket {
-        /img[src*="icons/marketing"] { filter: grayscale(1) brightness(1.1) }
+        /img[src*='icons/marketing'] { filter: grayscale(1) brightness(1.1) }
     }
 
     // Actions user icon/avatar
-    .avatar-user[alt="@actions-user"] { filter: grayscale(1) brightness(2) }
+    .avatar-user[alt='@actions-user'] { filter: grayscale(1) brightness(2) }
 
     // darken main box-header bg allows buttons on hover to contrast
     /.repository-content {
@@ -2951,7 +2963,7 @@ bsh() { box-shadow: arguments }
         // remove top margin when in edit mode
         .commit-create .CodeMirror-scroll { margin-top: -8px }
 
-        img[src*="actions"] {
+        img[src*='actions'] {
             filter: grayscale(1) invert(0.95) brightness(1.5)
         }
 
@@ -3001,17 +3013,17 @@ bsh() { box-shadow: arguments }
     // Fix dark emoji on dark backgrounds
     if (dark(BG)) {
         .emoji {
-            &[alt="tm" i], &[alt="copyright" i], v
-            &[alt="registered" i] { filter: invert(.95) brightness(1.2) }
-            &[alt*="phone" i], &[alt="clubs" i],
-            &[alt="spades" i], &[alt="eight_pointed_black_star" i] { filter: invert(.95) }
-            &[alt="wrench" i], &[alt="paperclip" i],
-            &[alt="8ball" i], &[alt="black_circle" i],
-            &[alt="vertical_traffic_light" i] { filter: brightness(1.2) }
-            &[src*="1f577" i], &[src*="1f99f" i], &[src*="1fa7a" i], &[src*="1f573" i],
-            &[src*="1f41c" i], &[src*="265f" i], &[src*="1f50c" i], &[src*="1f3a5" i],
-            &[src*="1f5a4" i], &[src*="1f982" i] { filter: brightness(2) }
-            &[alt="bomb" i], &[alt="musical_score" i] { filter: invert(.7) hue-rotate(180deg) brightness(1.1) }
+            &[alt='tm' i], &[alt='copyright' i], v
+            &[alt='registered' i] { filter: invert(.95) brightness(1.2) }
+            &[alt*='phone' i], &[alt='clubs' i],
+            &[alt='spades' i], &[alt='eight_pointed_black_star' i] { filter: invert(.95) }
+            &[alt='wrench' i], &[alt='paperclip' i],
+            &[alt='8ball' i], &[alt='black_circle' i],
+            &[alt='vertical_traffic_light' i] { filter: brightness(1.2) }
+            &[src*='1f577' i], &[src*='1f99f' i], &[src*='1fa7a' i], &[src*='1f573' i],
+            &[src*='1f41c' i], &[src*='265f' i], &[src*='1f50c' i], &[src*='1f3a5' i],
+            &[src*='1f5a4' i], &[src*='1f982' i] { filter: brightness(2) }
+            &[alt='bomb' i], &[alt='musical_score' i] { filter: invert(.7) hue-rotate(180deg) brightness(1.1) }
         }
     }
 
@@ -3026,7 +3038,7 @@ bsh() { box-shadow: arguments }
             }
         }
         // box shadow remove on .btn
-        &.selected, &[aria-selected="true"] {
+        &.selected, &[aria-selected='true'] {
             box-shadow: none
         }
     }
@@ -3064,9 +3076,6 @@ bsh() { box-shadow: arguments }
                 // Network -> Invert colors.
                 /#network > .Box {
                     c: 0 0 bg0
-                    canvas {
-                        filter:
-                    }
                 }
             }
         }
@@ -3093,13 +3102,13 @@ bsh() { box-shadow: arguments }
         }
         /table.capped-list td {
             border-bottom: 1px solid bg5
-            /img.top-domains-icon[src="https://favicons.githubusercontent.com/github.com"] {
+            /img.top-domains-icon[src='https://favicons.githubusercontent.com/github.com'] {
                 filter: invert(.75)
             }
         }
     }
 
-    nav[aria-label="Insights"] span[aria-label*="Upgrade to GitHub Team"] {
+    nav[aria-label='Insights'] span[aria-label*='Upgrade to GitHub Team'] {
         background-color: t
         color: v92 i
     }
@@ -3125,13 +3134,13 @@ bsh() { box-shadow: arguments }
 
     // Activity year (repositories) to accent color
     // e.g. https://github.com/StylishThemes
-    rect[x][y][style*="gradient-"] {
+    rect[x][y][style*='gradient-'] {
         g: v09
     }
 
     // Packages release page metrics
     // https://github.com/users/BtbN/packages/container/package/ffmpeg-builds%2Fbase-win64
-    rect[fill="#28A745"] {
+    rect[fill='#28A745'] {
         g: v09
     }
 
@@ -3287,7 +3296,7 @@ bsh() { box-shadow: arguments }
     }
 
     // comit page button next/prev chevron align
-    .btn-outline [class*="octicon-chevron-"] {
+    .btn-outline [class*='octicon-chevron-'] {
         margin-top: -.079rem
     }
 
@@ -3418,10 +3427,10 @@ bsh() { box-shadow: arguments }
 
     // remove padding from actions workflow on edit
     // e.g. https://github.com/the-j0k3r/stylus/actions/runs/607188869/workflow
-    [action*='ci.yml'] {
+    [action*='yml'] {
         .commit-create.pt-1 {
             padding-top: 0 i
-            .CodeMirror[style*='height: 914px'] {
+            .CodeMirror[style*='height'] {
                 height: 945px
             }
         }
@@ -5165,7 +5174,7 @@ bsh() { box-shadow: arguments }
         padding: 5px 10px
         rad: .25em
     }
-    input[type="text" i] {
+    input[type='text' i] {
         background-color: $bg0
         border-color: $bg4
         color: $v98
@@ -5221,7 +5230,7 @@ bsh() { box-shadow: arguments }
 }
 
 @-moz-document regexp('https?://github-readme-stats\.vercel\.app.*(/.*)?'),
-/*-----------*/regexp("https?://camo\\.githubusercontent\\.com.*(/.*)?") {
+/*-----------*/regexp('https?://camo\\.githubusercontent\\.com.*(/.*)?') {
     svg {
 
         rect[stroke="#E4E2E2"] { g: 0 $v98 }
