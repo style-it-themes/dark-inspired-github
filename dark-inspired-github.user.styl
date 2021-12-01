@@ -219,7 +219,9 @@ bsh() { box-shadow: arguments }
 /*-----------*/regexp('https?://www\.githubstatus\.com(/.*)?') {
     // Userstyle variables.
     // main userstyle section variables.
-    :root:not(#crazy) *, [data-color-mode][data-light-theme] {
+    :root:not(#crazy),
+    [data-color-mode][data-light-theme],
+    [data-color-mode][data-dark-theme] {
         // Userstyle info.
         --style-name: version
         --copyright: copyright
@@ -676,6 +678,13 @@ bsh() { box-shadow: arguments }
         --color-mktg-btn-dark-disabled-text: rgba(convert($v93), .5)
         --color-mktg-btn-dark-disabled-icon: rgba(convert($v93), .5)
 
+        --color-mktg-btn-shadow-outline: 0 0 0 1px inset rgb(convert($bg0) / 15%)
+        --color-mktg-btn-shadow-focus: rgb(convert($bg0)/ 15%) 0 0 0 4px
+        --color-mktg-btn-shadow-hover: 0 3px 2px rgba(convert($bg0), .07), 0 7px 5px rgba(convert($bg0), .04),
+                                        0 12px 10px rgba(convert($bg0), .03), 0 22px 18px rgba(convert($bg0), .03),
+                                        0 42px 33px rgba(convert($bg0), .02), 0 100px 80px rgba(convert($bg0), .02)
+        --color-mktg-btn-shadow-hover-muted: 0 0 0 2px inset rgb(convert($bg0) / 70%)
+
         --color-mktg-btn-bg-top: v65
         --color-mktg-btn-bg-bottom: v65
         --color-mktg-btn-bg-overlay-top: v65
@@ -1065,7 +1074,7 @@ bsh() { box-shadow: arguments }
         --color-canvas-overlay: bg1
         --color-canvas-inset: bg1
         --color-canvas-subtle: bg2
-        --color-canvas-default-transparent: t
+        --color-canvas-default-transparent: bg0
 
         --color-neutral-emphasis-plus: bg0
         --color-neutral-emphasis: bg5
@@ -1318,6 +1327,7 @@ bsh() { box-shadow: arguments }
 
     // Base styles.
     html {
+        c: 0 0 t
         ::placeholder { c: v96 }
         ::selection { background-color: var(--color-codemirror-selection-bg); color: var(--color-codemirror-text) }
 
@@ -1437,8 +1447,7 @@ bsh() { box-shadow: arguments }
             margin-right: auto
             margin-left: auto
         }
-        .notification-shelf [class*='notification-'],
-        .application-main > main .width-full:not(.color-bg-default) {
+        .notification-shelf [class*='notification-'] {
             max-width: 1220px
             margin-right: auto
             margin-left: auto
@@ -1463,11 +1472,7 @@ bsh() { box-shadow: arguments }
                 margin-left: auto
             }
         }
-        .repository-content .flex-column.width-full {
-            max-width: 1280px
-            margin-right: auto
-            margin-left: auto
-        }
+        .repository-content .flex-column.width-full,
         body.intent-mouse .Header[role='banner'] {
             max-width: 1280px
             margin-right: auto
@@ -1641,14 +1646,14 @@ bsh() { box-shadow: arguments }
                 path = '<circle cx="256" cy="256" r="120" fill="' + to_hex($v99) + '"/>'
                 background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path))
                 c: 0 bg5 bg1
-                background-position: 29.2px center
-                padding: 10px
-                rad: 30px i
+                background-position: 19px center
+                padding: 7px
+                rad: 10px
                 bsh: none i
                 margin-right: .4rem i
                 &, &:hover, &:active {
-                    height: 1.233rem i
-                    width: 2.23rem i
+                    height: .95rem i
+                    width: 1.61rem i
                 }
                 &:hover { c: 0 v09 bg2 }
                 &:disabled, &:hover:active:disabled, &:disabled:hover {
@@ -1666,8 +1671,8 @@ bsh() { box-shadow: arguments }
                     path = '<circle cx="256" cy="256" r="120" fill="' + to_hex($v99) + '"/>'
                     background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path))
                     c: 0 v09 v05
-                    padding: 10px
-                    background-position: 47.3px center
+                    background-position: 30px center
+                    padding: 7px
                     &:focus, &:focus-within {
                         c: 0 v09 v05
                         bsh: 0 0 10px 0 v04 i
@@ -1687,7 +1692,6 @@ bsh() { box-shadow: arguments }
                     path = '<circle cx="256" cy="256" r="120" fill="' + to_hex($v98) + '"/>'
                     background-image: s("url('%s%s</svg>') %s", r(prefix), r(path))
                     c: 0 v09 v05
-                    padding: 10px
                     background-position: center center
                     transition: none i
                     &:focus-visible {
@@ -1764,6 +1768,20 @@ bsh() { box-shadow: arguments }
             &[aria-labelledby='repo_forking'] .note {
                 margin-left: 1.5rem
             }
+        }
+        .member-listing-next {
+            .table-list-cell {
+                a .avatar-user {
+                    margin-left: .5rem
+                }
+                .octicon-lock {
+                    height: 13.6px
+                    width: @height
+                }
+            }
+        }
+        .table-list-header-select-all {
+            margin-right: 1.8rem i
         }
     }
     else {
@@ -1914,7 +1932,7 @@ bsh() { box-shadow: arguments }
 
         // fix label alignment when opening a PR on 3rd party repos [ ] Allow edits by maintainers (?)
         /[action*='set_collab'] label {
-           margin-top: .3rem
+            margin-top: .3rem
         }
         .js-slash-command-surface [name="collab_privs"] { margin: -10px }
         .js-slash-command-surface label.mr-1 { margin: -14px; padding-bottom: 20px }
@@ -2021,7 +2039,7 @@ bsh() { box-shadow: arguments }
             background: var(--color-btn-primary-bg)
             &::before {
                 background-image: linear-gradient(-180deg, var(--color-btn-primary-hover-bg),
-                                                           var(--color-btn-primary-hover-bg))
+                                                            var(--color-btn-primary-hover-bg))
             }
         }
 
@@ -2500,6 +2518,10 @@ bsh() { box-shadow: arguments }
             padding: 3px 6px
         }
         // end command pallete
+
+        [action*='/settings/dismiss-notice'] .color-text-white {
+            c: v99 0 0
+        }
     }
 
     // Projects collumn to accent color
@@ -2947,6 +2969,9 @@ bsh() { box-shadow: arguments }
     // large Icons in settings
     #options_bucket {
         /img[src*='icons/marketing'] { filter: grayscale(1) brightness(1.1) }
+    }
+    .projects-splash-banner {
+        background: bg2
     }
 
     // Actions user icon/avatar
