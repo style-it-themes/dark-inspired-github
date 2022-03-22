@@ -219,7 +219,7 @@ bsh() { box-shadow: arguments }
 /*-----------*/regexp('https?://www\.githubstatus\.com(/.*)?') {
     // Userstyle variables.
     // main userstyle section variables.
-    :root:not(#crazy),
+    :root,
     [data-color-mode][data-light-theme],
     [data-color-mode][data-dark-theme] {
         // Userstyle info.
@@ -228,6 +228,8 @@ bsh() { box-shadow: arguments }
         --license: license
         --homeurl: homeURL
         --scrollbars: c_scrollbars
+
+        color-scheme: dark
 
         // Generate CSS color variables.
         colors = (bg fg v0 v1 v2 v3 v4 v5 v6 v7 v8 v9)
@@ -482,35 +484,35 @@ bsh() { box-shadow: arguments }
         --color-border-danger: v13
         --color-border-success: v43
         --color-border-warning: v33
-        --color-border-default: bg4
+        --color-border-default: bg5
         --color-border-muted: bg4
         --color-border-subtle: rgba(convert($bg2), .15)
 
-        --color-bg-canvas: bg0 //#fff;            Main elements -> body
-        --color-bg-canvas-mobile: bg0 //#fff;
-        --color-bg-canvas-inverse: bg3 //#24292e; Navbar
-        --color-bg-canvas-inset: bg1 //#f6f8fa;   Dashboard inset
-        --color-bg-primary: bg1 //#fff;           Sidebar
-        --color-bg-secondary: bg2 //#fafbfc;      Navigation/notices
-        --color-bg-tertiary: bg3 //#f6f8fa;       Background
-        --color-bg-overlay: bg1 //#fff;
+        --color-bg-canvas: bg0                 // Main elements -> body
+        --color-bg-canvas-mobile: bg0
+        --color-bg-canvas-inverse: bg3         // Navbar
+        --color-bg-canvas-inset: bg1           // Dashboard inset
+        --color-bg-primary: bg1                // Sidebar
+        --color-bg-secondary: bg2              // Navigation/notices
+        --color-bg-tertiary: bg3               // Background
+        --color-bg-overlay: bg1
         --color-bg-backdrop: rgba(BG, .5)
-        --color-bg-info: v01 //#f1f8ff;
+        --color-bg-info: v01
         --color-bg-info-inverse: v06
-        --color-bg-danger: v11 //#ffeef0;
-        --color-bg-danger-inverse: v16 //#d73a49;
-        --color-bg-success: v41 //#dcffe4;
+        --color-bg-danger: v11
+        --color-bg-danger-inverse: v16
+        --color-bg-success: v41
         --color-bg-success-inverse: v44
-        --color-bg-warning: v31 //#fff5b1;
-        --color-bg-warning-inverse: v35 //#ffd33d;
+        --color-bg-warning: v31
+        --color-bg-warning-inverse: v35
         --color-bg-discussions-row-emoji-box: bg4 // Discussions
 
-        --color-shadow-small: 0 1px 0 rgba(BG, .133) //rgba(27,31,35,0.04);
-        --color-shadow-medium: 0 3px 6px rgba(BG, .2) //rgba(149,157,165,0.15);
-        --color-shadow-large: 0 8px 15px rgba(BG, .267) //rgba(149,157,165,0.2);
-        --color-shadow-extra-large: 0 10px 20px rgba(BG, .2);
-        --color-shadow-highlight: inset 0 1px 0 rgba(BG, .133) //hsla(0,0%,100%,0.25);
-        --color-shadow-inset: inset 0 1px 0 rgba(BG, .133) //rgba(225,228,232,0.2);
+        --color-shadow-small: 0 1px 0 rgba(BG, .133)
+        --color-shadow-medium: 0 3px 6px rgba(BG, .2)
+        --color-shadow-large: 0 8px 15px rgba(BG, .267)
+        --color-shadow-extra-large: 0 10px 20px rgba(BG, .2)
+        --color-shadow-highlight: inset 0 1px 0 rgba(BG, .133)
+        --color-shadow-inset: inset 0 1px 0 rgba(BG, .133)
         --color-shadow-focus: 0 0 0 3px v01;
 
         --color-fade-black-10: rgba(convert($bg2), .10)
@@ -699,10 +701,10 @@ bsh() { box-shadow: arguments }
         --color-mktg-btn-enterprise-bg-overlay-bottom: v75
         --color-mktg-btn-enterprise-text: v99
 
-        --color-btn-counter-bg: rgba(BG, .078)
+        --color-btn-counter-bg: bg1
         --color-counter-text: v98 //#24292e;
         --color-counter-bg: bg5 //#d1d5da80;
-        --color-counter-border: rgba(FG, .502)
+        --color-counter-border: bg4
         --color-topic-tag-text: v09 //#0366d6;
         --color-topic-tag-bg: v01 //#f1f8ff;
         --color-topic-tag-hover-bg: v02 //#def;
@@ -938,6 +940,7 @@ bsh() { box-shadow: arguments }
         --color-tabnav-selected-bg: bg1 //#fff;
         --color-header-text: v97 //#ffffffb3;
         --color-header-bg: bg3 //#24292e;
+        --color-header-divider: bg4
         --color-header-logo: v98 //#fff;
         --color-filter-item-bar-bg: bg2 //#eff3f6;
         --color-hidden-text-expander-bg: rgba(BG, .126) //#dfe2e5;
@@ -964,24 +967,24 @@ bsh() { box-shadow: arguments }
         --color-verified-badge-bg: bg2 //#fff;
         --color-verified-badge-border: bg5 //#e1e4e8;
 
-        --color-social-count-bg: bg3 //#fff;
-        --color-header-search-bg: bg4 //#24292e;
-        --color-header-search-border: bg5 //#444d56;
-        --color-search-keyword-hl: bg5 //rgba(187,128,9,0.4);
+        --color-social-count-bg: bg3
+        --color-header-search-bg: bg4
+        --color-header-search-border: bg5
+        --color-search-keyword-hl: bg5
         --color-search-hover-hl: var(--color-scale-white)
-        --color-tooltip-text: v98 //#fff;
-        --color-tooltip-bg: bg3 //#24292e;
+        --color-tooltip-text: v98
+        --color-tooltip-bg: bg3
 
         --color-current-user-tip-bg: v02
         --color-current-user-tip-border: v04
 
-        --color-files-explorer-icon: v07 //#79b8ff;
+        --color-files-explorer-icon: v07
 
-        --color-icon-folder: v06 //#79b8ff;
-        --color-hl-author-bg: bg1 //#f1f8ff;
-        --color-hl-author-border bg4 //#c8e1ff;
-        --color-logo-subdued: v95 //#d1d5da;
-        --color-discussion-border: v45 //#a2cbac;
+        --color-icon-folder: v06
+        --color-hl-author-bg: bg1
+        --color-hl-author-border bg4
+        --color-logo-subdued: v95
+        --color-discussion-border: v45
         --color-discussion-bg-success: v43;
 
         --color-discussions-answer-border: var(--color-scale-green-5)
@@ -989,14 +992,16 @@ bsh() { box-shadow: arguments }
         --color-discussions-answer-text: var(--color-scale-green-6)
         --color-discussions-state-answered-icon: var(--color-scale-white)
 
-        --color-actions-workflow-table-sticky-bg: hsla(0, 0%, 100%, .95)
-        --color-action-list-item-inline-divider: rgba(208,215,222,0.48);
-        --color-action-list-item-default-hover-bg: rgba(208,215,222,0.32);
-        --color-action-list-item-default-active-bg: rgba(208,215,222,0.48);
-        --color-action-list-item-default-selected-bg: rgba(208,215,222,0.24);
-        --color-action-list-item-danger-hover-bg: rgba(255,235,233,0.64);
-        --color-action-list-item-danger-active-bg: #FFEBE9;
-        --color-action-list-item-danger-hover-text: #cf222e;
+        --color-actions-workflow-table-sticky-bg: to_hsla(convert($bg1), .95)
+        --color-action-list-item-inline-divider: rgba(convert($bg1), .48)
+        --color-action-list-item-default-hover-bg: rgba(convert($bg5), .42)
+        --color-action-list-item-default-hover-border: t
+        --color-action-list-item-default-active-bg: rgba(convert($bg5), .48)
+        --color-action-list-item-default-selected-bg: rgba(convert($bg5), .84)
+        --color-action-list-item-danger-hover-bg: rgba(convert($v14), .64)
+        --color-action-list-item-danger-active-bg: bg1
+        --color-action-list-item-default-active-border: t
+        --color-action-list-item-danger-hover-text: v16
 
         --color-workflow-card-bg: bg2
         --color-workflow-card-connector-highlight-bg: v09
@@ -1464,9 +1469,9 @@ bsh() { box-shadow: arguments }
             }
         }
         #repository-container-header.hide-full-screen {
-            border-top: 2px solid bg4
+            border-top: 0
             box-shadow: inset 0 -1px 0 bg4
-            div[class] {
+            div[class]:not(.text-bold):not(.f5) {
                 max-width: 1280px
                 margin-right: auto
                 margin-left: auto
@@ -1483,10 +1488,15 @@ bsh() { box-shadow: arguments }
         }
         .js-notifications-container {
             .notification-navigation {
-                width: 20rem
+                width: 16rem
             }
             .js-check-all-container {
                 margin-left: 2.8rem
+            }
+        }
+        .notification-configure-filters {
+            [aria-label*='filters'] .octicon-gear {
+                margin-left: -4rem
             }
         }
     }
@@ -1640,47 +1650,37 @@ bsh() { box-shadow: arguments }
         input {
 
             prefix  = 'data:image/svg+xml;utf8,'
-            prefix += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">'
+            prefix += '<svg xmlns="http://www.w3.org/2000/svg" width="45" height="25" viewBox="0 0 20 20" fill="' + to_hex($v99) + '">'
 
             &[type='checkbox'] {
-                path = '<circle cx="256" cy="256" r="120" fill="' + to_hex($v99) + '"/>'
+                path = '<path d="M7 5H3a3 3 0 0 0 0 6h4a4.995 4.995 0 0 1-.584-1H3a2 2 0 1 1 0-4h3.416c.156-.357.352-.692.584-1z"/><path d="M16 8A5 5 0 1 1 6 8a5 5 0 0 1 10 0z"/>'
                 background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path))
-                c: 0 bg5 bg1
-                background-position: 19px center
-                padding: 7px
-                rad: 10px
-                bsh: none i
-                margin-right: .4rem i
-                &, &:hover, &:active {
-                    height: .95rem i
-                    width: 1.61rem i
-                }
-                &:hover { c: 0 v09 bg2 }
+                width: 42px i
+                height: 25px i
+                border: 0 i
+                transition: 2s ease-in
+                &:hover {  }
                 &:disabled, &:hover:active:disabled, &:disabled:hover {
-                    c: v95 bg5 bg1
+
                     opacity: .5
                     cursor: default
                     bsh: none
                 }
                 &:focus-visible {
-                    c: 0 v09 bg1
-                    bsh: 0 0 10px 0 v04 i
+
                     outline: 0
                 }
                 &:checked {
-                    path = '<circle cx="256" cy="256" r="120" fill="' + to_hex($v99) + '"/>'
+                    path = '<path d="M9 11c.628-.836 1-1.874 1-3a4.978 4.978 0 0 0-1-3h4a3 3 0 1 1 0 6H9z"/><path d="M5 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1A5 5 0 1 0 5 3a5 5 0 0 0 0 10z"/>'
                     background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path))
-                    c: 0 v09 v05
-                    background-position: 30px center
-                    padding: 7px
                     &:focus, &:focus-within {
-                        c: 0 v09 v05
-                        bsh: 0 0 10px 0 v04 i
+                        c: 0 0 0
+
                         outline: 0
                     }
                     &:focus-visible {
-                        c: 0 v09 v02
-                        bsh: 0 0 10px 0 v04 i
+                        fill: v09 i
+                        stroke: v09
                         outline: 0
                     }
                     &:disabled, &:hover:active:disabled, &:disabled:hover {
@@ -2003,6 +2003,9 @@ bsh() { box-shadow: arguments }
             path { g: v96 }
             &:hover path { g: v09 }
         }
+    }
+    .commit-build-statuses .octicon-x path {
+        fill: var(--color-danger-fg) i
     }
 
     // own reply reaction btn-link color tweaks (same bg as other reaction buttons)
@@ -2647,20 +2650,18 @@ bsh() { box-shadow: arguments }
             padding-top: 10px i
             padding-bottom: 10px i
         }
+
     }
-    .SelectMenu-list[data-target*='listContainer'] {
-        [style*='max-height: 330px'] {
-            max-height: 4850px i
-            height: 100% i
-        }
-        [style*='transform; height: 33px'] {
-            height: 34px i
-            margin-top: .1rem
-        }
-    }
+
     .SelectMenu-footer {
-        margin-top: 1px
         background-color: bg2
+        border-top: 0
+        border: 1px solid bg4
+        rad: 4px
+        margin-bottom: 1rem
+        .user-lists-menu-action {
+            text-align: left
+        }
     }
 
     /.SelectMenu-header {
@@ -2974,6 +2975,7 @@ bsh() { box-shadow: arguments }
         background: bg2
     }
 
+
     // Actions user icon/avatar
     .avatar-user[alt='@actions-user'] { filter: grayscale(1) brightness(2) }
 
@@ -2981,7 +2983,13 @@ bsh() { box-shadow: arguments }
     /.repository-content {
         // darken
         .diff-view {
-            .highlight { background: bg0 }
+            .highlight {
+                background: bg0
+                &.data[style="overflow-x: auto;"] {
+                    overflow: hidden i
+                    height: 100% i
+                }
+            }
         }
         // remove margin above codemirror
         .file-header.mb-2 { margin-bottom: 0 i }
@@ -3491,6 +3499,9 @@ bsh() { box-shadow: arguments }
             }
         }
     }
+    .UnderlineNav  .Counter {
+        background: bg1
+    }
 
     // Code
     /{
@@ -3897,6 +3908,18 @@ bsh() { box-shadow: arguments }
             mix-blend-mode: lighten
         }
     }
+    //404 page border fix
+    header { border-color: bg4 }
+    //fixup GH upstream fucked up border colors
+    .border.color-border-danger {
+        border-color: var(--color-border-danger) i
+    }
+    .border.color-border-accent-emphasis {
+        border-color: var(--color-accent-emphasis) i
+    }
+    .border.color-border-success {
+        border-color: var(--color-border-success) i
+    }
 
     // Search container
     header {
@@ -3925,17 +3948,25 @@ bsh() { box-shadow: arguments }
         stroke: var(--color-icon-primary)
     }
 
-    // Sidebar
-    [data-testid="sidebar"] {
-        background-color: bg3
-
+    [class*="Flash-sc-"] {
+        background-color: v02
+        border-color: v04
     }
+
+    // Sidebar
+
     [data-testid*="sidebar"] {
         &::before { border-color: v08; border-width: 2px }
-        li a:hover { color: v08 i }
+        li a:hover, li:hover { color: v08 i; border-color: t  }
         li .color-bg-info[data-is-active-category="true"] { c: 0 0 bg2 }
         li[data-is-current-page="false"] .color-text-primary:hover { color: v08 i }
         [data-testid="sidebar-article"][data-is-current-page="true"]::before { border-left-width: 5px }
+    }
+
+    // main content li:hover
+    [class*="Item__StyledItem-sc"]:hover {
+        background-color: t
+        li a { color: v07 }
     }
 
     .markdown-body {
@@ -3974,7 +4005,7 @@ bsh() { box-shadow: arguments }
     }
 
     .js-release-notes-patch-link.selected {
-        --color-auto-blue-1: v02
+        color: v02
     }
 
     h1 a, h2 a, h3 a {
@@ -4033,7 +4064,16 @@ bsh() { box-shadow: arguments }
     }
 
     .underline-dashed { background-image: linear-gradient(to right, bg5 50%, bg0 0%) i }
-    .UnderlineNav-item { color: var(--color-menu-heading-text) }
+    .UnderlineNav-item, .UnderlineNav-item.selected { color: var(--color-menu-heading-text) }
+    .UnderlineNav-item:hover {
+        color: v98
+    }
+    .UnderlineNav-item.selected {
+        border-color: v09
+    }
+    .UnderlineNav {
+        border-color: bg4
+    }
 
     .search-result-title {
         mark { color: v08 }
