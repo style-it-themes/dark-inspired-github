@@ -216,7 +216,8 @@ bsh() { box-shadow: arguments }
 /*-----------*/regexp('https?://(render|media|viewscreen)\.githubusercontent?.com(/.*)?'),
 /*-----------*/regexp('https?://vscode-auth\.github?.com(/.*)?'),
 /*-----------*/regexp('https?://metrics.lecoq.io.*(/.*)?'),
-/*-----------*/regexp('https?://www\.githubstatus\.com(/.*)?') {
+/*-----------*/regexp('https?://www\.githubstatus\.com(/.*)?'),
+/*-----------*/regexp('^https?://github\.blog(/.*)?') {
     // Userstyle variables.
     // main userstyle section variables.
     :root,
@@ -5455,5 +5456,31 @@ bsh() { box-shadow: arguments }
             filter: invert(.95) grayscale(1) brightness(1.5)
             mix-blend-mode: exclusion
         }
+    }
+}
+@-moz-document regexp('^https?://github\.blog(/.*)?') {
+    :root {
+        --jp-carousel-primary-color: v90
+        --jp-carousel-primary-subtle-color: v91
+        --jp-carousel-bg-color: bg3
+        --jp-carousel-bg-faded-color: bg2
+        --jp-carousel-border-color: red
+
+    }
+    .font-mktg [data-color-mode] .color-fg-default {
+        color: v98 i
+    }
+    .section-heading {
+        border-top: 5px solid bg4
+        border-bottom: 1px solid bg5
+    }
+    div[style="background:#fff; height:80px;"] {
+        c:  0 0 bg1
+    }
+    .post__content code {
+        background-color: var(--color-codemirror-bg)
+    }
+    p.has-image img {
+        border-radius: .25em
     }
 }
