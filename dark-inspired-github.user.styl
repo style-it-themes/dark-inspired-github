@@ -1331,6 +1331,21 @@ bsh() { box-shadow: arguments }
     .color-text-secondary {
         color: var(--color-text-secondary) i
     }
+    // https://github.com/mirror/dd-wrt/graphs/code-frequency
+    .code-frequency {
+        background: bg0
+        padding: 1px
+        border: 1px solid bg3
+        padding-left: 10px
+        padding-right: @padding-left
+        padding-bottom: @padding-left
+        border-radius: .25em
+        margin-left: -10px
+        margin-right: @margin-left
+    }
+    .graphs.wheader {
+        margin-top: -19px
+    }
 
     a {
         transition: transition
@@ -2000,19 +2015,14 @@ bsh() { box-shadow: arguments }
             transition: transition
         }
     }
-    // notofication filter modal
-    .octicon {
-        &-trash {
-            path { g: v96 }
-            &:hover path { g: v15 }
-        }
-        &-x {
-            path { g: v96 }
-            &:hover path { g: v09 }
-        }
+    // notification filter modal
+    .Box-btn-octicon[data-close-dialog] .octicon-x {
+        path { g: v96 }
+        &:hover path { g: v09 }
     }
-    .commit-build-statuses .octicon-x path {
-        fill: var(--color-danger-fg) i
+    .octicon-trash {
+        path { g: v96 }
+        &:hover path { g: v15 }
     }
 
     // own reply reaction btn-link color tweaks (same bg as other reaction buttons)
@@ -2103,6 +2113,10 @@ bsh() { box-shadow: arguments }
         a {
             &:hover { color: v99 }
         }
+    }
+
+    .filter-item {
+        padding: 6px 16px
     }
 
     .CheckRun {
@@ -2278,9 +2292,9 @@ bsh() { box-shadow: arguments }
 
             // tweak nth table tr:nth-child(2n) in case it contains kbd entries (as above)
             table tr:nth-child(2n) { --color-bg-tertiary: bg2 }
-                tt, code {
-                    background-color: var(--color-codemirror-bg)
-                }
+            tt, code {
+                background-color: var(--color-codemirror-bg)
+            }
         }
 
         // Releases.
@@ -2662,13 +2676,13 @@ bsh() { box-shadow: arguments }
 
     .SelectMenu-footer {
         background-color: bg2
-        border-top: 0
-        border: 1px solid bg4
-        rad: 4px
-        margin-bottom: 1rem
-        .user-lists-menu-action {
-            text-align: left
-        }
+		border-top: 0
+		border: 1px solid bg4
+		rad: 4px
+		margin-bottom: 1rem
+		.user-lists-menu-action {
+			text-align: left
+		}
     }
 
     /.SelectMenu-header {
@@ -3518,7 +3532,7 @@ bsh() { box-shadow: arguments }
             .markdown-body { code, tt, pre { border: 1px solid bg5 }}
             .commit { &-ref, &-sha { border: 1px solid bg5 }}
             .branch-name { border: 1px solid bg5 }
-            .markdown-title code  { border: 1px solid bg5 }
+            .markdown-title code, .post__content code { border: 1px solid bg5 }
         }
 
         // Syntax highlighting keep it; some subdomains use it
@@ -3908,6 +3922,16 @@ bsh() { box-shadow: arguments }
 
 @-moz-document regexp('https?://((docs)\.)github?.com(/.*)?') {
     // https://docs.github.com/en
+    if (center_gh) {
+        body > #\__next {
+            max-width: 1280px
+            margin-left: auto
+            margin-right: @margin-left
+        }
+        header.border-bottom {
+            1
+        }
+    }
     // Landing svg
     #landing {
         /[data-name="octocat header"] {
