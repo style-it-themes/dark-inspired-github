@@ -1004,6 +1004,15 @@ bsh() { box-shadow: arguments }
         --color-action-list-item-default-active-border: t
         --color-action-list-item-danger-hover-text: v16
 
+        --color-switch-track-bg: bg2
+        --color-switch-track-border: bg4
+        --color-switch-track-checked-bg: v98
+        --color-switch-track-checked-hover-bg: v04
+        --color-switch-track-checked-active-bg: v07
+        --color-switch-track-checked-border: v07
+        --color-switch-knob-checked-bg: v09
+        --color-switch-knob-checked-disabled-bg: bg2
+
         --color-workflow-card-bg: bg2
         --color-workflow-card-connector-highlight-bg: v09
         --color-workflow-card-connector-highlight: v09
@@ -1020,14 +1029,14 @@ bsh() { box-shadow: arguments }
         --color-gist-editor-bg: var(--color-scale-white)
         --color-profile-color-modes-ga-moon: var(--color-scale-gray-9)
 
-        --color-global-nav-logo: v98 //#fff;
-        --color-global-nav-bg: bg1 //#24292e;
-        --color-global-nav-text: v98 //#fff;
-        --color-global-nav-icon: v98 //#fff;
-        --color-global-nav-input-bg: bg1 //#fafbfc;
-        --color-global-nav-input-border: bg3 //#fafbfc;
-        --color-global-nav-input-icon: v97 //#d1d5da;
-        --color-global-nav-input-placeholder: v95 //#959da5;
+        --color-global-nav-logo: v98
+        --color-global-nav-bg: bg1
+        --color-global-nav-text: v98
+        --color-global-nav-icon: v98
+        --color-global-nav-input-bg: bg1
+        --color-global-nav-input-border: bg3;
+        --color-global-nav-input-icon: v97
+        --color-global-nav-input-placeholder: v95
 
         --color-notifications-button-text: var(--color-text-secondary)
         --color-notifications-button-hover-text: var(--color-text-primary)
@@ -1041,35 +1050,26 @@ bsh() { box-shadow: arguments }
         --color-placeholder-gradient-from: bg1
         --color-placeholder-gradient-to: bg2
 
-        --color-calendar-graph-day-bg: bg1 //#ebedf0;
-        --color-calendar-graph-day-border: rgba(BG, .145) //#1b1f230f;
-        --color-calendar-graph-day-L1-bg: v02 //#9be9a8;
-        --color-calendar-graph-day-L2-bg: v04 //#40c463;
-        --color-calendar-graph-day-L3-bg: v06 //#30a14e;
-        --color-calendar-graph-day-L4-bg: v08 //#216e39;
-        --color-calendar-graph-day-L4-border: rgba(BG, .145) //#1b1f230f;
-        --color-calendar-graph-day-L3-border: rgba(BG, .145) //#1b1f230f;
-        --color-calendar-graph-day-L2-border: rgba(BG, .145) //#1b1f230f;
-        --color-calendar-graph-day-L1-border: rgba(BG, .145) //#1b1f230f;
-        --color-calendar-halloween-graph-day-L1-bg: v29 //#ffee4a;
-        --color-calendar-halloween-graph-day-L2-bg: v26 //#ffc501;
-        --color-calendar-halloween-graph-day-L3-bg: v23 //#fe9600;
-        --color-calendar-halloween-graph-day-L4-bg: v20 //#03001c;
-
-        --color-calendar-graph-day-l-1-bg: v02
-        --color-calendar-graph-day-l-2-bg: v04
-        --color-calendar-graph-day-l-3-bg: v06
-        --color-calendar-graph-day-l-4-bg: v08
-        --color-calendar-graph-day-l-4-border: rgba(BG, .145)
-        --color-calendar-graph-day-l-3-border: rgba(BG, .145)
-        --color-calendar-graph-day-l-2-border: rgba(BG, .145)
-        --color-calendar-graph-day-l-1-border: rgba(BG, .145)
+        --color-calendar-graph-day-bg: bg2
+        --color-calendar-graph-day-border: bg2
+        --color-calendar-graph-day-L1-bg: v02
+        --color-calendar-graph-day-L2-bg: v04
+        --color-calendar-graph-day-L3-bg: v06
+        --color-calendar-graph-day-L4-bg: v08
+        --color-calendar-graph-day-L1-border: v02
+        --color-calendar-graph-day-L2-border: v04
+        --color-calendar-graph-day-L3-border: v06
+        --color-calendar-graph-day-L4-border: v08
+        --color-calendar-halloween-graph-day-L1-bg: v29
+        --color-calendar-halloween-graph-day-L2-bg: v26
+        --color-calendar-halloween-graph-day-L3-bg: v23
+        --color-calendar-halloween-graph-day-L4-bg: v20
 
         --color-user-mention-fg: var(--color-fg-default)
         --color-user-mention-bg: var(--color-attention-subtle)
 
-        --color-footer-invertocat-octicon: v94 //#d1d5da;
-        --color-footer-invertocat-octicon-hover: v97 //#6a737d;
+        --color-footer-invertocat-octicon: v94
+        --color-footer-invertocat-octicon-hover: v97
 
         --color-fg-default: v98
         --color-fg-muted: v96
@@ -1080,7 +1080,7 @@ bsh() { box-shadow: arguments }
         --color-canvas-overlay: bg1
         --color-canvas-inset: bg1
         --color-canvas-subtle: bg2
-        --color-canvas-default-transparent: bg0
+        --color-canvas-default-transparent: t
 
         --color-neutral-emphasis-plus: bg0
         --color-neutral-emphasis: bg5
@@ -1310,9 +1310,6 @@ bsh() { box-shadow: arguments }
         background-color: bg1
         color: var(--color-text-primary);
     }
-    .container-xl {
-        max-width: 1260px
-    }
     .color-bg-default {
         background-color: bg0 i
     }
@@ -1478,7 +1475,7 @@ bsh() { box-shadow: arguments }
             margin-right: auto
             margin-left: auto
         }
-        .width-full {
+        .width-full:not([style*='z-index:3']):not(img):not(label) {
             width: 95% i
             max-width: 1220px i
             margin-right: auto i
@@ -1506,7 +1503,7 @@ bsh() { box-shadow: arguments }
         }
         .repository-content .flex-column.width-full,
         body.intent-mouse .Header[role='banner'] {
-            max-width: 1290px
+            max-width: 1280px
             margin-right: auto
             margin-left: auto
         }
@@ -1988,6 +1985,10 @@ bsh() { box-shadow: arguments }
         // e.g.
         form[action*="diffview"] {
             margin-top: -.3rem
+        }
+        // settings appearance fixed width input checkbox align
+        input#use_fixed_width {
+            vertical-align: -.1rem
         }
     }
 
@@ -3080,6 +3081,12 @@ bsh() { box-shadow: arguments }
             &[alt='bomb' i], &[alt='musical_score' i] { filter: invert(.7) hue-rotate(180deg) brightness(1.1) }
         }
     }
+    // skin tone pref radio input align
+    form[aria-labelledby='emoji-heading'] {
+        input[name='emoji_skin_tone_preference'] {
+            vertical-align: -.3rem
+        }
+    }
 
     // Button tweaks
     .btn {
@@ -3379,14 +3386,6 @@ bsh() { box-shadow: arguments }
             &[style*="#216e39"] { c: 0 0 var(--color-calendar-graph-day-L4-bg) }
         }
 
-        // Add border to calendar legends.
-        .legend li {
-            bsh: inset 0 0 0 1px var(--color-calendar-graph-day-border) i
-            rad: 1px i
-            width: 11px i
-            height: @width
-        }
-
         // Halloween activity overview.
         .halloween-activity-overview .activity-overview {
             &-box [fill='#40c463'] { g: v22 v22 }
@@ -3406,8 +3405,6 @@ bsh() { box-shadow: arguments }
             border-top-left-radius: 0
             border-top-right-radius: 0
             background-color: bg0 i
-            // fix contribution calendar broken by idiot blind people upstream.
-            min-width: 728px
         }
 
         // add opinionated outline + offset on day.active for actual contrast
@@ -3415,17 +3412,18 @@ bsh() { box-shadow: arguments }
             outline: 1px solid v09
             outline-offset: 1px
         }
-
+        // border radius to .ContributionCalendar-day[data-level] make it fit in better
+        .ContributionCalendar-day[data-level] {
+            rad: 2px
+        }
+        // fix contribution calendar broken by idiot blind people upstream.
+        .Layout {
+          --Layout-sidebar-width: 291px
+        }
         .graph-before-activity-overview {
             background-color: bg0
-            // fix contribution calendar broken by idiot blind people upstream.
-            min-width: 728px
         }
 
-        // fix contribution calendar broken by idiot blind people upstream.
-        .ContributionCalendar {
-            align-items: baseline i
-        }
         // override the override
         #year-list-container .color-bg-default {
             background-color: t i
@@ -5495,7 +5493,6 @@ bsh() { box-shadow: arguments }
         --jp-carousel-bg-color: bg3
         --jp-carousel-bg-faded-color: bg2
         --jp-carousel-border-color: red
-
     }
     .font-mktg [data-color-mode] .color-fg-default {
         color: v98 i
