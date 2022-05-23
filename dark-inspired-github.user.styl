@@ -1475,14 +1475,17 @@ bsh() { box-shadow: arguments }
             margin-right: auto
             margin-left: auto
         }
-        .width-full:not([style*='z-index:3']):not(img):not(label):not(.BtnGroup):not(.subnav-search-input-wide):not([class*='dropdown']) {
+        .width-full:not([style*='z-index:3']):not(img):not(.breadcrumb):not(label):not(.BtnGroup):not(.Box-overlay--wide):not(.subnav-search-input-wide):not([class*='dropdown']) {
             width: 95% i
             max-width: 1220px i
             margin-right: auto i
             margin-left: auto i
         }
         .SelectMenu input[type='checkbox'] {
-          margin-left: .2rem
+            margin-left: .2rem
+        }
+        .paginate-container .BtnGroup-item {
+            right: -1.4rem
         }
         .js-header-wrapper {
             .Header {
@@ -1505,7 +1508,8 @@ bsh() { box-shadow: arguments }
             }
         }
         .repository-content .flex-column.width-full,
-        body.intent-mouse .Header[role='banner'] {
+        body.intent-mouse .Header[role='banner'],
+        .notification-shelf .notification-read{
             max-width: 1280px
             margin-right: auto
             margin-left: auto
@@ -1515,10 +1519,14 @@ bsh() { box-shadow: arguments }
         }
         .js-notifications-container {
             .notification-navigation {
-                width: 16rem
+                width: 13rem
+                margin-left: -1rem
             }
             .js-check-all-container {
-                margin-left: 2.8rem
+                margin-left: 1.8rem
+                .flex-items-center:not(#id*="notification") {
+                    width: 130%
+                }
             }
         }
     }
@@ -2391,11 +2399,12 @@ bsh() { box-shadow: arguments }
         }
 
         // e.g. https://github.com/mirror/dd-wrt/pull/75/files jump to conversation
-        svg[aria-labelledby='1olh1b70i63oak12qnyiu384vz1id0z'],
-        svg[aria-labelledby="8gkdwi4x0gvuyd9agfici6isp9kpvx1"] {
-            filter: invert(0.95) hue-rotate(180deg) brightness(1.8) grayscale(1)
-            // A mix-blend-mode: exclusion value will blend images with themes closer
-            mix-blend-mode: exclusion
+        svg path {
+            &[stroke="#79B8FF"], &[stroke="#2188FF"] {
+                filter: invert(0.95) hue-rotate(180deg) brightness(1.8) grayscale(1)
+                // A mix-blend-mode: exclusion value will blend images with themes closer
+                mix-blend-mode: exclusion
+            }
         }
 
         // Crest logged out bg
@@ -3417,27 +3426,65 @@ bsh() { box-shadow: arguments }
         // border radius to .ContributionCalendar-day[data-level] make it fit in better
         .ContributionCalendar-day[data-level] { rad: 2px }
         // fix contribution calendar
-        .Layout { --Layout-sidebar-width: 291px }
-        .graph-before-activity-overview { background-color: bg0 }
+        .Layout { --Layout-sidebar-width: 273px }
+        .graph-before-activity-overview, #user-activity-overview {
+            background-color: bg0
+            width: 101%
+            margin-left: .3rem
+        }
+        .js-calendar-graph-svg {
+            width: 800px
+            margin-right: -4.3rem
+        }
+        .js-calendar-graph {
+            [title*="gh-pages branches"] {
+                margin-right: -2.2rem
+            }
+            .float-right {
+                margin-right: -2.2rem
+            }
+            .Link--muted {
+                margin-left: -.4rem
+            }
+        }
+        .contribution-activity-listing {
+            width: 107%
+            margin-left: -1.5rem
+        }
+        [id*="year-link-"] {
+            width: 5.5rem
+            margin-left: 1.2rem
+            text-align: center
+        }
 
         // override the override
         #year-list-container .color-bg-default { background-color: t i }
     }
 
+    .files-next-bucket .file:first-of-type {
+        margin-top: .1rem
+    }
+    .Layout-sidebar, .Layout-sidebar .subnav-search {
+        margin-top: .1rem
+    }
     // Diff -> Changes. @upstream
     .blob {
         // File background.
         /.file {
             c: 0 0 var(--color-codemirror-bg)
-            /:target {
-                --color-auto-blue-4: v06
-                --color-auto-blue-2: v02
+            /:target, &:focus-visible,
+            &-header :target, &-header:focus-visible {
+                box-shadow: 0 0 0 2px v09 i
+                outline: 0
             }
         }
 
         // Inline diffs.
         &-code {
-            &-inner { c: var(--color-codemirror-text) 0 0 }
+            position: unset i
+            &-inner {
+                c: var(--color-codemirror-text) 0 0
+            }
             &.color-bg-primary {
                 background-color: var(--color-codemirror-bg)
             }
