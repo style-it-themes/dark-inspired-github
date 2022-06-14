@@ -3899,6 +3899,67 @@ bsh() { box-shadow: arguments }
         .contrib-number { c: v98 }
         .text-muted { c: v97 }
     }
+    /{
+        // Project beta
+        .color-bg-inset, #memex-root[data-current-theme-color-scheme] {
+            background-color: bg0 i
+            color: v98 i
+        }
+        [class*='Dialog__Header-sc'] {
+            background-color: bg2 i
+            box-shadow: bg4 0 1px 0
+            color: v98
+        }
+        [class*="Dialog__DialogCloseButton-sc"] {
+            color: var(--color-fg-muted)
+            background: t i
+            &:hover {
+                color: v09
+            }
+            &:focus-visible, &:focus {
+                outline: 0px
+                box-shadow: none
+            }
+        }
+        [class*="StyledTemplateDialogFooter-sc"] {
+            box-shadow: bg4 0 -1px 0
+        }
+        [class*="template-dialog_"] {
+            background-color: bg1
+        }
+        [class*="Box-sc-"] {
+            color: v98
+            background-color: bg0
+        }
+        [class*='Dialog__Header-sc'] {
+            background: mix(shade(FG, 5%), BG, 2%)
+        }
+        [class*='ButtonBase-sc'] {
+            color: var(--color-btn-primary-text);
+            background-color: var(--color-btn-primary-bg);
+            border-color: var(--color-btn-primary-border);
+            box-shadow: var(--color-btn-primary-shadow), var(--color-btn-primary-inset-shadow)
+            &:hover {
+                background-color: var(--color-btn-primary-hover-bg)
+                border-color: var(--color-btn-primary-hover-border)
+            }
+        }
+        [class*="template-dialog__StyledActionItem-sc"] {
+            &.selected {
+                background: bg3
+                &::after {
+                    background-color: v09
+                }
+            }
+            &:hover:not([aria-disabled]) {
+               background: bg3
+            }
+        }
+        img[data-test-id="template-dialog-image"] {
+            filter: invert(.9) hue-rotate(180deg)
+            rad: 2px i
+        }
+    }
 }
 
 @-moz-document regexp('https?://((cli)\\.)github?.com(/.*)?') {
