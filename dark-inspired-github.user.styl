@@ -1065,8 +1065,8 @@ bsh() { box-shadow: arguments }
         --color-calendar-halloween-graph-day-L3-bg: v23
         --color-calendar-halloween-graph-day-L4-bg: v20
 
-        --color-user-mention-fg: var(--color-fg-default)
-        --color-user-mention-bg: var(--color-attention-subtle)
+        --color-user-mention-fg: v09
+        --color-user-mention-bg: t
 
         --color-footer-invertocat-octicon: v94
         --color-footer-invertocat-octicon-hover: v97
@@ -1305,10 +1305,11 @@ bsh() { box-shadow: arguments }
         --color-social-reaction-bg-hover: v03
         --color-social-reaction-bg-reacted-hover: v03
     }
+    ::marker { color: v99 }
 
     [data-color-mode] {
         background-color: bg1
-        color: var(--color-text-primary);
+        color: var(--color-text-primary)
     }
     .color-bg-default {
         background-color: bg0 i
@@ -1475,7 +1476,7 @@ bsh() { box-shadow: arguments }
             margin-right: auto
             margin-left: auto
         }
-        .width-full:not([style*='z-index:3']):not(img):not(.breadcrumb):not(label):not(.BtnGroup):not(.Box-overlay--wide):not(.subnav-search-input-wide):not([class*='dropdown']) {
+        .width-full:not([style*='z-index:3']):not(img):not(.breadcrumb):not(label):not(.BtnGroup):not(.Box-overlay--wide):not(.subnav-search-input-wide):not([class*='dropdown']):not(.width-md-auto) {
             width: 95% i
             max-width: 1220px i
             margin-right: auto i
@@ -1483,6 +1484,12 @@ bsh() { box-shadow: arguments }
         }
         .SelectMenu input[type='checkbox'] {
             margin-left: .2rem
+        }
+        .SelectMenu.right-0 .SelectMenu-modal {
+            width: auto
+            overflow: hidden i
+            margin: .5rem auto
+            padding: .4rem .2rem
         }
         .paginate-container .BtnGroup-item {
             right: -1.4rem
@@ -3053,10 +3060,15 @@ bsh() { box-shadow: arguments }
     // When you have dark syntax themes the contrast
     // between comment body and code blocks is lost this override adds its back
     // comment-body:not markdown body e.g. link missing
-    .comment-body:not(.markdown-body), .review-comment, .discussion-comment.unminimized-comment {
+    .comment-body:not(.markdown-body), .review-comment,
+    .discussion-comment.unminimized-comment {
         shade = (dark(BG)) ? darken : lighten
         background: mix(shade(FG, 5%), BG, 2%) i
         rad: 0 0 3px 3px
+    }
+    // https://github.com/mirror/dd-wrt/pull/200#discussion_r887842445
+    .review-comment:target {
+        margin-bottom: 1px i
     }
     // Viewing edited comments history popup bg match to hack above.
     details-dialog div.Box-body.overflow-auto {
@@ -3074,6 +3086,10 @@ bsh() { box-shadow: arguments }
     // fix the formatting tools on post edit background color
     .previewable-comment-form .comment-form-head.tabnav .toolbar-commenting {
         background: t i
+    }
+    //delete replies dialog fix
+   .hx_rsm-modal .select-menu-modal-right .subscription-menu-modal {
+        right: -3.5em
     }
 
     // Fix dark emoji on dark backgrounds
@@ -3459,6 +3475,12 @@ bsh() { box-shadow: arguments }
 
         // override the override
         #year-list-container .color-bg-default { background-color: t i }
+
+        .achievement-tier-label--silver {
+            background-color: bg4
+            border-color: bg5
+            color: v98
+        }
     }
 
     .files-next-bucket .file:first-of-type {
@@ -3472,7 +3494,7 @@ bsh() { box-shadow: arguments }
         // File background.
         /.file {
             c: 0 0 var(--color-codemirror-bg)
-            /:target, &:focus-visible,
+            /:target:not(.TimelineItem):not(.js-targetable-element):not(h2), &:focus-visible,
             &-header :target, &-header:focus-visible {
                 box-shadow: 0 0 0 2px v09 i
                 outline: 0
@@ -5574,6 +5596,9 @@ bsh() { box-shadow: arguments }
         --wp--preset--font-size--medium: 20px;
         --wp--preset--font-size--large: 36px;
         --wp--preset--font-size--x-large: 42px;
+    }
+    [data-color-mode] {
+        border-color: bg4 i
     }
     .font-mktg [data-color-mode] .color-fg-default {
         color: v98 i
