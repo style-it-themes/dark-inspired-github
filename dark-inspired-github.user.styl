@@ -2223,7 +2223,17 @@ bsh() { box-shadow: arguments }
 
         // dont let syntax themes style affect the resolve button background on PR's inline discussion only
         // e.g. https://git.io/JuFTn
-        form[action*='resolve'] { background-color: bg0 }
+        form[action*='resolve'] {
+            background-color: bg0
+        }
+        .selected-line::after {
+           background: v24
+           opacity: .2
+        }
+        .review-thread-reply {
+            background: bg3
+            mix-blend-mode: unset i
+        }
         //  and also when creating new comment e.g. https://git.io/J2qjf
         .line-comments .inline-comment-form {
             background-color: bg0
@@ -2979,7 +2989,6 @@ bsh() { box-shadow: arguments }
         }
         .cm-tab {
             width: tab_size i
-            overflow: hidden i
         }
         // hide GH indent size when editing files via browser
         select[aria-label='Indent size'] {
@@ -4860,7 +4869,12 @@ bsh() { box-shadow: arguments }
         .deleted-frame { c: 0 v15; &::before { c: v16 }}
         .added-frame { c: 0 v45; &::before { c: v46 }}
         .shell p { c: v96 }
-
+        .two-up.view {
+            .deleted-frame::before {
+                margin-left: -.4rem
+                vertical-align: middle
+            }
+        }
         if (dark(BG)) {
             // Rich diff -> Invert controls.
             .swipe .swipe-bar,
