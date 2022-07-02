@@ -1095,7 +1095,7 @@ bsh() { box-shadow: arguments }
         --color-success-fg: v45
         --color-success-emphasis: v44
         --color-success-muted: v43
-        --color-success-subtle: v41
+        --color-success-subtle: v40
 
         --color-attention-fg: v35
         --color-attention-emphasis: v34
@@ -1476,7 +1476,7 @@ bsh() { box-shadow: arguments }
             margin-right: auto
             margin-left: auto
         }
-        .width-full:not([style*='z-index:3']):not(img):not(.breadcrumb):not(label):not(.BtnGroup):not(.Box-overlay--wide):not(.subnav-search-input-wide):not([class*='dropdown']):not(.width-md-auto) {
+        .width-full:not([class*='user-status']):not(.BtnGroup-item):not([style*='z-index:3']):not(img):not(.breadcrumb):not(label):not(.BtnGroup):not(.Box-overlay--wide):not(.subnav-search-input-wide):not([class*='dropdown']):not(.width-md-auto) {
             width: 95% i
             max-width: 1220px i
             margin-right: auto i
@@ -1485,7 +1485,7 @@ bsh() { box-shadow: arguments }
         .SelectMenu input[type='checkbox'] {
             margin-left: .2rem
         }
-        .SelectMenu.right-0 .SelectMenu-modal {
+        .SelectMenu.right-0:not([class*='--hasFilter']) .SelectMenu-modal {
             width: auto
             overflow: hidden i
             margin: .5rem auto
@@ -1535,6 +1535,11 @@ bsh() { box-shadow: arguments }
                     width: 130%
                 }
             }
+        }
+    }
+    [data-target='get-repo.modal'] {
+        .input-group.pl-5, p.pl-5 {
+            padding-left: initial i
         }
     }
 
@@ -2043,6 +2048,10 @@ bsh() { box-shadow: arguments }
         path { g: v96 }
         &:hover path { g: v15 }
     }
+    // Edit user status X icon align.
+    details-dialog .Box-btn-octicon.btn-octicon {
+      margin: -20px -16px
+    }
 
     // own reply reaction btn-link color tweaks (same bg as other reaction buttons)
     // e.g. https://github.com/atom/atom/pull/21927#issuecomment-796378411 vs
@@ -2267,7 +2276,7 @@ bsh() { box-shadow: arguments }
         .vcard-username { c: v96 0 0 }
 
         // Progress loader
-        .progress-pjax-loader > .progress-pjax-loader-bar[style*="background-color"] {
+        .turbo-progress-bar {
             c: 0 0 v08
             box-shadow: 0 0 10px v06
         }
@@ -3503,7 +3512,7 @@ bsh() { box-shadow: arguments }
         // File background.
         /.file {
             c: 0 0 var(--color-codemirror-bg)
-            /:target:not(.TimelineItem):not(.js-targetable-element):not(h2), &:focus-visible,
+            /:target:not(.TimelineItem):not(.js-targetable-element):not(h2):not(.blob-num), &:focus-visible,
             &-header :target, &-header:focus-visible {
                 box-shadow: 0 0 0 2px v09 i
                 outline: 0
@@ -3521,7 +3530,7 @@ bsh() { box-shadow: arguments }
             }
         }
         // color the blob-num bg in timeline comments
-        &-num:not([class*="-add"]):not([class*="-del"]):not([class*="-exp"]):not([class*="-em"]):not([data-line-number="..."]) {
+        &-num:not([class*="-add"]):not([class*="-del"]):not([class*="-exp"]):not([class*="-em"]):not([data-line-number="..."]):not(:target) {
             background-color: var(--color-codemirror-gutters-bg) i
 
             // 1) pinned-item-list-item code blocks items e.g. https://github.com/ChrisTitusTech
@@ -3529,7 +3538,10 @@ bsh() { box-shadow: arguments }
                 &:hover { color: var(--color-diff-blob-num-hover-text) }
             }
         }
-
+        &-num:target, &-num:target:hover {
+            background-color: v01 i
+            mix-blend-mode: exclusion
+        }
         &-wrapper-embedded {
             c: 0 0 var(--color-codemirror-bg)
         }
@@ -4649,15 +4661,16 @@ bsh() { box-shadow: arguments }
             border: 1px solid v06
             &:focus { box-shadow: 0 0 0 0.2em v01 }
             &:hover { border: 1px solid v06 }
-    }
-    &-primary {
-        color: var(--color-btn-primary-text)
-        background-color: var(--color-btn-primary-bg)
-        background-image: none
-        box-shadow: 0 1px 0 rgba(convert($v60), .1), inset 0 1px 0 rgba(convert($v99), .03);
-        &:hover {
+        }
+        &-primary {
+            color: var(--color-btn-primary-text)
+            background-color: var(--color-btn-primary-bg)
             background-image: none
-            background-color: var(--color-btn-primary-hover-bg) }
+            box-shadow: 0 1px 0 rgba(convert($v60), .1), inset 0 1px 0 rgba(convert($v99), .03);
+            &:hover {
+                background-image: none
+                background-color: var(--color-btn-primary-hover-bg)
+            }
         }
         &:focus,
         &.focus { box-shadow: 0 0 0 2px v01 }
@@ -5200,6 +5213,17 @@ bsh() { box-shadow: arguments }
             background-image: none
             background-color: var(--color-btn-primary-focus-bg)
             box-shadow: var(--color-shadow-inset)
+        }
+    }
+    &.BtnGroup-item {
+        &:focus,
+        &.focus { box-shadow: 0 0 0 2px v01 }
+        &:active,
+        &.selected,
+        &[aria-selected="true"] {
+            background-image: none
+            background-color: bg4
+            box-shadow: bg5
         }
     }
 }
