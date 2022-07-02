@@ -1,7 +1,7 @@
 {
   "name": "dark-inspired-github",
   "title": "Dark Inspired GitHub",
-  "version": "5.0.6",
+  "version": "5.0.7",
   "license": "MIT",
   "homepage": "https://github.com/style-it-themes/dark-inspired-github",
   "repository": "style-it-themes/dark-inspired-github",
@@ -13,8 +13,8 @@
     "node": ">=14"
   },
   "devDependencies": {
-    "updates": "^13.1.0",
-    "versions": "^9.2.3",
+    "updates": "^13.1.1",
+    "versions": "^9.3.0",
     "eclint": "^2.8.1"
   },
   "scripts": {
