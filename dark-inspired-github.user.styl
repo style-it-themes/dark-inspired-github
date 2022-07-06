@@ -1703,7 +1703,6 @@ bsh() { box-shadow: arguments }
                 transition: 2s ease-in
                 &:hover {  }
                 &:disabled, &:hover:active:disabled, &:disabled:hover {
-
                     opacity: .5
                     cursor: default
                     bsh: none
@@ -1717,7 +1716,6 @@ bsh() { box-shadow: arguments }
                     background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path))
                     &:focus, &:focus-within {
                         c: 0 0 0
-
                         outline: 0
                     }
                     &:focus-visible {
@@ -1726,8 +1724,9 @@ bsh() { box-shadow: arguments }
                         outline: 0
                     }
                     &:disabled, &:hover:active:disabled, &:disabled:hover {
-                        c: 0 v09 v09
+                        c: 0 v04 v06
                         bsh: none
+                        opacity: .5
                     }
                 }
                 &:indeterminate {
@@ -1837,6 +1836,7 @@ bsh() { box-shadow: arguments }
                     background-image: s("url('%s%s</svg>') %s", r(prefix), r(path))
                     c: 0 v09 v05
                     rad: 2px
+                    opacity: 1 i
                     &:focus-visible {
                         c: 0 v09 v02
                         bsh: 0 0 10px 0 v04 i
@@ -1855,7 +1855,6 @@ bsh() { box-shadow: arguments }
                     outline: 0
                 }
                 &:disabled, &:hover:active:disabled, &:disabled:hover {
-                    c: 0 v09 v09
                     bsh: none
                 }
                 &:indeterminate {
