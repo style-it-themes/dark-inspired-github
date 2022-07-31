@@ -2048,7 +2048,7 @@ bsh() { box-shadow: arguments }
         &:hover path { g: v15 }
     }
     // Edit user status X icon align.
-    details-dialog .Box-btn-octicon.btn-octicon {
+    details-dialog[aria-label*='status'] .Box-btn-octicon.btn-octicon {
       margin: -20px -16px
     }
 
@@ -2418,6 +2418,11 @@ bsh() { box-shadow: arguments }
             &[src*="filters-zero"], &[src*="inbox-zero"], &[src*="permissions"],
             &[src*="enterprise-city-w-logos"], &[src*="profile-first-"], &[src*="profile-joined-"] {
                 filter: invert(0.95) hue-rotate(180deg) brightness(1.5) grayscale(1)
+                // A mix-blend-mode: exclusion value will blend images with themes closer
+                mix-blend-mode: exclusion
+            }
+            &[src*='images/modules/growth/branch-mona.png'] {
+                filter: invert(.8) hue-rotate(180deg) grayscale(.5)
                 // A mix-blend-mode: exclusion value will blend images with themes closer
                 mix-blend-mode: exclusion
             }
