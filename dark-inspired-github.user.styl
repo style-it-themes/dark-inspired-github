@@ -1476,7 +1476,7 @@ bsh() { box-shadow: arguments }
             margin-right: auto
             margin-left: auto
         }
-        .width-full:not([class*='user-status']):not(.BtnGroup-item):not([style*='z-index:3']):not(img):not(.breadcrumb):not(label):not(.BtnGroup):not(.Box-overlay--wide):not(.subnav-search-input-wide):not([class*='dropdown']):not(.width-md-auto) {
+        .width-full:not([class*='user-status']):not(.BtnGroup-item):not([style*='z-index:3']):not(img):not(.breadcrumb):not(label):not(.BtnGroup):not(.Box-overlay--wide):not(.subnav-search-input-wide):not([class*='dropdown']):not(.width-md-auto):not(.js-notifications-containe) {
             width: 95% i
             max-width: 1220px i
             margin-right: auto i
@@ -4854,9 +4854,7 @@ bsh() { box-shadow: arguments }
     }
 }
 
-@-moz-document regexp('https?://(render|viewscreen)\.githubusercontent?.com(/.*)?') {
-    // https://render.githubusercontent.com
-    // Diff -> Image background.
+@-moz-document regexp('https?://(render|viewscreen|notebooks)\.githubusercontent\.com(/.*)?') {
 
     dark  = url('data:image/gif;base64,R0lGODlhCgAKAIAAABoaGgAAACwAAAAACgAKAAACEYQdmYcaDNxjEspKndVZbc8UADs=') i
     light = url('data:image/gif;base64,R0lGODlhCgAKAIAAABkZGTg4OCH5BAAAAAAALAAAAAAKAAoAAAIRjA2Zhwoc3GMSykqd1VltzxQAOw==') i
