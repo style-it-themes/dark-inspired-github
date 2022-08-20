@@ -553,7 +553,7 @@ bsh() { box-shadow: arguments }
         --color-blankslate-icon: v95 //#a3aab1;
 
         --color-btn-text: v98
-        --color-btn-bg: bg3
+        --color-btn-bg: bg2
         --color-btn-border: bg5
         --color-btn-active-bg: bg3
         --color-btn-active-border: rgba(convert($bg5), 1)
@@ -2060,7 +2060,7 @@ bsh() { box-shadow: arguments }
         &:hover { background-color: v02 }
     }
 
-    .IssueLabel:not(.color-bg-tertiary),
+    .IssueLabel:not(.color-bg-tertiary):not(.color-bg-subtle),
     .new-label-color-dimensions, .ColorSwatch {
         mix-blend-mode: difference
     }
@@ -3386,6 +3386,9 @@ bsh() { box-shadow: arguments }
                 c: 0 0 bg2
             }
         }
+        .color-bg-subtle {
+            background-color: t i
+        }
     }
     .composer.timeline-new-comment .rounded-top-2.color-bg-canvas {
         background-color: hsla(convert($bg2), .5) i
@@ -3467,12 +3470,14 @@ bsh() { box-shadow: arguments }
         .Layout { --Layout-sidebar-width: 273px }
         .graph-before-activity-overview, #user-activity-overview {
             background-color: bg0
-            width: 101%
-            margin-left: .3rem
         }
-        .js-calendar-graph-svg {
+        .js-calendar-graph-svg[width="717"] {
             width: 800px
             margin-right: -4.3rem
+        }
+        .js-calendar-graph-svg[width="823"] {
+            width: 900px
+            margin-right: -2.3rem
         }
         .js-calendar-graph {
             [title*="gh-pages branches"] {
@@ -3497,6 +3502,7 @@ bsh() { box-shadow: arguments }
 
         // override the override
         #year-list-container .color-bg-default { background-color: t i }
+        .js-profile-timeline-year-list.color-bg-default { background-color: t i }
 
         .achievement-tier-label--silver {
             background-color: bg4
@@ -3711,6 +3717,11 @@ bsh() { box-shadow: arguments }
             &-addition { background: v41 }
         }
 
+        // search keywrd highlight
+        // e.g. https://github.com/Entware/entware-packages/search?l=Makefile&p=2&q=sql
+        .highlight .hx_keyword-hl {
+            color: v98
+        }
         // Highlight docs | github
         code, .highlight {
             background-color: var(--color-codemirror-bg)
