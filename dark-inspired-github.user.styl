@@ -1088,7 +1088,7 @@ bsh() { box-shadow: arguments }
         --color-neutral-subtle: rgba(convert($bg2), .5)
 
         --color-accent-fg: v09
-        --color-accent-emphasis: v02
+        --color-accent-emphasis: v05
         --color-accent-muted: rgba(convert($v05), .4)
         --color-accent-subtle: v01
 
@@ -1686,6 +1686,10 @@ bsh() { box-shadow: arguments }
             }
         }
     }
+    // https://github.com/mirror/dd-wrt/pull/329/files add margin due to scrollbar
+    .Layout-sidebar .subnav-search {
+      margin-right: 1rem i
+    }
 
     if (chckbx_toggle) {
         rq = unquote
@@ -2195,6 +2199,9 @@ bsh() { box-shadow: arguments }
 
     // Global -> Color overrides.
     /{
+        /.diffstat[style='top: 0'] {
+            font-size: 14px i
+        }
         // NOTE: Remaps bg1 to bg0.
         .js-profile-timeline-year-list
         .notification-navigation,
