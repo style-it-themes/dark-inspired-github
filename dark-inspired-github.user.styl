@@ -1199,9 +1199,9 @@ bsh() { box-shadow: arguments }
         --color-diff-blob-hunk-line-bg: bg3 //#f1f8ff;
 
         --color-diff-blob-empty-block-bg: bg2 //#fafbfc;
-        --color-diff-blob-selected-line-highlight-bg: rgba(BG, .5) //rgba(255,223,93,0.2);
-        --color-diff-blob-selected-line-highlight-border: v35 //#ffd33d;
-        --color-diff-blob-selected-line-highlight-mix-blend-mode: lighten
+        --color-diff-blob-selected-line-highlight-bg: v30
+        --color-diff-blob-selected-line-highlight-border: v31
+        --color-diff-blob-selected-line-highlight-mix-blend-mode: exclusion
         --color-diff-blob-expander-icon: v96 //#586069;
         --color-diff-blob-expander-hover-icon: v99 //#fff;
         --color-diff-blob-expander-hover-bg: v04 //#0366d6;
@@ -1478,7 +1478,7 @@ bsh() { box-shadow: arguments }
             margin-right: auto
             margin-left: auto
         }
-        .width-full:not([class*='user-status']):not(.BtnGroup-item):not([style*='z-index:3']):not(img):not(.breadcrumb):not(label):not(.BtnGroup):not(.Box-overlay--wide):not(.subnav-search-input-wide):not([class*='dropdown']):not(.width-md-auto):not(.js-notifications-containe) {
+        .width-full:not([class*='user-status']):not(.BtnGroup-item):not([style*='z-index:3']):not(img):not(.breadcrumb):not(label):not(.BtnGroup):not(.Box-overlay--wide):not(.subnav-search-input-wide):not([class*='dropdown']):not(.width-md-auto):not(.js-notifications-container) {
             width: 95% i
             max-width: 1220px i
             margin-right: auto i
@@ -1506,6 +1506,12 @@ bsh() { box-shadow: arguments }
             .header {
                 background: bg1
             }
+        }
+        .width-full.js-notifications-container {
+            width: 95% i
+            max-width: 1220px i
+            margin-right: auto i
+            margin-left: auto i
         }
         #repository-container-header.hide-full-screen {
             border-top: 0
@@ -2242,10 +2248,6 @@ bsh() { box-shadow: arguments }
         // e.g. https://git.io/JuFTn
         form[action*='resolve'] {
             background-color: bg0
-        }
-        .selected-line::after {
-           background: v24
-           opacity: .2
         }
         .review-thread-reply {
             background: bg3
@@ -3445,13 +3447,21 @@ bsh() { box-shadow: arguments }
             &[style*="#40c463"] { c: 0 0 var(--color-calendar-graph-day-L2-bg) }
             &[style*="#30a14e"] { c: 0 0 var(--color-calendar-graph-day-L3-bg) }
             &[style*="#216e39"] { c: 0 0 var(--color-calendar-graph-day-L4-bg) }
+            // halloween
+            &[style*="#ffc501"] { c: 0 0 var(--color-calendar-halloween-graph-day-L1-bg) }
+            &[style*="#ffee4a"] { c: 0 0 var(--color-calendar-halloween-graph-day-L2-bg) }
         }
 
         // Halloween activity overview.
-        .halloween-activity-overview .activity-overview {
-            &-box [fill='#40c463'] { g: v22 v22 }
-            &-axis, &-point { g: 0 v24 }
+        .halloween-activity-overview {
+            .activity-overview {
+                &-axis, &-point { g: 0 v24 }
+            }
+            [fill="#ffc501"] {
+                g: v22 v22
+            }
         }
+
 
         // Regular activity overview.
         .activity-overview {
@@ -3474,7 +3484,24 @@ bsh() { box-shadow: arguments }
             outline-offset: 1px
         }
         // border radius to .ContributionCalendar-day[data-level] make it fit in better
-        .ContributionCalendar-day[data-level] { rad: 2px }
+        .ContributionCalendar-day {
+            &[data-level] { rad: 2px }
+            &[data-holiday="halloween"] .ContributionCalendar-day {
+                &[data-level="2"] {
+                    outline: 1px solid v29 i
+                }
+                &[data-level="3"] {
+                    outline: 1px solid v26 i
+                }
+                &[data-level="4"] {
+                    stroke: v23 i
+                    outline: 1px solid v23 i
+                }
+                &[data-level="5"] {
+                    outline: 1px solid v20 i
+                }
+            }
+        }
         // fix contribution calendar
         .Layout { --Layout-sidebar-width: 273px }
         .graph-before-activity-overview, #user-activity-overview {
@@ -3531,7 +3558,7 @@ bsh() { box-shadow: arguments }
         // File background.
         /.file {
             c: 0 0 var(--color-codemirror-bg)
-            /:target:not(.TimelineItem):not(.js-targetable-element):not(h2):not(.blob-num), &:focus-visible,
+            /:target:not(.TimelineItem):not(.js-targetable-element):not(h2):not(.blob-num):not(#readme), &:focus-visible,
             &-header :target, &-header:focus-visible {
                 box-shadow: 0 0 0 2px v09 i
                 outline: 0
@@ -3546,6 +3573,13 @@ bsh() { box-shadow: arguments }
             }
             &.color-bg-primary {
                 background-color: var(--color-codemirror-bg)
+            }
+            &.selected-line, /.selected-line {
+                position: relative i
+                &::after {
+                    background: var(--color-diff-blob-selected-line-highlight-bg)
+                    mix-blend-mode: var(--color-diff-blob-selected-line-highlight-mix-blend-mode)
+                }
             }
         }
         // color the blob-num bg in timeline comments
