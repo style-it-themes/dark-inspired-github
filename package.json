@@ -1,7 +1,7 @@
 {
   "name": "dark-inspired-github",
   "title": "Dark Inspired GitHub",
-  "version": "5.0.12",
+  "version": "5.1.0",
   "license": "MIT",
   "homepage": "https://github.com/style-it-themes/dark-inspired-github",
   "repository": "style-it-themes/dark-inspired-github",
@@ -18,9 +18,9 @@
     "eclint": "^2.8.1"
   },
   "scripts": {
-    "patch": "versions -p -C patch dark-inspired-github.user.styl && git psh",
-    "minor": "versions -p -C minor dark-inspired-github.user.styl && git psh",
-    "major": "versions -p -C major dark-inspired-github.user.styl && git psh",
+    "patch": "versions -p patch dark-inspired-github.user.styl && git psh",
+    "minor": "versions -p minor dark-inspired-github.user.styl && git psh",
+    "major": "versions -p major dark-inspired-github.user.styl && git psh",
     "fix": "eclint fix dark-inspired-github.user.styl && eclint fix *.md",
     "update": "updates -cuU && npm install"
   }
