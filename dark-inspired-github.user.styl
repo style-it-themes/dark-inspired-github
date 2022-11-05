@@ -13,6 +13,7 @@
 @var checkbox show_gh_tab   'Show GitHub appearance tab  ' 0
 @var select   cg_theme      'Select a color scheme       ' {
     'Custom colors   *' :   'custom-style',
+    'Antigua          ' :   'antigua',
     'Cobalt           ' :   'cobalt',
     'Duo Cocoa        ' :   'duo-cocoa',
     'Material         ' :   'material',
@@ -107,6 +108,7 @@ bsh() { box-shadow: arguments }
     // Generator -> Color-schemes.
     ColorSchemes = {
         'custom-style'   : { BG:   cg_bg, FG:   cg_fg, AC:   cg_ac }
+        'antigua'        : { BG: #14191f, FG: #f1f6fb, AC: #89a90a }
         'cobalt'         : { BG: #002240, FG: #d0d0d0, AC: #0088ff }
         'duo-cocoa'      : { BG: #221d1a, FG: #ffdac2, AC: #d7aa3f }
         'material'       : { BG: #263238, FG: #eeffff, AC: #82aaff }
