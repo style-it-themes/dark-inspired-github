@@ -13,8 +13,8 @@
     "node": ">=14"
   },
   "devDependencies": {
-    "updates": "^13.1.4",
-    "versions": "^9.3.0",
+    "updates": "^13.2.1",
+    "versions": "^10.2.0",
     "eclint": "^2.8.1"
   },
   "scripts": {
